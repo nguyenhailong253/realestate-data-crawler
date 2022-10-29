@@ -13,6 +13,7 @@ pandas = "*"
 lxml = "*"
 pytest = "*"
 setuptools = "*"
+html5lib = "*"
 
 [dev-packages]
 
