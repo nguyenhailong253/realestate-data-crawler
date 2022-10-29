@@ -1,0 +1,3583 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Rental Properties VIC | 946+ Victoria Property Rentals by TenantApp.com.au ™ " name="title"/>
+<meta content="The latest VIC properties for rent. Over 946+ NEW Victoria rental properties, apartments, houses, and more. Find early bird rental properties in VIC before anywhere else with TentantApp.com.au. View listings &amp; real estate for rent in VIC now." name="description"/>
+<link href="/assets/img/ta-favicon-96x96.png" rel="icon" type="image/png"/>
+<title> Rental Properties VIC | 946+ Victoria Property Rentals by TenantApp.com.au ™  </title>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.15/dist/css/BsMultiSelect.min.css" rel="stylesheet"/>
+<link href="/css/mvc-grid/mvc-grid.css" rel="stylesheet">
+<link href="https://use.typekit.net/kgc6mei.css" rel="stylesheet"/>
+<link href="/css/site.css?v=sXi7BQSMXEa1Pg1XdxyiR97IwG4yanNGmnu-g51tY6s" rel="stylesheet">
+<link href="/lib/bootstrap-select/dist/css/bootstrap-select.css?v=XGWChrcU9bEF2nAYZ1N9tEC4GgSb015m5vI0ZUG9ThU" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>(window.jQuery||document.write("\u003Cscript src=\u0022/lib/jquery/dist/jquery.js\u0022\u003E\u003C/script\u003E"));</script>
+<script>
+        (function(w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f) })(window, document, 'script', 'dataLayer', 'GTM-T42VG28');
+    </script>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1416994460320719">
+</script>
+</link></link></head>
+<style>
+        /* Not in css to avoid publishing issues */
+        .infeed {
+            height: 300px;
+        }
+    </style>
+<body class="rentals">
+<noscript>
+<iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-T42VG28" style="display:none;visibility:hidden" width="0"></iframe>
+</noscript>
+<div class="page-loading" id="divPageLoader">
+<div class="spinner-border text-primary" role="status">
+<span class="sr-only"></span>
+</div>
+</div>
+<header>
+<nav class="navbar navbar-expand-md shadow-sm">
+<div class="container-fluid container-lg g-0 p-2 px-lg-4">
+<div class="d-flex justify-content-between w-100">
+<div class="d-flex px-1">
+<a class="navbar-brand show-loading" href="/Rentals">
+<img alt="TenantApp - The dedicated rentals app" class="img-fluid max-height-3" src="/assets/img/ta_logo.svg" title=""/>
+</a>
+</div>
+<div class="d-flex px-1">
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler collapsed p-0" data-bs-target="#divNavbarItems" data-bs-toggle="collapse" type="button">
+<div class="menu-icon">
+<div class="box">
+<div class="menu-btn not-active">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+<div class="collapse navbar-collapse" id="divNavbarItems">
+<ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+<ul class="navbar-nav">
+<li class="nav-item">
+<a aria-disabled="false" class="nav-link text-nowrap show-loading" href="/Rentals" tabindex="-1">Find a Property</a>
+</li>
+<li class="nav-item">
+<a aria-disabled="false" class="nav-link text-nowrap show-loading" href="/Rentals/Accounts/UserActivity" tabindex="-1">Property Tracker</a>
+</li>
+<li class="nav-item">
+<a aria-disabled="false" class="nav-link text-nowrap show-loading" href="/Rentals/Inspections" tabindex="-1">Inspections</a>
+</li>
+<li class="nav-item">
+<a aria-disabled="false" class="nav-link text-nowrap show-loading" href="/Rentals/Accounts/Profile" tabindex="-1">Profile</a>
+</li>
+<li class="nav-item me-0">
+<a aria-disabled="false" class="btn btn-primary text-nowrap show-loading" href="/Rentals/Accounts" tabindex="-1">Sign In</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<section class="container-fluid g-0" id="divMainContainer">
+<main id="mainMain" role="main">
+<form action="/Rentals/vic-rental-properties" data-ajax="true" data-ajax-complete="SearchResults.Bind(); OffCanvasControl.Hide('AdvancedSearch');" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#searchResultsContainer" id="formSearchResults" method="post">
+<input data-val="true" data-val-required="The NoResultsShowingSurrounding field is required." id="NoResultsShowingSurrounding" name="NoResultsShowingSurrounding" type="hidden" value="False"/>
+<div class="divSearchResultsPage">
+<div class="sticky-top p-2 shadow-sm" id="divSearchBar">
+<div class="container-fluid container-lg g-0" id="divSearchInputs">
+<div class="row g-0 justify-center-below-xl px-lg-4">
+<div class="location-search-section section col-12 col-xl-6" id="divSearchBarSuburbs">
+<div class="input-group input-group-sm search-input" id="divLocations" style="z-index: 1;">
+<input autopostback="false" hf-location-src="true" id="SearchBarSuburbsJson" name="SearchBarSuburbsJson" type="hidden" value='[{"SuburbName":"","Postcode":"","State":"VIC","Latitude":0.0,"Longitude":0.0,"Radius":3000.0}]'/>
+<div class="input-group ms-0">
+<div class="location-search-input-group px-1">
+<div class="combo-textbox" id="location-search">
+<div class="divLocationBadge selected-items 2d4801f9-c9fc-4184-83ab-1b674423f48e" selected-location-container="true">
+</div>
+<div class="selector" style="display: block">
+<input autocomplete="off" class="location-search search-9965918" country="AU" linkedhf="SearchBarSuburbsJson" name="SearchComponent.UserEnteredSearchTerm-2d4801f9-c9fc-4184-83ab-1b674423f48e" placeholder="Location" type="text"/>
+<ul aria-label="Where would you like to live?" class="search-location-results slr-9965918" role="listbox"></ul>
+<script type="text/javascript">
+(function(){
+    function attachInputOnKeydown() {
+        $(".search-9965918").keydown(function (e) {
+            if (Utilities.IsNavigationKey(e.key)) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            } else if (e.key === "Backspace" &&
+                $(this).val().length === 0 &&
+                document.querySelector('#' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')) &&
+                document.querySelector('#' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')).children.length
+            ) {
+                AddressBadge.RemoveLocation(
+                    document.querySelector('#' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')).children.length - 1,
+                    '#2d4801f9-c9fc-4184-83ab-1b674423f48e',
+                    $(this),
+                    false
+                )
+                $('SearchBarSuburbsJson').trigger("change");
+            }
+        });
+        $(".search-9965918").keyup(function (e) {
+            if (Utilities.IsNavigationKey(e.key)) {
+                UXKeys.InputKeysHandler(this, e);
+            } else {
+                document.querySelector(".slr-9965918").classList.remove('shut');
+                FetchAutocompleteSuggestions(
+                    ".search-9965918",
+                    '.slr-9965918',
+                    '#' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e'),
+                    false,
+                    
+                );
+            }
+        });
+        if (true) {
+            $(".search-9965918").mouseup(function(e) {
+                SearchHistoryBinder.PopulateHistory(
+                    '.slr-9965918'
+                );
+            });
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        attachInputOnKeydown();
+    } else {
+        window.addEventListener('load', () => { attachInputOnKeydown(); });
+    }
+})()
+
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="more-filter-section below-md-only justify-content-end px-1">
+<button class="btn btn-link p-0" onclick="OffCanvasControl.Show('AdvancedSearch', Constants.OffCanvas.OffCanvasPlacement.Bottom, event); return false;">
+<span><i class="fas fa-sliders-h mx-1"></i>Filters</span>
+</button>
+</div>
+</div>
+<div class="filter-section section col-12 col-xl-6 justify-center-below-xl">
+<div class="input-group min-selector search-input md-up-only">
+<span class="input-group-text"><i class="fas fa-bed ta-2x"></i></span>
+<select aria-label="Bedrooms" autopostback="true" class="form-select" data-val="true" data-val-required="The MinBeds field is required." id="SearchComponent_MinBeds" name="SearchComponent.MinBeds" show-loading-change="true" updatehistory="true"><option selected="selected" value="0">Any</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+</select>
+</div>
+<div class="input-group min-selector search-input md-up-only">
+<span class="input-group-text"><i class="fas fa-bath ta-2x"></i></span>
+<select aria-label="Bathrooms" autopostback="true" class="form-select" data-val="true" data-val-required="The MinBaths field is required." id="SearchComponent_MinBaths" name="SearchComponent.MinBaths" show-loading-change="true" updatehistory="true"><option selected="selected" value="0">Any</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+</select>
+</div>
+<div class="input-group min-selector price-selector search-input md-up-only">
+<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+<select aria-label="Min Price" autopostback="true" class="form-select" data-val="true" data-val-required="The MinPrice field is required." id="SearchComponent_MinPrice" name="SearchComponent.MinPrice" show-loading-change="true" updatehistory="true"><option selected="selected" value="0">Any</option>
+<option value="25">25</option>
+<option value="50">50</option>
+<option value="75">75</option>
+<option value="100">100</option>
+<option value="125">125</option>
+<option value="150">150</option>
+<option value="175">175</option>
+<option value="200">200</option>
+<option value="225">225</option>
+<option value="250">250</option>
+<option value="275">275</option>
+<option value="300">300</option>
+<option value="325">325</option>
+<option value="350">350</option>
+<option value="375">375</option>
+<option value="400">400</option>
+<option value="425">425</option>
+<option value="450">450</option>
+<option value="475">475</option>
+<option value="500">500</option>
+<option value="525">525</option>
+<option value="550">550</option>
+<option value="575">575</option>
+<option value="600">600</option>
+<option value="625">625</option>
+<option value="650">650</option>
+<option value="675">675</option>
+<option value="700">700</option>
+<option value="725">725</option>
+<option value="750">750</option>
+<option value="775">775</option>
+<option value="800">800</option>
+<option value="825">825</option>
+<option value="850">850</option>
+<option value="875">875</option>
+<option value="900">900</option>
+<option value="925">925</option>
+<option value="950">950</option>
+<option value="975">975</option>
+<option value="1000">1000</option>
+<option value="1025">1025</option>
+<option value="1050">1050</option>
+<option value="1075">1075</option>
+<option value="1100">1100</option>
+<option value="1125">1125</option>
+<option value="1150">1150</option>
+<option value="1175">1175</option>
+<option value="1200">1200</option>
+<option value="1225">1225</option>
+<option value="1250">1250</option>
+<option value="1275">1275</option>
+<option value="1300">1300</option>
+<option value="1325">1325</option>
+<option value="1350">1350</option>
+<option value="1375">1375</option>
+<option value="1400">1400</option>
+<option value="1425">1425</option>
+<option value="1450">1450</option>
+<option value="1475">1475</option>
+<option value="1500">1500</option>
+<option value="1525">1525</option>
+<option value="1550">1550</option>
+<option value="1575">1575</option>
+<option value="1600">1600</option>
+<option value="1625">1625</option>
+<option value="1650">1650</option>
+<option value="1675">1675</option>
+<option value="1700">1700</option>
+<option value="1725">1725</option>
+<option value="1750">1750</option>
+<option value="1775">1775</option>
+<option value="1800">1800</option>
+<option value="1825">1825</option>
+<option value="1850">1850</option>
+<option value="1875">1875</option>
+<option value="1900">1900</option>
+<option value="1925">1925</option>
+<option value="1950">1950</option>
+<option value="1975">1975</option>
+</select>
+<select aria-label="Max Price" autopostback="true" class="form-select" data-val="true" data-val-required="The MaxPrice field is required." id="SearchComponent_MaxPrice" name="SearchComponent.MaxPrice" show-loading-change="true" updatehistory="true"><option value="0">Any</option>
+<option value="25">25</option>
+<option value="50">50</option>
+<option value="75">75</option>
+<option value="100">100</option>
+<option value="125">125</option>
+<option value="150">150</option>
+<option value="175">175</option>
+<option value="200">200</option>
+<option value="225">225</option>
+<option value="250">250</option>
+<option value="275">275</option>
+<option value="300">300</option>
+<option value="325">325</option>
+<option value="350">350</option>
+<option value="375">375</option>
+<option value="400">400</option>
+<option value="425">425</option>
+<option value="450">450</option>
+<option value="475">475</option>
+<option value="500">500</option>
+<option value="525">525</option>
+<option value="550">550</option>
+<option value="575">575</option>
+<option value="600">600</option>
+<option value="625">625</option>
+<option value="650">650</option>
+<option value="675">675</option>
+<option value="700">700</option>
+<option value="725">725</option>
+<option value="750">750</option>
+<option value="775">775</option>
+<option value="800">800</option>
+<option value="825">825</option>
+<option value="850">850</option>
+<option value="875">875</option>
+<option value="900">900</option>
+<option value="925">925</option>
+<option value="950">950</option>
+<option value="975">975</option>
+<option value="1000">1000</option>
+<option value="1025">1025</option>
+<option value="1050">1050</option>
+<option value="1075">1075</option>
+<option value="1100">1100</option>
+<option value="1125">1125</option>
+<option value="1150">1150</option>
+<option value="1175">1175</option>
+<option value="1200">1200</option>
+<option value="1225">1225</option>
+<option value="1250">1250</option>
+<option value="1275">1275</option>
+<option value="1300">1300</option>
+<option value="1325">1325</option>
+<option value="1350">1350</option>
+<option value="1375">1375</option>
+<option value="1400">1400</option>
+<option value="1425">1425</option>
+<option value="1450">1450</option>
+<option value="1475">1475</option>
+<option value="1500">1500</option>
+<option value="1525">1525</option>
+<option value="1550">1550</option>
+<option value="1575">1575</option>
+<option value="1600">1600</option>
+<option value="1625">1625</option>
+<option value="1650">1650</option>
+<option value="1675">1675</option>
+<option value="1700">1700</option>
+<option value="1725">1725</option>
+<option value="1750">1750</option>
+<option value="1775">1775</option>
+<option value="1800">1800</option>
+<option value="1825">1825</option>
+<option value="1850">1850</option>
+<option value="1875">1875</option>
+<option value="1900">1900</option>
+<option value="1925">1925</option>
+<option value="1950">1950</option>
+<option value="1975">1975</option>
+<option selected="selected" value="2000">2000</option>
+</select>
+</div>
+<button class="btn btn-link md-up-only align-items-center p-0" onclick="OffCanvasControl.Show('AdvancedSearch', Constants.OffCanvas.OffCanvasPlacement.Right, event); return false;">
+<span><i class="fas fa-sliders-h mx-1"></i>Filters</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="container-fluid container-xxl mt-3 g-0 search-results-container">
+<div class="row g-0 d-flex justify-content-center mx-xl-5" id="searchResultsContainer" style="min-height: calc(100vh - 177px);">
+<input id="PageNumber" name="PageNumber" type="hidden" value="1"/>
+<div class="col-lg-8" id="divSearchResults" maximised-class="col-lg-8" minimised-class="col-lg-7" split-class="col-lg-7">
+<div class="container-fluid p-2">
+<div class="row g-0 lg-up-only" id="searchDetails">
+<div class="col-12 col-md-12 d-flex align-items-center py-2 px-1">
+<div>
+<img height="100" src="/assets/img/search_criteria_icon.png" width="100">
+</img></div>
+<div class="px-3">
+                    You are looking to move into a property, located near <span class="search-text-highlighted">VIC</span>. <br/>The property can be any price  and be available to move in at any time.
+                </div>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-12 col-md-12 d-flex align-items-center py-2 px-1">
+<div class="breadcrumbs-container">
+<ol class="slim-scroll hover-only">
+<li class="breadcrumb">
+<a href="https://www.tenantapp.com.au/Rentals">Rental Properties</a>
+<span class="breadcrumb-delimiter">
+<i class="fas fa-chevron-right"></i>
+</span>
+</li>
+<li class="breadcrumb">
+<a href="https://www.tenantapp.com.au/Rentals/vic-rental-properties">VIC</a>
+<span class="breadcrumb-delimiter">
+<i class="fas fa-chevron-right"></i>
+</span>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-sm-12 pt-3 px-1">
+<h1>All Property Types For Rent In VIC</h1>
+<span class="heading">
+<b class="search-text-highlighted">946</b> Properties for rent
+                </span>
+</div>
+</div>
+<div class="row g-0">
+<div class="col-6 col-sm-4 d-flex align-items-center px-1" style="max-width: 400px">
+<div data-toggle-button="true" id="divViewSwitcher" ontoggle="SearchResults.SwitchToView">
+<div class="btn-group ms-0" role="group">
+<input autocomplete="off" class="btn-check" data-alt-value="0" data-val="true" data-val-required="The ResultsMode field is required." id="Map" name="ResultsMode" type="radio" value="Map">
+<label class="btn btn-outline-light" for="Map">
+<span>
+<i class="fas fa-map-marker-alt"></i>
+</span>
+<span>
+                                Map
+                            </span>
+</label>
+<input autocomplete="off" class="btn-check" data-alt-value="1" id="Split" name="ResultsMode" type="radio" value="Split"/>
+<label class="btn btn-outline-light" for="Split">
+<span>
+<i class="fas fa-columns"></i>
+</span>
+<span>
+                                Split
+                            </span>
+</label>
+<input autocomplete="off" checked="checked" class="btn-check" data-alt-value="2" id="List" name="ResultsMode" type="radio" value="List"/>
+<label class="btn btn-outline-light" for="List">
+<span>
+<i class="fas fa-list"></i>
+</span>
+<span>
+                                List
+                            </span>
+</label>
+</input></div>
+</div>
+</div>
+<div class="col-6 col-sm-5 d-flex justify-content-end" style="max-width: 400px">
+<div class="py-3">
+<select autopostback="true" class="form-select" data-val="true" data-val-required="The SortBy field is required." id="SearchComponent_SortBy" name="SearchComponent.SortBy" show-loading-change="true"><option value="Cheapest">Cheapest</option>
+<option value="Expensive">Expensive</option>
+<option selected="selected" value="Newest">Newest</option>
+<option value="Oldest">Oldest</option>
+<option value="MoveInDate">Move In Date</option>
+</select> </div>
+</div>
+<div class="col-sm-3 md-up-only">
+</div>
+</div>
+<div class="row g-0">
+<div class="col-12 py-2">
+<ins class="adsbygoogle infeed" data-ad-client="ca-pub-1416994460320719" data-ad-format="auto" data-ad-slot="5132983230" data-full-width-responsive="true" style="display:block; text-align: center;"></ins>
+<script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+</div>
+</div>
+<input id="TotalPages" name="TotalPages" type="hidden" value="95"/>
+<div class="row g-0" id="divSearchListResults">
+<div class="col-md-9" style="max-width: 800px">
+<div class="page-start-identifier" page="1"></div>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-2748182" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/2748182')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #c22131; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/miles">
+<div class="d-flex">
+<div class="w-100" style="background-color: #c22131;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/miles.jpg" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/2748182" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-2748182">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_a8344453170747d997e9822d770d4a28.jpg?1666864110"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_b1e53096a01968c29795f24ae5e56b1b.jpg?1666864110"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_ac1998c0c9ae669f3beb6e56426f275d.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_520e437ed759877c336d670ff7f83c46.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_084298491fdeff26abb0fc2edef4b5a5.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_2dbaba9a7841e84c35b2893eefe3cc16.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_e4a9f8c805909db18259ae089e5ce545.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_face8ab545d6b39bbc110995c9aefdb5.jpg?1666864111"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MILESRE/img_2748182_f2f14b9e086a3e66665b0ce39fdd8244.jpg?1666864111"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-2748182" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-2748182" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-2748182 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-2748182" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=2748182&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-2748182" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=2748182&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-2748182 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-2748182 p-0 m-0 align-middle" id="carousel-2748182-imageCounter">1 of 9</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-2748182-imageCounter').text(1 + ' of ' + $('#carousel-2748182 .carousel-item').length);
+
+        $('#carousel-2748182').on('slid.bs.carousel', function(data) {
+            $('#carousel-2748182-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-2748182 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-2748182').carousel(data.to);
+        });
+
+        $('#carousel-Full-2748182-imageCounter').text(1 + ' of ' + $('#carousel-Full-2748182 .carousel-item').length);
+
+        $('#carousel-Full-2748182').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-2748182-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-2748182 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-2748182').carousel(data.to);
+        });
+
+        $('#carousel-Full-2748182').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-2748182').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/2748182" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>10 Sturdee Street, Reservoir</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">4</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">1</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">4</span>
+</span>
+</div>
+</div>
+<h3>$690pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 31/10/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-2748182 bg-white">
+<a href="/Rentals/ViewListing/2748182" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    1
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-2748182" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/2748182?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DLO-MILESRE%26uniqueID%3Dire_130_1294953%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-2748182" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=LO-MILESRE&amp;uniqueID=ire_130_1294953&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3811184" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3811184')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #606060; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/rwphillipIs">
+<div class="d-flex">
+<div class="w-100" style="background-color: #606060;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/rwphillipIs.jpg" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3811184" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3811184">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_812ffd1e0c9249f38561b7b4dedb02bc.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_d32339efa7a890ec5dfcd59097c86e8c.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_3415b2b8acfb360908202b8c7e48889c.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_a241c394cfafeb3de84d0b57833757ca.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_e8d359c54665aa119fc7b633fedd7883.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_6ec398705aed0ca4391db41f2c6b3649.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_b7f9bd0a43794701c57864c5386fdffa.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_77b789fa9d244d643b3180158bc9f690.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_cc0a5b60b4d363b7775b91690725c217.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_c38099efc9dc6d28281d267fb351c938.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_3ad4c8170c792a07ffeb8126db0eb648.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_be7b89777e30dffb79022c9aa48d13ed.JPG?1666754128"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/MD23414/img_3811184_68c2e22f8e0cb31b1f4e329e15d33a96.JPG?1666754128"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3811184" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3811184" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3811184 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811184" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3811184&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811184" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3811184&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3811184 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3811184 p-0 m-0 align-middle" id="carousel-3811184-imageCounter">1 of 13</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3811184-imageCounter').text(1 + ' of ' + $('#carousel-3811184 .carousel-item').length);
+
+        $('#carousel-3811184').on('slid.bs.carousel', function(data) {
+            $('#carousel-3811184-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3811184 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3811184').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811184-imageCounter').text(1 + ' of ' + $('#carousel-Full-3811184 .carousel-item').length);
+
+        $('#carousel-Full-3811184').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3811184-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3811184 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3811184').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811184').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3811184').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3811184" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>10 Trafalgar Street, RHYLL</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">1</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">0</span>
+</span>
+</div>
+</div>
+<h3>$390pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 3/11/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3811184 bg-white">
+<a href="/Rentals/ViewListing/3811184" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    1
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3811184" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3811184?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DMD23414%26uniqueID%3DR2832900%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3811184" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=MD23414&amp;uniqueID=R2832900&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3811199" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3811199')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #4495d1; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/ElitePropertyRentals">
+<div class="d-flex">
+<div class="w-100" style="background-color: #4495d1;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/ElitePropertyRentals.jpg" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3811199" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3811199">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_ee50358cb9c1d951379592fa36a94cd1.jpg?1666830451"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_cd3d499d01aeec8b88b4c44ffd17f02d.jpg?1666830454"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_13cb6ea64973eaa7a8275a534f78b9d0.jpg?1666830452"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_a431c41312abd82bb6017022ce7591be.jpg?1666830452"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_88659949e1abc46d87ae6cfe277825fc.jpg?1666830452"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_dff428782b23ef6a5cab8d34a929888e.jpg?1666830453"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_3c327c3db95c43849fc8bf1b2d075bff.jpg?1666830453"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_b9b1d4c66b2394f83da7cfbf1aa95da0.jpg?1666830453"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_b4855dc76b87267e126b6a894ccf69f5.jpg?1666830453"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_cab96b26102988dd00af3c4470376d47.jpg?1666830453"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_63b73d2b66793ecd39a449358128170f.jpg?1666830454"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/PM-ELITEPROPERTYRENTALS/img_3811199_cd3d499d01aeec8b88b4c44ffd17f02d.jpg?1666830454"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3811199" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3811199" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3811199 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811199" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3811199&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811199" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3811199&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3811199 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3811199 p-0 m-0 align-middle" id="carousel-3811199-imageCounter">1 of 11</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3811199-imageCounter').text(1 + ' of ' + $('#carousel-3811199 .carousel-item').length);
+
+        $('#carousel-3811199').on('slid.bs.carousel', function(data) {
+            $('#carousel-3811199-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3811199 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3811199').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811199-imageCounter').text(1 + ' of ' + $('#carousel-Full-3811199 .carousel-item').length);
+
+        $('#carousel-Full-3811199').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3811199-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3811199 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3811199').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811199').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3811199').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3811199" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>8 Austin Rd, Seaford</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">1</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+</div>
+</div>
+<h3>$660pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 7/11/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3811199 bg-white">
+<a href="/Rentals/ViewListing/3811199" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    1
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3811199" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3811199?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DPM-ELITEPROPERTYRENTALS%26uniqueID%3Daf3a00cdbbed4831bb7f2184c22b3faf%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3811199" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=PM-ELITEPROPERTYRENTALS&amp;uniqueID=af3a00cdbbed4831bb7f2184c22b3faf&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3811200" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3811200')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #512e92; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/peake">
+<div class="d-flex">
+<div class="w-100" style="background-color: #512e92;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/peake.jpg" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3811200" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3811200">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_d018971feb755cccaf96e5d02d56e819.jpg?1666862541"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_982dd455373a910b211473ceb46aa07b.jpg?1666862573"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_ebb75497c13a7ca78d4aaee7682a2762.jpg?1666862573"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_e33f877dc6131ab61a45d5a102534c4a.jpg?1666862621"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_929b421cf931eb1af3868fc8529dfdcf.jpg?1666862633"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_6e9b9d7fb445c363aef2b42bfeb84715.jpg?1666862636"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_53dad3c8c14ae0472550989b0aa18a84.jpg?1666862641"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_68c94ca0adf48fabf4645bded5530a22.jpg?1666862641"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_2280d2f7df1623bd0f1c179905e8a9ca.jpg?1666862641"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_9ba617e7f80019e5e4095bc1398b4401.jpg?1666862641"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_6206cfaeb188c4e75f138ba43809c298.jpg?1666862656"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_57e0cb9b3b1e5708ab87dea891c74396.jpg?1666862656"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_fea241cbd8418331a9bc3669a304186a.jpg?1666862656"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_9d179fa99a1cf9c7aaf18b0ea2a3f1e3.jpg?1666862573"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_b2a120f210bc7e31d398f57253bce270.jpg?1666862571"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-PEAKE/img_3811200_e0cb621319c794c7919dfc0594d46892.jpg?1666862571"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3811200" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3811200" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3811200 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811200" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3811200&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811200" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3811200&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3811200 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3811200 p-0 m-0 align-middle" id="carousel-3811200-imageCounter">1 of 16</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3811200-imageCounter').text(1 + ' of ' + $('#carousel-3811200 .carousel-item').length);
+
+        $('#carousel-3811200').on('slid.bs.carousel', function(data) {
+            $('#carousel-3811200-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3811200 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3811200').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811200-imageCounter').text(1 + ' of ' + $('#carousel-Full-3811200 .carousel-item').length);
+
+        $('#carousel-Full-3811200').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3811200-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3811200 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3811200').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811200').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3811200').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3811200" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>18 Cohens Way, PAKENHAM</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">5</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+</div>
+</div>
+<h3>$530pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> Now </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3811200 bg-white">
+<a href="/Rentals/ViewListing/3811200" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row pb-4 m-1"></div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn btn-outline-primary my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3811200" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetRequestInspectionView/3811200?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DBD-PEAKE%26uniqueID%3D28909181-80C2-49F9-81D5-B7932AE9023C%26source%3DTenantApp&amp;DisableModal=True&amp;ApplicationRequired=False" style="z-index: 100; text-align: center; vertical-align: middle; height: 40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Request Inspection
+                            <span id="spinner-3811200" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=BD-PEAKE&amp;uniqueID=28909181-80C2-49F9-81D5-B7932AE9023C&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<div>
+<ins class="adsbygoogle infeed" data-ad-client="ca-pub-1416994460320719" data-ad-format="fluid" data-ad-layout-key="fb+5w+4e-db+86" data-ad-slot="5752178100" data-adtest="off" data-full-width-responsive="true" style="display: block;">
+</ins>
+<script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+<br style="clear:both"/>
+</div>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3811408" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3811408')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: white; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/mco">
+<div class="d-flex">
+<div class="w-100" style="background-color: white;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/mco.png" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3811408" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3811408">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_36ff19c77c012683c97ef5d6657868fa.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_c28e10831435526c20f73e850816920e.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_0be2b2da85ac1a001c88cdccbc08353d.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_70a46d0682a926c10ba915cd39766f66.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_5b4f3db67d1bed9a4fb02a03c53d5394.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_5b78b95d889ab67d4be7b5d0772cbd2e.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_dd13f1efcf99b5fd9183325264a90666.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_ac64e048287c8f837f6e0eb5d7c01cc2.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_5c87cd7bb54e6060b24d4c6da25c386a.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_da7a5917e0badd5b38098e76802cb8d6.jpg?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_e7e2f3ad35d9ab0c62af89bc6abbacc7.gif?1666868604"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/LO-MCO/img_3811408_e7e2f3ad35d9ab0c62af89bc6abbacc7.gif?1666868604"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3811408" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3811408" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3811408 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811408" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3811408&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811408" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3811408&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3811408 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3811408 p-0 m-0 align-middle" id="carousel-3811408-imageCounter">1 of 11</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3811408-imageCounter').text(1 + ' of ' + $('#carousel-3811408 .carousel-item').length);
+
+        $('#carousel-3811408').on('slid.bs.carousel', function(data) {
+            $('#carousel-3811408-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3811408 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3811408').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811408-imageCounter').text(1 + ' of ' + $('#carousel-Full-3811408 .carousel-item').length);
+
+        $('#carousel-Full-3811408').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3811408-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3811408 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3811408').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811408').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3811408').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3811408" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>6 Lawnhill Road, MALVERN</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">4</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+</div>
+</div>
+<h3>$1,950pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 11/11/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3811408 bg-white">
+<a href="/Rentals/ViewListing/3811408" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row pb-4 m-1"></div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn btn-outline-primary my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3811408" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetRequestInspectionView/3811408?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DLO-MCO%26uniqueID%3Dire_792_1294887%26source%3DTenantApp&amp;DisableModal=True&amp;ApplicationRequired=False" style="z-index: 100; text-align: center; vertical-align: middle; height: 40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Request Inspection
+                            <span id="spinner-3811408" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=LO-MCO&amp;uniqueID=ire_792_1294887&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3811409" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3811409')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #19202a; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/obrienpakenham">
+<div class="d-flex">
+<div class="w-100" style="background-color: #19202a;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/obrienpakenham.png" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3811409" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3811409">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_ebc233efa11f0ae6b3122240365c78a2.jpg?1666867188"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_175ec73e33d32f258a59b5226101a3cc.jpg?1666867187"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_09a911d0ceea168b6c9b72d366dd9032.jpg?1666867188"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_7129baefdc348142dd3007aa8b0eae7a.jpg?1666867187"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_78d2360a1505df941cd5fefd1cbf2e31.jpg?1666867191"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_3290adb16c9b6eed5f1dd8b520f67084.jpg?1666867189"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_1efa18ac17a657eb1a0cc05c450ae184.jpg?1666867189"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_6441bf32ba27162af3c5cffdd84e322f.jpg?1666867187"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-OBRIENPAKENHAM/img_3811409_2d5e52d519a9a0b1cb9729b49bb3cb99.jpg?1666867188"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3811409" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3811409" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3811409 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811409" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3811409&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3811409" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3811409&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3811409 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3811409 p-0 m-0 align-middle" id="carousel-3811409-imageCounter">1 of 9</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3811409-imageCounter').text(1 + ' of ' + $('#carousel-3811409 .carousel-item').length);
+
+        $('#carousel-3811409').on('slid.bs.carousel', function(data) {
+            $('#carousel-3811409-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3811409 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3811409').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811409-imageCounter').text(1 + ' of ' + $('#carousel-Full-3811409 .carousel-item').length);
+
+        $('#carousel-Full-3811409').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3811409-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3811409 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3811409').carousel(data.to);
+        });
+
+        $('#carousel-Full-3811409').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3811409').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3811409" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>12 Rubus Way, Pakenham</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">1</span>
+</span>
+</div>
+</div>
+<h3>$410pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 9/11/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3811409 bg-white">
+<a href="/Rentals/ViewListing/3811409" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row pb-4 m-1"></div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn btn-outline-primary my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3811409" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetRequestInspectionView/3811409?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DAB-OBRIENPAKENHAM%26uniqueID%3D10P15674%26source%3DTenantApp&amp;DisableModal=True&amp;ApplicationRequired=False" style="z-index: 100; text-align: center; vertical-align: middle; height: 40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Request Inspection
+                            <span id="spinner-3811409" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=AB-OBRIENPAKENHAM&amp;uniqueID=10P15674&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3135963" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3135963')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #00407e; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/FNLatrobe">
+<div class="d-flex">
+<div class="w-100" style="background-color: #00407e;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/FNLatrobe.PNG" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3135963" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3135963">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_395b7bb0df30800db0258d147a589fd7.jpg?1666791016"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_6aff2241662375846cb2b816bc303fc0.jpg?1666791016"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_a2754703871eafd28d61f2b76922d693.jpg?1666791016"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_c963c93d7e270cb76014972f08e79257.jpg?1666791017"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_f92251526eabf8bd484e261a925944c7.jpg?1666791017"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_2b2e4a14c48481a061226dff640bfd67.jpg?1666791017"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_a430eab76853910eb2b628f8bf20b5f5.jpg?1666791018"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_62f31702963d7a7e08c01726de675008.jpg?1666791018"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_d9c066349a78278b3fd744d07802eb34.jpg?1666791019"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_148779e25848bc92873602957d670795.jpg?1666791019"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_274015591423137db59d75ae17d87f85.jpg?1666791019"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_5ba5ad5dc35c53fdb4c3a4b5a6d2dd89.jpg?1666791020"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/Z-FNLATROBE/img_3135963_b30c8c0c4c27ec0f7214f22d173e4401.jpg?1666791020"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3135963" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3135963" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3135963 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3135963" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3135963&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3135963" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3135963&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3135963 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3135963 p-0 m-0 align-middle" id="carousel-3135963-imageCounter">1 of 13</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3135963-imageCounter').text(1 + ' of ' + $('#carousel-3135963 .carousel-item').length);
+
+        $('#carousel-3135963').on('slid.bs.carousel', function(data) {
+            $('#carousel-3135963-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3135963 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3135963').carousel(data.to);
+        });
+
+        $('#carousel-Full-3135963-imageCounter').text(1 + ' of ' + $('#carousel-Full-3135963 .carousel-item').length);
+
+        $('#carousel-Full-3135963').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3135963-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3135963 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3135963').carousel(data.to);
+        });
+
+        $('#carousel-Full-3135963').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3135963').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3135963" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>16 Durack Place, TRARALGON</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+</div>
+</div>
+<h3>$450pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> Now </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3135963 bg-white">
+<a href="/Rentals/ViewListing/3135963" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    2
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3135963" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3135963?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DZ-FNLATROBE%26uniqueID%3D2035815%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3135963" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=Z-FNLATROBE&amp;uniqueID=2035815&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3379214" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3379214')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: black; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/mcgrathgeelong">
+<div class="d-flex">
+<div class="w-100" style="background-color: black;"></div>
+<div class="px-4 py-1" style="background-color: #fefefe;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/mcgrathgeelong.jpg" style="background-color: #fefefe; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3379214" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3379214">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_00cf97321e3ebf350a640b25a836c792.jpg?1666782380"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_df6d10e68030f8a6250695cca29b4bcd.jpg?1666782377"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_6e36c115313a274615528e9e04d655a2.jpg?1666782380"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_9c0640a8bfab7caa70ec6c6356daad22.jpg?1666782380"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_0d25bad3f8a965d56ed91b99c8220c67.jpg?1666782380"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_ffadfe2c78f34391e1a62b3f079696ff.jpg?1666782379"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/AB-MCGGEELONG/img_3379214_4780570eaf99d3d366bb66cda3afd9bf.jpg?1666782379"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3379214" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3379214" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3379214 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3379214" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3379214&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3379214" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3379214&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3379214 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3379214 p-0 m-0 align-middle" id="carousel-3379214-imageCounter">1 of 7</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3379214-imageCounter').text(1 + ' of ' + $('#carousel-3379214 .carousel-item').length);
+
+        $('#carousel-3379214').on('slid.bs.carousel', function(data) {
+            $('#carousel-3379214-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3379214 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3379214').carousel(data.to);
+        });
+
+        $('#carousel-Full-3379214-imageCounter').text(1 + ' of ' + $('#carousel-Full-3379214 .carousel-item').length);
+
+        $('#carousel-Full-3379214').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3379214-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3379214 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3379214').carousel(data.to);
+        });
+
+        $('#carousel-Full-3379214').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3379214').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3379214" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>2 Thorogood Court, Grovedale</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">4</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+</div>
+</div>
+<h3>$480pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> Now </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3379214 bg-white">
+<a href="/Rentals/ViewListing/3379214" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    4
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3379214" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3379214?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DAB-MCGGEELONG%26uniqueID%3D43P12600%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3379214" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=AB-MCGGEELONG&amp;uniqueID=43P12600&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<div>
+<ins class="adsbygoogle infeed" data-ad-client="ca-pub-1416994460320719" data-ad-format="fluid" data-ad-layout-key="fb+5w+4e-db+86" data-ad-slot="5752178100" data-adtest="off" data-full-width-responsive="true" style="display: block;">
+</ins>
+<script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+<br style="clear:both"/>
+</div>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3706956" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3706956')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #0054a5; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/rmavictoria">
+<div class="d-flex">
+<div class="w-100" style="background-color: #0054a5;"></div>
+<div class="px-4 py-1" style="background-color: #ffffff;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/rmavictoria.jpg" style="background-color: #ffffff; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3706956" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3706956">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_a0aec4d93b59e04e34215ae85596664a.jpg?1666855083"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_d6dfd1b4182d53e5642fa37497b64825.jpg?1666855086"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_ea33390e94d4c858916a75765b89caa7.jpg?1666855088"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_d4d4441f5d5461a0ffe0fbe7c904527e.jpg?1666855090"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_8086ca60b1a337c8444b91663bee34df.jpg?1666855092"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_24f549e287ebeeb5e1f34818307690c3.jpg?1666855095"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_f597bb2d7cffb36c2f35cad9cb71a11a.jpg?1666855097"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_d53458c621ed5dd25268505e293e3055.jpg?1666855099"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_19dc92f85df7f5842c67c15db89e3d42.jpg?1666855101"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_aefc3a21b9d78e055a5d936ffc5d93bf.jpg?1666855103"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_10710dbbd5b222b6ec96aa804b31ff50.jpg?1666855105"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/rmavic01/img_3706956_0e46337d73663404ccce7d796c299fa7.jpg?1666855108"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3706956" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3706956" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3706956 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3706956" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3706956&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3706956" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3706956&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3706956 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3706956 p-0 m-0 align-middle" id="carousel-3706956-imageCounter">1 of 12</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3706956-imageCounter').text(1 + ' of ' + $('#carousel-3706956 .carousel-item').length);
+
+        $('#carousel-3706956').on('slid.bs.carousel', function(data) {
+            $('#carousel-3706956-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3706956 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3706956').carousel(data.to);
+        });
+
+        $('#carousel-Full-3706956-imageCounter').text(1 + ' of ' + $('#carousel-Full-3706956 .carousel-item').length);
+
+        $('#carousel-Full-3706956').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3706956-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3706956 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3706956').carousel(data.to);
+        });
+
+        $('#carousel-Full-3706956').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3706956').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3706956" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>20 Colorado Street, Truganina</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">2</span>
+</span>
+</div>
+</div>
+<h3>$370pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> 8/11/22 </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3706956 bg-white">
+<a href="/Rentals/ViewListing/3706956" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    1
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3706956" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3706956?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3Drmavic01%26uniqueID%3Df4886af8-1cad-4ecf-b674-cafd27177dd6%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3706956" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=rmavic01&amp;uniqueID=f4886af8-1cad-4ecf-b674-cafd27177dd6&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="col-12 col-md-12 property-card-container mb-4" id="card-3810641" onclick="PropertyCard.NavigateToProperty(event, '/Rentals/ViewListing/3810641')">
+<div class="card mx-1 h-100">
+<div class="d-flex flex-column align-items-end property-card-banner" style="background-color: #ffffff; ">
+<a class="property-card-banner-link w-100" href="/Rentals/Agency/bsrichmond">
+<div class="d-flex">
+<div class="w-100" style="background-color: #ffffff;"></div>
+<div class="px-4 py-1" style="background-color: white;">
+<img class="" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/icons/ta_icon.svg'" src="https://inspectre.blob.core.windows.net/logos/bsrichmond.jpg" style="background-color: white; max-height:40px;"/>
+</div>
+</div>
+</a>
+<a href="/Rentals/ViewListing/3810641" style="color: inherit; text-decoration: none;">
+<div class="container-fluid property-card">
+<div class="property-card-carousel">
+<div class="carousel slide" data-bs-interval="false" data-bs-ride="carousel" id="carousel-3810641">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_437adae05468a4979367a07fc0ccc04b.jpg?1666802655"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_8f7ef4fbc5739c19a09864b318b30060.jpg?1666802659"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_2749d56ec4c22b58d7b027fb425af938.jpg?1666802661"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_95bcfed19cf2eaa3bdf4ad7eae99098a.jpg?1666802664"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_fd0b73dd051a0e0e2c8c1151e1971b42.jpg?1666802669"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_695f3f25ec30384c9954ed1e6fbdb0ef.jpg?1666802675"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_75a3bb66892f5ee10f8233fc94bedb50.jpg?1666802675"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_88488bca5b66555d31a961bc498c46e7.jpg?1666802678"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_eaf727de13ed92111d251e9b49df4395.jpg?1666802678"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_5d803efe86f44bbe9f86fb1ce0fa00e6.jpg?1666802655"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_86d6bb7d725d0a16e00d58f0574049c0.gif?1666802686"/>
+</div>
+</div>
+<div class="carousel-item">
+<div class="carousel-image-outer">
+<img class="carousel-image" loading="lazy" onerror="this.onerror = null;this.src='/assets/img/no_property_image.png'" src="https://inspectre.blob.core.windows.net/images/normal/BD-BSRICHMOND/img_3810641_86d6bb7d725d0a16e00d58f0574049c0.gif?1666802686"/>
+</div>
+</div>
+</div>
+<button class="carousel-nav carousel-control-prev" data-bs-slide="prev" data-bs-target="#carousel-3810641" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-prev-icon"></div>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-nav carousel-control-next" data-bs-slide="next" data-bs-target="#carousel-3810641" type="button">
+<div aria-hidden="true" class="carousel-nav-icon carousel-control-next-icon"></div>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+<div class="property-card-status-early">
+<span class="badge badge-status-early p-2">
+<img src="/assets/img/icons/early_bird.svg"/>
+                    Early Bird
+                </span>
+</div>
+<div class="property-card-status">
+<span class="badge badge-status p-2" status="New">New</span>
+</div>
+<div class="content-3810641 d-flex justify-content-end">
+<div class="propertyActions d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-like-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3810641" data-ajax-url="/Rentals/Listings/ShortList/0?PropertyID=3810641&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-like-state="Neutral" title="Shortlist Property">
+<i class="iconAction far fa-heart p-0 m-0 align-middle"></i>
+</a>
+</div>
+<div class="p-0 m-0 align-self-center">
+<a class="btn bg-transparent property-hidden-state" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".content-3810641" data-ajax-url="/Rentals/Listings/ListingVisibility/0?PropertyID=3810641&amp;State=Neutral&amp;Hidden=False&amp;IsTenantAdded=False" data-hidden-state="False" title="Hide">
+<i class="iconAction far fa-eye-slash p-0 m-0 align-middle"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="counter-3810641 d-flex justify-content-end">
+<div class="image-counter d-flex justify-content-center">
+<div class="p-0 m-0 align-self-center">
+<div class="btn bg-transparent">
+<span class="image-counter-3810641 p-0 m-0 align-middle" id="carousel-3810641-imageCounter">1 of 11</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    var usingFullScreen = false;
+
+    $(document).ready(function() {
+        $('#carousel-3810641-imageCounter').text(1 + ' of ' + $('#carousel-3810641 .carousel-item').length);
+
+        $('#carousel-3810641').on('slid.bs.carousel', function(data) {
+            $('#carousel-3810641-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-3810641 .carousel-item').length);
+            if (!usingFullScreen)
+                $('#carousel-Full-3810641').carousel(data.to);
+        });
+
+        $('#carousel-Full-3810641-imageCounter').text(1 + ' of ' + $('#carousel-Full-3810641 .carousel-item').length);
+
+        $('#carousel-Full-3810641').on('slid.bs.carousel', function(data) {
+            $('#carousel-Full-3810641-imageCounter').text(data.to + 1 + ' of ' + $('#carousel-Full-3810641 .carousel-item').length);
+            if (usingFullScreen)
+                $('#carousel-3810641').carousel(data.to);
+        });
+
+        $('#carousel-Full-3810641').on('slide.bs.carousel', function(data) {
+            usingFullScreen = true;
+        });
+
+        $('#carousel-3810641').on('slide.bs.carousel', function(data) {
+            usingFullScreen = false;
+        });
+
+    });
+</script>
+</a>
+</div>
+<a href="/Rentals/ViewListing/3810641" style="color: inherit; text-decoration: none;">
+<div class="card-body">
+<div class="headings">
+<div class="split">
+<h2>37 Parkville Street, RICHMOND</h2>
+<div class="py-1 beds-baths-cars">
+<span class="mx-1">
+<i class="fas fa-bed me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">3</span>
+</span>
+<span class="mx-1 mw-">
+<i class="fas fa-bath me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">1</span>
+</span>
+<span class="mx-1">
+<i class="fas fa-car me-1 bbc-icon"></i>
+<span class="d-inline-block" style="width: 1.2rem;">0</span>
+</span>
+</div>
+</div>
+<h3>$800pw</h3>
+</div>
+<p class="card-title">Move in: <span class="bold"> Now </span> </p>
+</div>
+</a>
+<div class="card-footer property-card-footer-3810641 bg-white">
+<a href="/Rentals/ViewListing/3810641" style="color: inherit; text-decoration: none;">
+<div class="container-fluid p-0 m-0">
+<div class="row p-0 m-0">
+<div class="col-md-12" style="text-align: center;">
+<label class="col-form-label text-secondary">
+                                    2
+                                </label>
+<label class="col-form-label ms-1">
+                                    available days to inspect
+                                </label>
+</div>
+</div>
+</div>
+</a>
+<div class="d-flex justify-content-center p-0 m-0">
+<a class="btn bg-primary text-white my-1 mx-2 flex-grow-1" data-ajax="true" data-ajax-complete="BookInspection.completedInspection(xhr);" data-ajax-loading="#spinner-3810641" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update=".listing-bottom-bar" data-ajax-url="/Rentals/Listings/GetBookInspectionView/3810641?ApplyWith2Apply=True&amp;ApplyLink=https%3A%2F%2Fwww.2apply.com.au%2FProperty%3FagentID%3DBD-BSRICHMOND%26uniqueID%3D1CD7CB6D-3A42-46C7-B2F4-A270FAA21D40%26source%3DTenantApp" style="text-align: center; vertical-align: middle; height:40px">
+<span class="h-100 d-flex justify-content-center align-items-center">
+                            Book Inspection
+                            <span id="spinner-3810641" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+</span>
+</a>
+<a class="btn btn-outline-secondary apply-button" href="https://www.2apply.com.au/Property?agentID=BD-BSRICHMOND&amp;uniqueID=1CD7CB6D-3A42-46C7-B2F4-A270FAA21D40&amp;source=TenantApp" role="button" target="_blank">
+<img class="ApplyButtonImg" src="/assets/img/2Apply_IRE.svg"/>
+</a>
+</div>
+</div>
+</div>
+</article>
+<div id="moreProperties">
+<span id="spinnerMore" style="display:none;"><i class="fas fa-spinner fa-spin"></i></span>
+<input id="PageNumber" name="PageNumber" type="hidden" value="1"/>
+</div>
+</div>
+<div class="col-12 col-md-3 d-flex justify-content-center d-none d-md-flex" id="divSkyscraperMarketing">
+<div class="d-inline ms-0 ms-sm-1 ms-md-2 ms-lg-3 me-0 me-sm-1 mb-3 mb-sm-0 p-1" id="divSkyscraperMarketingPaddings">
+<div class="sidebar-marketing-element">
+<div class="carousel slide" data-bs-ride="carousel" id="divPropertyTrackerSkyscraper">
+<div class="carousel-inner">
+<div class="carousel-item" data-bs-interval="15000">
+<a href="/Rentals/Accounts?ebas=True" target="_blank">
+<img class="d-block w-100" src="/assets/img/skyscraper.png"/>
+</a>
+</div>
+<div class="carousel-item active" data-bs-interval="15000">
+<a href="https://www.2apply.com.au/Profile/ImproveStarRating" target="_blank">
+<img class="d-block w-100" onerror="this.onerror=null;this.src='/assets/img/skyscraper_property_tracker.png'" src="https://inspectre.blob.core.windows.net/externalfiles/TAWeb/MarketingAssets/skyscraper_background_check.png"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.carousel').carousel();
+    })
+</script>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-5 d-none" id="divMapsContainer" maximised-class="col-lg-12" minimised-class="col-lg-5" split-class="col-lg-5 d-none">
+<div class="w-100 p-2" style="position: sticky; top: 82px;">
+<div style="position: relative">
+<div center-datapoints-source-id="#SuburbsJson" class="w-100" google-map="true" hf-def-lat-id="#hfDefaultLatitude" hf-def-lng-id="#hhfDefaultLongitude" hf-lat-id="#hfLatitude" hf-lng-id="#hfLongitude" hf-radius-id="#hfRadius" hf-source-id="#hfDataSourceId" id="map" lazy-load="true" show-on-location-change-id="#dvMapSearch" style="width: 100%; height: calc(100vh - 100px); border-radius: 10px;">
+</div>
+<input data-val="true" data-val-number="The field must be a number." data-val-required="The Double field is required." id="hfDefaultLatitude" name="hfDefaultLat" type="hidden" value="-27.487741">
+<input data-val="true" data-val-number="The field must be a number." data-val-required="The Double field is required." id="hhfDefaultLongitude" name="hfDefaultLon" type="hidden" value="153.0523018">
+<input data-val="true" data-val-number="The field Latitude must be a number." id="hfLatitude" name="SearchComponent.Latitude" type="hidden" value=""/>
+<input data-val="true" data-val-number="The field Longitude must be a number." id="hfLongitude" name="SearchComponent.Longitude" type="hidden" value=""/>
+<input data-val="true" data-val-number="The field Radius must be a number." id="hfRadius" name="SearchComponent.Radius" type="hidden" value=""/>
+<input id="hfDataSourceId" name="hfDataSourceId" type="hidden" value='[{"PropertyID":2748182,"Latitude":-37.7019764,"Longitude":145.0091446,"DisplayPrice":"$690pw","Address":"10 Sturdee Street, Reservoir"},{"PropertyID":3811184,"Latitude":-38.4683211,"Longitude":145.2968764,"DisplayPrice":"$390pw","Address":"10 Trafalgar Street, RHYLL"},{"PropertyID":3811199,"Latitude":-38.1053932,"Longitude":145.1320869,"DisplayPrice":"$660pw","Address":"8 Austin Rd, Seaford"},{"PropertyID":3811200,"Latitude":-38.0728883,"Longitude":145.4410609,"DisplayPrice":"$530pw","Address":"18 Cohens Way, PAKENHAM"},{"PropertyID":3811408,"Latitude":-37.8471164,"Longitude":145.0355954,"DisplayPrice":"$1,950pw","Address":"6 Lawnhill Road, MALVERN"},{"PropertyID":3811409,"Latitude":-38.07440567,"Longitude":145.43707275,"DisplayPrice":"$410pw","Address":"12 Rubus Way, Pakenham"},{"PropertyID":3135963,"Latitude":-38.1856934,"Longitude":146.5042593,"DisplayPrice":"$450pw","Address":"16 Durack Place, TRARALGON"},{"PropertyID":3379214,"Latitude":-38.1992728,"Longitude":144.3407586,"DisplayPrice":"$480pw","Address":"2 Thorogood Court, Grovedale"},{"PropertyID":3706956,"Latitude":-37.7661676,"Longitude":144.6917311,"DisplayPrice":"$370pw","Address":"20 Colorado Street, Truganina"},{"PropertyID":3810641,"Latitude":-37.8285069,"Longitude":145.0114691,"DisplayPrice":"$800pw","Address":"37 Parkville Street, RICHMOND"}]'/>
+<input id="hfCenterPoints" name="hfCenterPoints" type="hidden" value='[{"SuburbName":"","Postcode":"","State":"VIC","Latitude":0.0,"Longitude":0.0,"Radius":3000.0}]'/>
+<div class="card p-1 w-auto" id="dvMapSearch" style="position: absolute;box-shadow: rgba(0, 0, 0, 0.27) 0px 1px 3px;
+                            top: 40px; left: 50%; transform: translateX(-50%); font-size:x-small; display: flex; flex-direction: row; align-items: center;">
+<img src="/assets/img/icons/ta_icon.svg"/>
+<div class="d-flex m-1">
+<label class="form-label text-nowrap justify-content-center align-self-center m-0">Map position has changed</label>
+</div>
+<button class="btn btn-primary text-nowrap align-self-center" id="btnMapSearch">Search this area?</button>
+</div>
+</input></input></div>
+</div>
+</div>
+<div class="col-lg-8" id="divPaginationContainer" maximised-class="col-lg-8" minimised-class="col-lg-7" split-class="col-lg-7">
+<div class="pagination-container">
+<pager id="pager" page-size="10">
+<nav class="pager-nav">
+<ul class="pagination">
+<li class="page-item page-previous-btn disabled pager-btn-disabled">
+<a class="page-link" href="" tabindex="-1">Previous</a>
+</li>
+<li class="page-item active page-btn" page-value="1">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=1">1 <span class="sr-only">(current)</span></a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="2">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=2">2</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="3">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=3">3</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="4">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=4">4</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="5">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=5">5</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="6">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=6">6</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="7">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=7">7</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="8">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=8">8</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="9">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=9">9</a>
+</li>
+<li class="page-item d-none d-md-flex page-btn" page-value="10">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=10">10</a>
+</li>
+<li class="page-item page-next-btn">
+<a class="page-link" href="https://www.tenantapp.com.au/Rentals/vic-rental-properties?page=1">Next</a>
+</li>
+</ul>
+</nav></pager>
+</div>
+</div>
+<div class="load-more-results d-flex justify-content-center" id="main">
+<a class="btn bg-primary dynamic-ajax-action text-white shadow" id="btnLoadMore">
+            Load More
+        </a>
+</div>
+<script>
+    var loading = false;
+
+    $(document).ready(function() {
+        SetupPager();
+    });
+
+    function SetupPager() {
+        let pager = Pager.GetInstance('#pager');
+
+        SetPagerUrlParameter();
+
+        if (!IsMoreResults()) {
+            $('#btnLoadMore').hide();
+            return;
+        }
+
+        pager.EnableObservationPagination('#pager');
+        TenantAppWebsite.RegisterOnAjaxComplete('listingpager', function() {
+            SetupPager();
+        });
+
+        $('#btnLoadMore').off('click').on('click', function() {
+            pager.Element.trigger('previous.pager');
+        });
+
+        pager.Element.on('observing.pager', function() {
+        });
+
+        pager.Element.off('next.pager').on('next.pager', function(e, element) {
+            if (element.hasClass('disabled'))
+                return;
+
+            Utilities.ShowPageLoadingAnimation();
+
+            let url = '/Rentals/Listings/LoadMoreJson';
+            let data = new URLSearchParams(new FormData($('form').get(0)));
+
+            fetch(url, { body: data, method: 'post', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(response => response.json())
+                .then(data => {
+                    let dataSourceId = document.getElementById("hfDataSourceId");
+                    let currentPage = document.getElementById("PageNumber");
+                    let totalPages = document.getElementById("TotalPages");
+                    let moreProperties = document.getElementById("moreProperties");
+
+                    let properties = JSON.parse(dataSourceId.value);
+                    let nextPageProperties = JSON.parse(data.results);
+
+                    if (nextPageProperties && nextPageProperties.MapProperties) {
+                        nextPageProperties.MapProperties.forEach(property => properties.push(property));
+                        dataSourceId.value = JSON.stringify(properties);
+
+                        $('#hfDataSourceId').triggerHandler('change');
+                    }
+
+                    if (!nextPageProperties || nextPageProperties.TotalPages == nextPageProperties.Pager.CurrentPage) {
+                        pager.DisableObservationPagination('#pager');
+                    }
+
+                    currentPage.value = data.pageNo;
+                    pager.ReplaceWith(data.pager.result);
+                    $('#moreProperties').replaceWith(data.view);
+                    SetupPager();
+
+                    Utilities.HidePageLoadingAnimation();
+                })
+                .catch(function(res) {
+                    Utilities.HidePageLoadingAnimation();
+                });
+        });
+
+        pager.Element
+            .off('previous.pager')
+            .on('previous.pager', function(e, element) {
+                if (element.hasClass('disabled'))
+                    return;
+
+                let currentPage = pager.GetCurrentPageNumber();
+
+                if (currentPage > 2) {
+                    let previousPage = currentPage - 1;
+                    Utilities.ScrollTo('.page-start-identifier[page="' + previousPage + '"]');
+                } else if (currentPage == 2) {
+                    Utilities.ScrollToTop();
+                }
+            });
+    }
+
+    function IsMoreResults() {
+        let currentPage = document.getElementById("PageNumber");
+        let totalPages = document.getElementById("TotalPages");
+
+        if (!currentPage || !totalPages)
+            return false;
+
+        return currentPage.value != totalPages.value;
+    }
+
+    function SetPagerUrlParameter() {
+        let currentPage = document.getElementById("PageNumber");
+
+        const url = new URL(window.location.href);
+        if (currentPage.value == "1") {
+            url.searchParams.delete('page');
+        } else {
+            url.searchParams.set('page', currentPage.value);
+        }
+        window.history.replaceState(null, null, url);
+    }
+</script>
+</div>
+</div>
+</div>
+<off-canvas>
+<div aria-labelledby="Filters" class="offcanvas search-results" id="AdvancedSearch" tabindex="-1">
+<div class="offcanvas-header">
+<button aria-label="Close" class="btn-close text-reset" data-bs-dismiss="offcanvas" type="button"></button>
+</div>
+<div class="offcanvas-body">
+<div class="container">
+<div class="px-2 px-md-5">
+<div class="container-fluid search-card-container">
+<div class="row">
+<div class="col">
+<input hf-location-src="true" id="SearchCardSuburbsJson" name="SearchCardSuburbsJson" type="hidden" value='[{"SuburbName":"","Postcode":"","State":"VIC","Latitude":0.0,"Longitude":0.0,"Radius":3000.0}]'/>
+<label class="sc-subtitle form-label">Where would you like to live?</label>
+<div class="input-group">
+<div class="combo-textbox" id="search-card-ct">
+<div class="divLocationBadge selected-items" id="3e32bbc9-09fe-4649-a7d0-866aef39f10c" selected-location-container="true">
+</div>
+<div class="selector">
+<input autocomplete="off" class="location-search search-23301104" country="AU" linkedhf="#SearchBarSuburbsJson" name="SearchComponent.UserEnteredSearchTerm" placeholder="Location" type="text"/>
+<ul aria-label="Where would you like to live?" class="search-location-results slr-23301104" role="listbox"></ul>
+<script type="text/javascript">
+(function(){
+    function attachInputOnKeydown() {
+        $(".search-23301104").keydown(function (e) {
+            if (Utilities.IsNavigationKey(e.key)) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            } else if (e.key === "Backspace" &&
+                $(this).val().length === 0 &&
+                document.querySelector('#' + CSS.escape('3e32bbc9-09fe-4649-a7d0-866aef39f10c')) &&
+                document.querySelector('#' + CSS.escape('3e32bbc9-09fe-4649-a7d0-866aef39f10c')).children.length
+            ) {
+                AddressBadge.RemoveLocation(
+                    document.querySelector('#' + CSS.escape('3e32bbc9-09fe-4649-a7d0-866aef39f10c')).children.length - 1,
+                    '#3e32bbc9-09fe-4649-a7d0-866aef39f10c',
+                    $(this),
+                    false
+                )
+                $('#SearchBarSuburbsJson').trigger("change");
+            }
+        });
+        $(".search-23301104").keyup(function (e) {
+            if (Utilities.IsNavigationKey(e.key)) {
+                UXKeys.InputKeysHandler(this, e);
+            } else {
+                document.querySelector(".slr-23301104").classList.remove('shut');
+                FetchAutocompleteSuggestions(
+                    ".search-23301104",
+                    '.slr-23301104',
+                    '#' + CSS.escape('3e32bbc9-09fe-4649-a7d0-866aef39f10c'),
+                    false,
+                    function(){$('#SearchBarSuburbsJson').val($('#SearchCardSuburbsJson').val());
+reloadBadgesListings();}
+                );
+            }
+        });
+        if (false) {
+            $(".search-23301104").mouseup(function(e) {
+                SearchHistoryBinder.PopulateHistory(
+                    '.slr-23301104'
+                );
+            });
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        attachInputOnKeydown();
+    } else {
+        window.addEventListener('load', () => { attachInputOnKeydown(); });
+    }
+})()
+
+    </script>
+</div>
+</div>
+</div>
+<div class="error-text">
+<span class="field-validation-valid" data-valmsg-for="AdvancedSearchComponent.Suburbs" data-valmsg-replace="true"></span>
+</div>
+</div>
+</div>
+<div class="row" style="display:block;">
+<div class="col">
+<div class="form-check">
+<input class="form-check-input" data-val="true" data-val-required="The SearchSurroundingSuburbs field is required." id="AdvancedSearchComponent_SearchSurroundingSuburbs" name="AdvancedSearchComponent.SearchSurroundingSuburbs" type="checkbox" value="true"/>
+<label class="form-check-label" for="AdvancedSearchComponent_SearchSurroundingSuburbs">Include Surrounding Suburbs</label>
+</div>
+</div>
+</div>
+<div class="row mb-5">
+</div>
+<div class="row mb-5">
+<div class="col">
+<label class="sc-subtitle mb-4" for="PropertyCategoryOptions">Property Type</label>
+<div class="icon-selector-list" group="63f67353-67cc-43fa-9280-f355948aaa0e">
+<div class="icon-selector-list-item" group="63f67353-67cc-43fa-9280-f355948aaa0e" id="list-item-0" item-selected="true">
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_0__Value" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[0].Value" type="hidden" value="1"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_0__IconName" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[0].IconName" type="hidden" value="fas fa-home"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_0__Text" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[0].Text" type="hidden" value="House"/>
+<input altvalue="1" checked="checked" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyCategoryOptions_Items_0__Selected" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[0].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-home fa-3x">
+</span>
+</div>
+<div>
+                    House
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="63f67353-67cc-43fa-9280-f355948aaa0e" id="list-item-1" item-selected="true">
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_1__Value" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[1].Value" type="hidden" value="2"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_1__IconName" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[1].IconName" type="hidden" value="fas fa-hotel"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_1__Text" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[1].Text" type="hidden" value="Townhouse"/>
+<input altvalue="2" checked="checked" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyCategoryOptions_Items_1__Selected" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[1].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-hotel fa-3x">
+</span>
+</div>
+<div>
+                    Townhouse
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="63f67353-67cc-43fa-9280-f355948aaa0e" id="list-item-2" item-selected="true">
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_2__Value" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[2].Value" type="hidden" value="3"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_2__IconName" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[2].IconName" type="hidden" value="fas fa-building"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_2__Text" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[2].Text" type="hidden" value="Apartment"/>
+<input altvalue="3" checked="checked" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyCategoryOptions_Items_2__Selected" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[2].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-building fa-3x">
+</span>
+</div>
+<div>
+                    Apartment
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="63f67353-67cc-43fa-9280-f355948aaa0e" id="list-item-3" item-selected="true">
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_3__Value" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[3].Value" type="hidden" value="4"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_3__IconName" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[3].IconName" type="hidden" value="fas fa-sign"/>
+<input id="AdvancedSearchComponent_PropertyCategoryOptions_Items_3__Text" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[3].Text" type="hidden" value="Other"/>
+<input altvalue="4" checked="checked" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyCategoryOptions_Items_3__Selected" name="AdvancedSearchComponent.PropertyCategoryOptions.Items[3].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-sign fa-3x">
+</span>
+</div>
+<div>
+                    Other
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mb-5">
+<div class="col advanced-search-only">
+<label class="sc-subtitle" for="MinBeds">Bedrooms</label>
+<div class="px-5" name="beds-slider">
+<div class="text-center mb-3 d-flex justify-content-center">
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MinBeds field is required." id="AdvancedSearchComponent_MinBeds" name="AdvancedSearchComponent.MinBeds" type="text" value="0"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        to
+                    </div>
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MaxBeds field is required." id="AdvancedSearchComponent_MaxBeds" name="AdvancedSearchComponent.MaxBeds" type="text" value="11"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        Beds
+                    </div>
+</div>
+<div class="w-100">
+<div class="range-slider" display-id="#spanBedsRange" format="{min} - {max} Beds" max="9" max-format="{min}+ Beds" max-input-id="AdvancedSearchComponent_MaxBeds" min="0" min-input-id="AdvancedSearchComponent_MinBeds" readonly="" step="1" type="text"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mb-5 advanced-search-only">
+<div class="col">
+<label class="sc-subtitle" for="MinBaths">Bathrooms</label>
+<div class="px-5" name="baths-slider">
+<div class="text-center mb-3 d-flex justify-content-center">
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MinBaths field is required." id="AdvancedSearchComponent_MinBaths" name="AdvancedSearchComponent.MinBaths" type="text" value="0"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        to
+                    </div>
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MaxBaths field is required." id="AdvancedSearchComponent_MaxBaths" name="AdvancedSearchComponent.MaxBaths" type="text" value="11"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        Baths
+                    </div>
+</div>
+<div class="w-100">
+<div class="range-slider" display-id="#spanBathsRange" format="{min} - {max} Baths" max="9" max-format="{min}+ Baths" max-input-id="AdvancedSearchComponent_MaxBaths" min="0" min-input-id="AdvancedSearchComponent_MinBaths" readonly="" step="1" type="text"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mb-5 advanced-search-only">
+<div class="col">
+<label class="sc-subtitle" for="MinGarages">Car Spaces</label>
+<div class="px-5" name="garage-slider">
+<div class="text-center mb-3 d-flex justify-content-center">
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MinCars field is required." id="AdvancedSearchComponent_MinCars" name="AdvancedSearchComponent.MinCars" type="text" value="0"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        to
+                    </div>
+<div class="input-group" style="max-width: 200px; width: 130px;">
+<input class="form-control search-input-text" data-val="true" data-val-required="The MaxCars field is required." id="AdvancedSearchComponent_MaxCars" name="AdvancedSearchComponent.MaxCars" type="text" value="11"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        Cars
+                    </div>
+</div>
+<div class="w-100">
+<div class="range-slider" display-id="#spanGarageRange" format="{min} - {max} Cars" max="9" max-format="{min}+ Cars" max-input-id="AdvancedSearchComponent_MaxCars" min="0" min-input-id="AdvancedSearchComponent_MinCars" readonly="" step="1" type="text"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mb-5">
+<div class="col">
+<label class="sc-subtitle" for="price-slider">Price Range</label>
+<div class="px-5" name="price-slider">
+<div class="text-center mb-3 d-flex justify-content-center">
+<div class="input-group price-input-region" style="max-width: 200px;">
+<span class="input-group-text price-input-prefix" style="min-width: 20px;">$</span>
+<input class="form-control price-input-box search-input-text" data-val="true" data-val-required="The MinPrice field is required." id="AdvancedSearchComponent_MinPrice" name="AdvancedSearchComponent.MinPrice" type="text" value="0"/>
+</div>
+<div class="mx-3" style="line-height:40px">
+                        to
+                    </div>
+<div class="input-group price-input-region" style="max-width: 200px">
+<span class="input-group-text price-input-prefix" style="min-width: 20px;">$</span>
+<input class="form-control price-input-box search-input-text" data-val="true" data-val-required="The MaxPrice field is required." id="AdvancedSearchComponent_MaxPrice" name="AdvancedSearchComponent.MaxPrice" type="text" value="2000"/>
+</div>
+</div>
+<div class="w-100">
+<div class="range-slider" display-id="#spanPriceRange" format="${min} - ${max}" max="2000" max-format="${min}+" max-input-id="AdvancedSearchComponent_MaxPrice" min="0" min-input-id="AdvancedSearchComponent_MinPrice" readonly="" step="25" type="text"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="row mb-5">
+<div class="col w-50">
+<label class="sc-subtitle" for="">When would you like to move in?</label>
+<div class="input-group">
+<select asp-for-="AdvancedSearchComponent.MoveInBy" class="form-select" id="AdvancedSearchComponent_MoveInBy" name="AdvancedSearchComponent.MoveInBy" on-not-value="SearchResults.MoveInDateControls.Hide()" on-when-value="SearchResults.MoveInDateControls.Show()" when-value="AfterDate,BeforeDate">
+<option selected="selected" value="Now">Now</option>
+<option value="BeforeDate">Before Date</option>
+<option value="AfterDate">After Date</option>
+<option value="NoDate">Just Browsing</option>
+</select>
+</div>
+</div>
+<div class="col w-50">
+<div id="divMoveInDate" style="display: none">
+<label class="sc-subtitle" for="">Date: </label>
+<div class="input-group input-date">
+<input class="form-control text-center" id="AdvancedSearchComponent_MoveInDate" name="AdvancedSearchComponent.MoveInDate" placeholder="dd/mm/yyyy" type="datepicker" value=""/>
+</div>
+<div class="error-text">
+<span class="field-validation-valid" data-valmsg-for="AdvancedSearchComponent.MoveInDate" data-valmsg-replace="true"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="row advanced-search-only">
+<div class="col mb-3">
+<label class="sc-subtitle" for="">Features</label>
+<div class="icon-selector-list" group="b996bbf9-1ef0-4d56-9fb2-375ee557069e">
+<div class="icon-selector-list-item" group="b996bbf9-1ef0-4d56-9fb2-375ee557069e" id="list-item-0" item-selected="false">
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_0__Value" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[0].Value" type="hidden" value="1"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_0__IconName" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[0].IconName" type="hidden" value="fas fa-couch"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_0__Text" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[0].Text" type="hidden" value="Furnished"/>
+<input altvalue="1" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyFeatureOptions_Items_0__Selected" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[0].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-couch fa-3x">
+</span>
+</div>
+<div>
+                    Furnished
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="b996bbf9-1ef0-4d56-9fb2-375ee557069e" id="list-item-1" item-selected="false">
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_1__Value" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[1].Value" type="hidden" value="2"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_1__IconName" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[1].IconName" type="hidden" value="fas fa-paw"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_1__Text" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[1].Text" type="hidden" value="Pets Allowed"/>
+<input altvalue="2" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyFeatureOptions_Items_1__Selected" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[1].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-paw fa-3x">
+</span>
+</div>
+<div>
+                    Pets Allowed
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="b996bbf9-1ef0-4d56-9fb2-375ee557069e" id="list-item-2" item-selected="false">
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_2__Value" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[2].Value" type="hidden" value="3"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_2__IconName" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[2].IconName" type="hidden" value="fas fa-swimming-pool"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_2__Text" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[2].Text" type="hidden" value="Pool"/>
+<input altvalue="3" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyFeatureOptions_Items_2__Selected" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[2].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-swimming-pool fa-3x">
+</span>
+</div>
+<div>
+                    Pool
+                </div>
+</div>
+</div>
+<div class="icon-selector-list-item" group="b996bbf9-1ef0-4d56-9fb2-375ee557069e" id="list-item-3" item-selected="false">
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_3__Value" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[3].Value" type="hidden" value="4"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_3__IconName" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[3].IconName" type="hidden" value="fas fa-bath"/>
+<input id="AdvancedSearchComponent_PropertyFeatureOptions_Items_3__Text" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[3].Text" type="hidden" value="Bath Tub"/>
+<input altvalue="4" data-val="true" data-val-required="The Selected field is required." id="AdvancedSearchComponent_PropertyFeatureOptions_Items_3__Selected" name="AdvancedSearchComponent.PropertyFeatureOptions.Items[3].Selected" type="checkbox" value="true"/>
+<div class="text-center">
+<div>
+<span class="fas fa-bath fa-3x">
+</span>
+</div>
+<div>
+                    Bath Tub
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    (function() {
+        function reloadBadges() {
+            $('#3e32bbc9-09fe-4649-a7d0-866aef39f10c').empty();
+            AddressBadge.BuildBadgesFromJSON(
+                $('#SearchBarSuburbsJson').val(),
+                '#3e32bbc9-09fe-4649-a7d0-866aef39f10c',
+                'input.search-23301104',
+                false
+            );
+        }
+
+        window.addEventListener('load', (event) => reloadBadges());
+    })()
+</script>
+</div>
+</div>
+<div class="footer shadow">
+<div>
+<button class="btn btn-primary" onclick="SearchHistoryLocalStorageProvider.AddToHistory(SearchCardBinder.GetSearchJson());" type="submit">Search</button>
+</div>
+</div>
+</div>
+</div>
+</off-canvas>
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8DkQpP5CzylIh-lZ5NpDnKyQNjpWiimLQFwsmNcue6FLXTrCvORN-jgfMI-oOSCf6wZz2_xB-p6UC0c0ZGGCn9gxsHz933v8gM8VOA58Aq2-cs0wursBXerQZmJMJzKg2vfb2_vHmTUOptpDTfYNN7s"/><input name="AdvancedSearchComponent.SearchSurroundingSuburbs" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyCategoryOptions.Items[0].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyCategoryOptions.Items[1].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyCategoryOptions.Items[2].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyCategoryOptions.Items[3].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyFeatureOptions.Items[0].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyFeatureOptions.Items[1].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyFeatureOptions.Items[2].Selected" type="hidden" value="false"/><input name="AdvancedSearchComponent.PropertyFeatureOptions.Items[3].Selected" type="hidden" value="false"/></form>
+<off-canvas>
+<div aria-labelledby="Filters" class="offcanvas bottomActionBar" id="InspectionBottomBar" tabindex="-1">
+<div class="offcanvas-header">
+<button aria-label="Close" class="btn-close text-reset" data-bs-dismiss="offcanvas" type="button"></button>
+</div>
+<div class="offcanvas-body">
+<div class="d-flex justify-content-center">
+<div class="listing-bottom-bar w-100" id="inspectionDiv"></div>
+</div>
+</div>
+</div>
+</off-canvas>
+</main>
+</section>
+<div class="w-100 contextual-links-footer">
+<div class="container-xl px-3">
+<div class="row pb-2">
+<div class="col fs-2 fw-bold text-secondary">
+                    Still looking for a rental? We've got you covered!
+                    </div>
+</div>
+<div class="row pb-5">
+<div class="col fs-3 fw-bold">
+                    Browse by...
+                    </div>
+</div>
+<div class="row">
+<div class="col-lg-4 context-links-group text-truncate mb-3">
+<h4 class="pb-3">Surrounding Suburbs</h4>
+<a href="/Rentals/properties-in-docklands-vic-3008">Rental Properties in Docklands</a>
+<a href="/Rentals/properties-in-east-melbourne-vic-3002">Rental Properties in East Melbourne</a>
+<a href="/Rentals/properties-in-footscray-vic-3011">Rental Properties in Footscray</a>
+<a href="/Rentals/properties-in-melbourne-vic-3000">Rental Properties in Melbourne</a>
+<a href="/Rentals/properties-in-seddon-vic-3011">Rental Properties in Seddon</a>
+<a href="/Rentals/properties-in-south-wharf-vic-3006">Rental Properties in South Wharf</a>
+<a href="/Rentals/properties-in-southbank-vic-3006">Rental Properties in Southbank</a>
+<a href="/Rentals/properties-in-st-kilda-road-central-vic-3004">Rental Properties in St Kilda Road Central</a>
+<a href="/Rentals/properties-in-west-melbourne-vic-3003">Rental Properties in West Melbourne</a>
+<a href="/Rentals/properties-in-world-trade-centre-vic-3005">Rental Properties in World Trade Centre</a>
+</div>
+<div class="col-lg-4 context-links-group text-truncate mb-3">
+<h4 class="pb-3">State</h4>
+<a href="/Rentals/act-rental-properties">ACT rental properties</a>
+<a href="/Rentals/nsw-rental-properties">NSW rental properties</a>
+<a href="/Rentals/nt-rental-properties">NT rental properties</a>
+<a href="/Rentals/qld-rental-properties">QLD rental properties</a>
+<a href="/Rentals/sa-rental-properties">SA rental properties</a>
+<a href="/Rentals/tas-rental-properties">TAS rental properties</a>
+<a href="/Rentals/vic-rental-properties">VIC rental properties</a>
+<a href="/Rentals/wa-rental-properties">WA rental properties</a>
+</div>
+<div class="col-lg-4 context-links-group text-truncate mb-3">
+<h4 class="pb-3">Capital Cities</h4>
+<a href="/Rentals/properties-in-adelaide-sa-5000">Rental Properties in Adelaide</a>
+<a href="/Rentals/properties-in-brisbane-qld-4000">Rental Properties in Brisbane</a>
+<a href="/Rentals/properties-in-canberra-act-2601">Rental Properties in Canberra</a>
+<a href="/Rentals/properties-in-darwin-nt-0801">Rental Properties in Darwin</a>
+<a href="/Rentals/properties-in-hobart-tas-7000">Rental Properties in Hobart</a>
+<a href="/Rentals/properties-in-melbourne-vic-3000">Rental Properties in Melbourne</a>
+<a href="/Rentals/properties-in-perth-wa-6000">Rental Properties in Perth</a>
+<a href="/Rentals/properties-in-sydney-nsw-2000">Rental Properties in Sydney</a>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer text-muted">
+<div class="container-fluid footer-wrapper">
+<div class="container-lg footer-container">
+<div class="row footer-links mt-5">
+<div class="col-12 d-md-flex justify-content-between">
+<div class="row">
+<div class="col-12">
+<div class="row">
+<div class="col-12 p-3">
+<img alt="TenantApp - The dedicated rentals app" class="img-fluid" src="/assets/img/ta_logo.svg" title=""/>
+</div>
+</div>
+<div class="row">
+<div class="d-flex">
+<div class="p-2">
+<a href="https://apps.apple.com/app/apple-store/id1211567474" target="_blank">
+<img src="/assets/img/download_app_store.svg" width="120"/>
+</a>
+</div>
+<div class="p-2">
+<a href="https://play.google.com/store/apps/details?id=com.ire.tenantapp&amp;referrer=utm_source%3DWebsite%26utm_medium%3Dwebsite%26utm_campaign%3DBottom-links-sml" target="_blank">
+<img src="/assets/img/google_play_badge.svg" width="120"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex my-3 my-md-auto py-3">
+<div class="d-none d-sm-block px-3">
+<h4>Company</h4>
+<a href="https://agent.inspectrealestate.com.au/about-us/" target="_blank">About Us</a>
+<a href="https://info.tenantapp.com.au/#contact" target="_blank">Contact TenantApp</a>
+</div>
+<div class="px-3">
+<h4>Tenants</h4>
+<a href="/Rentals">Search</a>
+<a href="/Rentals/Accounts/Profile">Profile</a>
+<a href="/Rentals/Accounts/UserActivity">Property Tracker</a>
+<a href="https://2apply.com.au/" target="_blank">Applications</a>
+<a href="https://movemein.com.au/" target="_blank">Connect your utilities</a>
+</div>
+<div class="px-3">
+<h4>Agents</h4>
+<a href="https://info.tenantapp.com.au/#agent" target="_blank">Advertise on TenantApp</a>
+<a href="https://agent.inspectrealestate.com.au/contact-us/" target="_blank">Agent Help</a>
+</div>
+</div>
+</div>
+</div>
+<hr/>
+<div class="row footer-legal pb-5">
+<div class="col-12 d-sm-flex justify-content-between align-items-center w-100 py-sm-2">
+<div class="d-flex">
+<div class="p-3">
+<a href="https://www.facebook.com/TenantApp.com.au/" target="_blank">
+<svg fill="none" height="39" viewbox="0 0 39 39" width="39" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#D26329" height="39" rx="19.5" width="39"></rect>
+<path clip-rule="evenodd" d="M17.5507 27V19.4994H16V16.9146H17.5507V15.3626C17.5507 13.2539 18.4264 12 20.9142 12H22.9853V14.5851H21.6907C20.7223 14.5851 20.6582 14.9464 20.6582 15.6205L20.6547 16.9143H23L22.7256 19.4991H20.6547V27H17.5507Z" fill="white" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+<div class="p-3">
+<a href="https://twitter.com/tenantapp" target="_blank">
+<svg fill="none" height="39" viewbox="0 0 39 39" width="39" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#D26329" height="39" rx="19.5" width="39"></rect>
+<path d="m 16.526,26.000344 c 6.038,0 9.341,-5.003 9.341,-9.334 0,-0.14 0,-0.282 -0.006,-0.422 a 6.685,6.685 0 0 0 1.639,-1.702 6.658,6.658 0 0 1 -1.889,0.518 3.301,3.301 0 0 0 1.447,-1.817 6.533,6.533 0 0 1 -2.087,0.793 3.286,3.286 0 0 0 -5.596,2.994 9.325,9.325 0 0 1 -6.767,-3.429 3.289,3.289 0 0 0 1.018,4.382 3.323,3.323 0 0 1 -1.486,-0.408 v 0.045 a 3.288,3.288 0 0 0 2.632,3.218 3.203,3.203 0 0 1 -0.865,0.115 3.23,3.23 0 0 1 -0.614,-0.057 3.283,3.283 0 0 0 3.067,2.277 6.588,6.588 0 0 1 -4.08,1.407 6.32,6.32 0 0 1 -0.78,-0.045 9.344,9.344 0 0 0 5.026,1.465 z" fill="white"></path>
+</svg>
+</a>
+</div>
+<div class="p-3">
+<a href="https://www.instagram.com/tenantapp/" target="_blank">
+<svg fill="none" height="39" viewbox="0 0 39 39" width="39" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#D26329" height="39" rx="19.5" width="39"></rect>
+<g clip-path="url(#clip0)">
+<path d="M20.0028 17.3323C18.5309 17.3323 17.3381 18.5251 17.3381 19.9969C17.3381 21.4688 18.53 22.6615 20.0028 22.6615C21.4756 22.6615 22.6681 21.4688 22.6675 19.9969C22.6675 18.5251 21.4747 17.3323 20.0028 17.3323Z" fill="white"></path>
+<path d="M27.9488 16.7018C27.817 13.8931 26.3095 12.19 23.2982 12.0513C21.8263 11.9825 18.1801 11.9859 16.707 12.0513C15.4123 12.1119 14.2704 12.4244 13.3495 13.3453C11.811 14.8837 12.0076 16.9571 12.0076 19.9977C12.0076 23.1095 11.8342 25.1348 13.3495 26.6503C14.8942 28.1944 16.9976 27.9922 20.0023 27.9922C23.0851 27.9922 24.1488 27.9941 25.2388 27.5722C26.7207 26.9969 27.8395 25.6722 27.9488 23.2929C28.0182 21.8204 28.0142 18.1752 27.9488 16.7018ZM20.0023 24.1029C17.7357 24.1029 15.897 22.2664 15.897 19.9977C15.897 17.7311 17.7335 15.8924 20.0023 15.8924C22.2688 15.8924 24.1076 17.729 24.1076 19.9977C24.1076 22.2642 22.271 24.1029 20.0023 24.1029ZM24.2704 16.6899C23.7407 16.6899 23.311 16.2606 23.311 15.7306C23.311 15.2006 23.7404 14.7712 24.2704 14.7712C24.8001 14.7712 25.2298 15.2006 25.2298 15.7306C25.2298 16.2606 24.8001 16.6899 24.2704 16.6899Z" fill="white"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect fill="white" height="16" transform="translate(12 12)" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+</div>
+</div>
+<div class="d-flex">
+<div class="p-3">
+<a href="https://app.inspectrealestate.com.au/Legal/Legal.aspx?type=privacy&amp;logo=true">Privacy</a>
+</div>
+<div class="p-3">
+<a href="https://app.inspectrealestate.com.au/Legal/Legal.aspx?type=websiteterms&amp;logo=true">Terms of Use</a>
+</div>
+</div>
+<div class="d-flex">
+<div class="p-3">
+                                © InspectRealEstate 2022
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<div aria-hidden="false" aria-labelledby="LoginModal" class="modal fade" id="LoginModal" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header border-bottom-0">
+<button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+</div>
+<div class="modal-body">
+<div class="container-fluid" id="loginFormContainer">
+<input data-val="true" data-val-required="The QuickLogin field is required." id="QuickLogin" name="QuickLogin" type="hidden" value="True"/>
+<input id="EarlyBird" name="EarlyBird" type="hidden"/>
+<input id="OnSignInComplete" name="OnSignInComplete" type="hidden" value="Reload"/>
+<input id="DetailsRequired" name="DetailsRequired" type="hidden" value="False"/>
+<input id="InvalidCode" name="InvalidCode" type="hidden"/>
+<input id="SignupStep" name="SignupStep" type="hidden" value="Unknown"/>
+<input id="CompleteUrlRoute" name="CompleteUrlRoute" type="hidden"/>
+<div class="container-fluid">
+<div class="container-fluid container-lg">
+<div class="row" style="max-width: 600px; margin: auto;">
+<div class="col-12 justify-content-center align-items-center">
+<form action="/Rentals/Accounts/GetCode" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#loginFormContainer" id="formLoginStep1" method="post">
+<div class="card login-card">
+<div class="card-body container">
+<div class="row">
+<div class="col d-flex justify-content-center align-items-center">
+<div>
+<img height="100" src="/assets/img/icons/ta_icon.svg" width="100"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col text-center">
+<span class="subtitle-lg">Let's get to know you!</span>
+</div>
+</div>
+<div class="row mb-5">
+<div class="col text-center">
+<span class="subtitle-lg-descriptor">Enter your mobile phone number to sign in or create an account</span>
+</div>
+</div>
+<div class="row" onload="Utilities.FocusOnIdWhenVisible('LoginMobile', 150)">
+<div class="col">
+<div class="input-group" style="max-width: 250px; margin: auto;">
+<input autocomplete="on" class="form-control text-center" id="LoginMobile" name="LoginMobile" placeholder="" type="text">
+<script type="text/javascript">
+    (function () {
+        function attachOnSubmit() {
+            $("#LoginMobile").keydown(function (e) {
+                if (e.which === 13) {
+e.preventDefault();
+                    e.stopPropagation();                    LoginForm.SubmitStep(1);
+                    $(this).triggerHandler('change');
+                    $(this).triggerHandler('keyup');
+                    $(this).triggerHandler('blur');
+                }
+            });
+        }
+        if (document.readyState === 'complete') {
+            attachOnSubmit();
+        } else {
+            window.addEventListener('load', (event) => attachOnSubmit());
+        }
+    })()
+</script>
+</input></div>
+</div>
+</div>
+<div class="row">
+<div class="col error-text">
+<span class="field-validation-valid" data-valmsg-for="LoginMobile" data-valmsg-replace="true"></span>
+<span class="field-validation-valid" data-valmsg-for="ReCaptchaToken" data-valmsg-replace="true"></span>
+</div>
+</div>
+<div class="row" style="margin-top: 20px; font-size: 80%;">
+<div class="col text-center">
+<p>
+<a aria-controls="collapsePICS" aria-expanded="false" data-bs-toggle="collapse" href="#collapsePICS" role="button"> Personal Information Collection Statement </a>
+<br/>
+<div class="collapse" id="collapsePICS">
+<div style="text-align: justify;">
+                                                        We collect and use your personal information to personalise your experience, to provide our services to you and to send you updates.
+                                                        For more information about how we handle your personal information, how to access your personal information or how to submit a complaint, please refer to our
+                                                        <a href="https://app.inspectrealestate.com.au/Legal/Legal.aspx?type=privacy&amp;logo=true" target="_blank"> Privacy Policy.</a>
+</div>
+<br>
+<div style="text-align: justify;">
+                                                        This site is protected by reCAPTCHA and the Google
+                                                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                                                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                                                    </div>
+</br></div>
+</p>
+</div>
+</div>
+<div class="row mt-5">
+<div class="col text-center">
+<button class="btn btn-lg btn-primary show-loading step-btn" disabled-class="disabled" disabled-until-valid="Mobile" id="btnGetCode" onclick="reCAPTCHA.SubmitClosestFormWithRecaptcha($('#btnGetCode'), 'ReCaptchaToken'); return false;" step-id="1" type="button">
+                                                Get Code
+                                            </button>
+</div>
+</div>
+</div>
+</div>
+<input id="ReCaptchaToken" name="ReCaptchaToken" type="hidden" value="">
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8DkQpP5CzylIh-lZ5NpDnKyQNjpWiimLQFwsmNcue6FLXTrCvORN-jgfMI-oOSCf6wZz2_xB-p6UC0c0ZGGCn9gxsHz933v8gM8VOA58Aq2-cs0wursBXerQZmJMJzKg2vfb2_vHmTUOptpDTfYNN7s"/></input></form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="divToastContainer">
+<div aria-atomic="true" aria-live="assertive" class="toast toast-template" role="alert">
+<div class="toast-header bg-primary text-light">
+<h5 class="my-0" id="toastTitle"></h5>
+</div>
+<div class="toast-body" id="toastBody">
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script>
+                if (document.getElementById('divSearchBar')) {
+            document.querySelector('header .navbar').classList.remove('shadow-sm');
+        }
+    </script>
+<script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.15/dist/js/BsMultiSelect.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBss_dJw7ReghS2HyZjgxUCGsJnDu72e3A&amp;libraries=places,geometry"></script>
+<script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js" type="text/javascript"></script>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/3f44501179.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf7rKchAAAAAEcNJGxhGbrOTC02hmozpay9-Qpf"></script>
+<script src="/js/Utilities/Utilities.js?v=1jPMUmyPr2JRkSCv-rNRIzieSYL5nngQ45TTobA_mdc"></script>
+<script src="/js/Utilities/JQueryExtensions.js?v=NK-s1a7O5GhhDXQ2HnCdhpV3jrh-l1RylumoyBCGUiw"></script>
+<script src="/js/Constants/Constants.js?v=4slgpyeVwSr5v3G-WDiDHc5hkUww_eqjpJzlHchTclw"></script>
+<script src="/js/Pages/HomePage.js?v=3k7wGIvX87inXNrWChggZQRp-hasIt4GGa6xgFfSlsQ"></script>
+<script src="/js/Pages/SearchResults.js?v=s4ULtUxu8ROmDOALCI2ZwuH8zsvAKx482Ljkgh4uVZs"></script>
+<script src="/js/Pages/Profile.js?v=Fxg1xXT1jMz39NEiZq-3_kfBIztCklZEjugD0ZJ_7po"></script>
+<script src="/js/Pages/SetupEarly.js?v=AYgsZJ8x-vCmUqdv7_MXFfGAwSpXh0A-xg-LOCEvol8"></script>
+<script src="/js/Services/TimeZoneInitialiser.js?v=fDQg3AEAIkaOQT9Tg36gMg2mYUpJetq71P-bgXsJJgI"></script>
+<script src="/js/Services/UXKeyboardControls.js?v=3GF1JuBbjV4NdZzNYXOra_KC1dzTNNlPbGKs0TNu2O0"></script>
+<script src="/js/Services/ElasticSearchAutocomplete.js?v=SlB4FCclVZTSQVMy5RbElQPOKXadvsCm2o8Vz1pYzq0"></script>
+<script src="/js/Services/AddressBadge.js?v=0QcA_LPZrADIonFjmlFj6sJ8PXFkGl4P78g3OEZQp9I"></script>
+<script src="/js/Services/ModalControls.js?v=SwXAk7sN9r0WfCSsSG7gsGCR93OMqNuYNy5KO0yz76c"></script>
+<script src="/js/Services/DynamicAjaxActionBinder.js?v=CO9MkIjq3yNvGkvXR3kvnnPOF8s6a6DW2jO1w6Xr9hE"></script>
+<script src="/js/Services/DeferedImageLoader.js?v=gnL_O3SRUgRaQMJQxZXosUICKccE6GTTM0oBZC_ZDMY"></script>
+<script src="/js/Services/OffCanvasControl.js?v=ZyL4ywDW6LLLkXlVBFshfZoD7kE6kRUrO_P4cfK-Hp4"></script>
+<script src="/js/Services/ToastControls.js?v=LzN9KrOXSZaBVQx_EF6NuukklTE5ioDKcu5G3y2OOIU"></script>
+<script src="/js/Services/RouteBuilder.js?v=OOJ_c0lDiDVY9im_0xS1I-RkBGg9Ec15cvIvGxowTuY"></script>
+<script src="/js/Services/ReCaptcha.js?v=h7DKz418XVCOWfV1jB2DFeAt77qNyCeOFl0iPwjoGkw"></script>
+<script src="/js/Services/VariableCache.js?v=wMwelKmbltqJ0LG6EIRa4RJ-nhr_xrxPUdrhqRgbGDA"></script>
+<script src="/js/Services/LocalStorage/StorageProvider.js?v=BPMmJN6LJeM4j1e6kx2NEavF3H52pRgSg9uqt80rVRo"></script>
+<script src="/js/Services/LocalStorage/SearchHistoryStorageProvider.js?v=L18kHH_5CPrXgqh4Hi1JQAupaN8Cifm3GRBztAq4AcI"></script>
+<script src="/js/Services/LocalStorage/RecommendationTestSettings.js?v=qk7x3EHX3GmVd1KBnxKrTUu5JoFkrDQ5qwDJdRp0e9I"></script>
+<script src="/js/Components/SearchHistoryBinder.js?v=EHkxDm8A_zZvGpFd0o-LA6Yn9rbYkkQja0V5Z6zRfCI"></script>
+<script src="/js/Services/LocalStorage/RecommendationsStorageProvider.js?v=Dw3OW1O5gKz2aLOWB_fKV9nMuk5wvwvb7LKavwElht4"></script>
+<script src="/js/Components/IconCheckBoxListBinder.js?v=q9DAXflle37gu3zUImmJGUhNzYOfOFIVR66t33hFoco"></script>
+<script src="/js/Components/RangeSliderBinder.js?v=KB2T9FC7cn0zwchBH2FEe4eEVM_uLmvp-lj6tluaWCY"></script>
+<script src="/js/Components/LoginForm.js?v=wh1Rz6zOvcGfMmMZSyA2ZMgmEcLfLkH_aMVZKv42P9g"></script>
+<script src="/js/Components/BasicValidationBinder.js?v=HbcNxsox0Cm0EI6OV_9U8guLDCk-vWup_CFvfsHayH0"></script>
+<script src="/js/Components/LoaderBinder.js?v=vCXLav6ExpJaK5ot4moV8lvGXPnU2eQfAy-T-WdnOeY"></script>
+<script src="/js/Components/NavbarBinder.js?v=a4BLBY1RCNgqHwqeiFRWM2i-I87mbgxlvIaL94WWEyg"></script>
+<script src="/js/Components/ComboTextboxBinder.js?v=pyWLcX6XnbGDTmKYbt40yjpI7gVEURyNtj3cw5vFlOo"></script>
+<script src="/js/Components/MultiSelectorBinder.js?v=Drr-xw3dSsHmgTnf3uZoExidatKs9gGyDu_kjQ8XZoA"></script>
+<script src="/js/Components/SearchBarBinder.js?v=jHaVPqS-Zr0CURQ3MG0oP52_GNaEOA43AlIsWhK1fGE"></script>
+<script src="/js/Components/AutoPostbackBinder.js?v=cNstsWStMEahns3-3AJJ1n1U7tfEVDdTUClZBpTwZy4"></script>
+<script src="/js/Components/SortBinder.js?v=LxGqB8Ogz7v1JoUEhp9kTzIKwD6halYHVKcZNWIoaps"></script>
+<script src="/js/Components/MapResultsBinder.js?v=xfxK7ZvTFuQhFA2gUfNlYPq5zAWPbHmBirn8UNj9oa8"></script>
+<script src="/js/Components/ToggleButtonBinder.js?v=rd-MvA3nRGCoVU-ONVbqO4Iu4woh0fZhW0prnHUw5R8"></script>
+<script src="/js/Components/SelectAndShowBinder.js?v=myOTdmUvtuEg5JRvYKsz5_Z2YUisSetA_9Y2AmOl1zg"></script>
+<script src="/js/Components/DateTimeBinder.js?v=ZKPHKawn-xf0iT9-uDU1eEnOwJoSA5-E25ibODfU2fQ"></script>
+<script src="/js/Components/ClassToggleBinder.js?v=k3iuF-SesQa9yrkIQbFpQJJcPQ3w0cItlbfX4CRIRfs"></script>
+<script src="/js/Components/VisibilityToggleBinder.js?v=WsZRbgWXfiaPkh6o9dqreadUapi7gUOhGtuep6zdgnI"></script>
+<script src="/js/Components/DropDownWhenValueBinder.js?v=yjtYiEs6ng7YlQ3ki67mFPpllf7QLEKmA6MXi3-0NhI"></script>
+<script src="/js/Components/TextToggleBinder.js?v=f-1v3uBwRoDEuc3O_KFofYM8k3L76Ak4n0g2Dwjjxko"></script>
+<script src="/js/Components/InputSyncer.js?v=FXhRhryx6v9iJTuPtNLv5mRp4XhadLBXTa4SDqenILc"></script>
+<script src="/js/Components/ShowWhenBinder.js?v=Rkl3OtDqep_sh54vmfSmKeO1ko-6o_QxWEO9RdQigEc"></script>
+<script src="/js/Components/VerticalTabMenuBinder.js?v=yx7pSpDPaxEhcziTufEdSB8sqA38A5rvQzHFP86nODg"></script>
+<script src="/js/Components/ScrollerButtonsBinder.js?v=DH2XsHhWo-bEsgB8g06Z8bz6eFe9lQEvxj2f6-4uf2Q"></script>
+<script src="/js/Components/DisabledUntilBinder.js?v=fpU8gZtvuIIvuJjHywTfDnStEQ30Q4jJ-sBnrQIT6ZU"></script>
+<script src="/js/Components/ActivityGridBinder.js?v=ky0prY04-or0xF8NlWiALnVKDZwFakrpLYSdMTDe6oM"></script>
+<script src="/js/Components/InspectionsBinder.js?v=PyoQyGTY83Gxvd_BtImajm7S3mqtAa4UFgvzYtzqtYs"></script>
+<script src="/js/Components/StarRatingBinder.js?v=LgdthhjcLzApNZ6OnXm4SJkFb9vmG-OitJ7cNGPH1JA"></script>
+<script src="/js/Components/RequiredIfValidator.js?v=E73FgO5X2nvPQpNn4h6QGLvwYweQB_GcIHeinjdI4NI"></script>
+<script src="/js/Components/AgentColourContrastBinder.js?v=wvF8_tdRRg5VX39qaDmEPmlIqEv83mClTU9_cOBz2Fw"></script>
+<script src="/js/Components/RecommendationsBinder.js?v=U34nbCBQfi6l9Z_i_mg7xYUahCvKy4aIWvSUc79V6wU"></script>
+<script src="/js/Components/ResponsiveTextboxBinder.js?v=xS5j8hAY1f-sXB4g_lZUzDuZ-Dp3Y-tGBg7uxWySyew"></script>
+<script src="/js/Components/PartialComponents/SearchCardBinder.js?v=-BL02CEjOJaUvQ4pIMZtJ-bxqPFoQJuxvKqdKZAowRc"></script>
+<script src="/js/Components/PartialComponents/PropertyCard.js?v=dRA396l4xJEep4Mi3j35MhYV5-iaX0NeGz7gXYxjQY0"></script>
+<script src="/js/Components/PartialComponents/InspectionSchedule.js?v=1ZST7HlWttWaN5CHEvTZdFTTONGK6eehx54LWeVGNeI"></script>
+<script src="/js/Components/PartialComponents/BookInspection.js?v=VIvwhVJx61a5ZaQ4sQ9gsulnoSpdP6-am-06qOcmKsk"></script>
+<script src="/js/Components/PartialComponents/RequestInspection.js?v=v1vUuOl6zLGkmbbuJFJep5A9jOMESgKIX24E1NoFkjc"></script>
+<script src="/js/Components/PartialComponents/Pager.js?v=qXuwY6h-tqAME56f3THIQH7Y0pvIUogrXathnh-rP7g"></script>
+<script src="/lib/bootstrap-select/dist/js/bootstrap-select.js?v=4zmDXCCvZlR1gNk-c_6xyq69Usbzsx3NLuPH-A2Mefo"></script>
+<script src="/js/mvc-grid/mvc-grid.js"></script>
+<script src="/js/site.js?v=zA2SR7bsiohYkTnYMpZr2-J6S4ahhEHr90wK9qMwQXc"></script>
+<script>
+        $(document).ready(function() {
+            SearchBar.Bind();
+            SearchResults.Bind();
+            SearchBar.BindPriceRangeSelectors('#SearchComponent_MinPrice', '#SearchComponent_MaxPrice');
+            SearchCardBinder.SetSearchMode(Constants.SearchMode.Advanced);
+            SearchBar.ExpandLocationSelector();
+            $("#location-search").keydown(function (e) {
+                if (Utilities.IsNavigationKey(e.key)) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                } else if (e.key === "Backspace" &&
+                    $("#location-search input.location-search").val().length === 0 &&
+                    document.querySelector('.' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')) &&
+                    document.querySelector('.' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')).children.length
+                ) {
+                    AddressBadge.RemoveLocation(
+                        document.querySelector('.' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e')).children.length - 1,
+                        '.2d4801f9-c9fc-4184-83ab-1b674423f48e',
+                        "#location-search input.location-search"
+                    )
+                }
+            });
+            $("#location-search").keyup(function (e) {
+                if (Utilities.IsNavigationKey(e.key)) {
+                    UXKeys.InputKeysHandler(this, e);
+                } else {
+                    document.querySelector(".search-location-results").classList.remove('shut');
+                    FetchAutocompleteSuggestions(
+                        'input.location-search',
+                        '#location-search .search-location-results',
+                        '.' + CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e'),
+                        true,
+                        function () {
+                            $('#SearchCardSuburbsJson').val($('#SearchBarSuburbsJson').val());
+                            reloadBadgesAdvanced();
+                        }
+                    );
+                }
+            });
+
+            function reloadBadgesAdvanced() {
+                let badgeContainerSelector = "#" + CSS.escape(
+                    document.querySelector('.offcanvas-body .divLocationBadge').id
+                );
+                let adInputSelector = ".offcanvas-body .location-search";
+                $(badgeContainerSelector).empty();
+                AddressBadge.BuildBadgesFromJSON(
+                    $('#SearchBarSuburbsJson').val(),
+                    badgeContainerSelector,
+                    adInputSelector,
+                    false
+                );
+            }
+            function reloadBadgesListings() {
+                $('.2d4801f9-c9fc-4184-83ab-1b674423f48e').empty();
+                AddressBadge.BuildBadgesFromJSON(
+                    $('#SearchBarSuburbsJson').val(),
+                    '#location-search .'+CSS.escape('2d4801f9-c9fc-4184-83ab-1b674423f48e'),
+                    'input.location-search',
+                    true
+                );
+            }
+            window.reloadBadgesListings = reloadBadgesListings;
+            reloadBadgesAdvanced();
+            reloadBadgesListings();
+
+            let sc = document.querySelector('#searchResultsContainer');
+            if (sc) {
+                var observer = new MutationObserver(function (mutations) {
+                    reloadBadgesListings();
+                });
+
+                observer.observe(sc, {
+                    attributes: true,
+                    childList: true,
+                    characterData: true
+                });
+            }
+
+            let sbe = document.querySelector("."+CSS.escape("2d4801f9-c9fc-4184-83ab-1b674423f48e"));
+            if (sbe) {
+                var observer = new MutationObserver(function (mutations) {
+                    if (!$('html').hasClass('mutating')) {
+                        $('html').addClass('mutating');
+                        $('#SearchCardSuburbsJson').val($('#SearchBarSuburbsJson').val());
+                        reloadBadgesAdvanced();
+                        setTimeout(function(){$('html').removeClass('mutating');}, 250);
+                    }
+                });
+
+                observer.observe(sbe, {
+                    childList: true
+                });
+            }
+
+            let advBadgeContainerSelector = "#" + CSS.escape(
+                document.querySelector('.offcanvas-body .divLocationBadge').id
+            );
+            let abe = document.querySelector(advBadgeContainerSelector);
+            if (abe) {
+                var observer = new MutationObserver(function (mutations) {
+                    if (!$('html').hasClass('mutating')) {
+                        $('html').addClass('mutating');
+                        $('#SearchBarSuburbsJson').val($('#SearchCardSuburbsJson').val());
+                        reloadBadgesListings();
+                        setTimeout(function () { $('html').removeClass('mutating'); }, 250);
+                    }
+                });
+
+                observer.observe(abe, {
+                    childList: true
+                });
+            }
+        });
+    </script>
+<script src="/js/ready.js?v=P1lmJiYPqSYyB0jsyZweYv98qCW6xmj17z4l9ovA2ao"></script>
+<script>
+        reCAPTCHA.SetSiteKey('6Lf7rKchAAAAAEcNJGxhGbrOTC02hmozpay9-Qpf');
+    </script>
+</body>
+</html>
