@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 from itertools import cycle
 
-from constants import DEFAULT_USER_AGENT
+from .constants import DEFAULT_USER_AGENT
 
 # Rotate user agent https://www.scrapehero.com/how-to-fake-and-rotate-user-agents-using-python-3/
 # Rotate IP address and user agent https://medium.com/geekculture/rotate-ip-address-and-user-agent-to-scrape-data-a010216c8d0c

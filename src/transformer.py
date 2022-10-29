@@ -115,7 +115,7 @@ class Transformer:
             PROPERTY_DETAIL_HTML_ATTRS['listing_description'][TAG_NAME],
             PROPERTY_DETAIL_HTML_ATTRS['listing_description'][ATTRIBUTE_NAME],
             PROPERTY_DETAIL_HTML_ATTRS['listing_description'][ATTRIBUTE_VALUE],
-            listing)
+            listing).replace("\n", "\\n")  # https://datascience.stackexchange.com/a/81361
 
     def get_property_features(self, listing: BeautifulSoup) -> List[str]:
         parent_tag: BeautifulSoup = self.extractor.get_single_tag_with_attrs(

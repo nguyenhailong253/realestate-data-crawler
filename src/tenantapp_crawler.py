@@ -12,8 +12,6 @@ from src.common.constants import BASE_URL, STATES_URI
 from src.common.user_agent_rotator import get_random_user_agent
 
 
-
-
 class TenantAppCrawler:
     def __init__(self) -> None:
         self.rental_properties = []
@@ -69,7 +67,7 @@ class TenantAppCrawler:
             detail_page_html)
         result['ad_details_included'] = True
         result['ad_removed_date'] = None
-        result['ad_posted_date'] = None
+        result['ad_posted_date'] = result['data_collection_date']
 
         print('just a test, agent name {0}'.format(
             result['agent_name']))
@@ -95,7 +93,7 @@ class TenantAppCrawler:
 
         print("All done, converting to CSV file")
         df = pd.DataFrame(self.rental_properties)
-        df.to_csv('tas-results.csv', encoding='utf-8', index=True)
+        df.to_csv('vic-results.csv', encoding='utf-8', index=True)
 
     def construct_url_with_pagination(self, state_uri) -> str:
         url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
@@ -114,10 +112,19 @@ class TenantAppCrawler:
 
     def request_html_from_url(self, url: str) -> BeautifulSoup:
         print("Sending GET request to {0}".format(url))
-        user_agent: dict[str, str] = get_random_user_agent()
-        response = requests.get(url, timeout=10, headers=user_agent)
-        print("Got response from {0} in {1} seconds".format(
-            url, response.elapsed.total_seconds()))
+        attempt = 0
+        while attempt != 10:
+            try:
+                user_agent: dict[str, str] = get_random_user_agent()
+                response = requests.get(url, timeout=10, headers=user_agent)
+                print("Got response from {0} in {1} seconds".format(
+                    url, response.elapsed.total_seconds()))
+                break
+            except Exception as e:
+                print(
+                    "Attempt #{0} failed with exception {1}".format(attempt, e))
+                attempt += 1
+
         return BeautifulSoup(response.content, "html.parser")
 
 
