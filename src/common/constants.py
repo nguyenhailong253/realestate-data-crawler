@@ -1,14 +1,14 @@
 BASE_URL: str = 'https://tenantapp.com.au'
 
 STATES_URI: list[str] = [
+    'wa-rental-properties',
+    'act-rental-properties',
+    'sa-rental-properties',
+    'tas-rental-properties',
+    'qld-rental-properties',
+    'nsw-rental-properties',
     'vic-rental-properties',
-    # 'nsw-rental-properties',
-    # 'qld-rental-properties',
-    # 'wa-rental-properties',
-    # 'act-rental-properties',
-    # 'sa-rental-properties',
-    # 'tas-rental-properties',
-    # 'nt-rental-properties'
+    'nt-rental-properties'
 ]
 
 PROPERTIES_PER_PAGE: int = 10

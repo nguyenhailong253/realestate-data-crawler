@@ -16,12 +16,12 @@ from src.common.user_agent_rotator import get_random_user_agent
 
 
 class TenantAppCrawler:
-    def __init__(self) -> None:
+    def __init__(self, db: PropertyDatabase = None) -> None:
         self.rental_properties = []
-        self.database = PropertyDatabase(isCsv=True)
+        self.database = db
 
     def collect_info_from_list_page(self, transformer: Transformer, listing: BeautifulSoup) -> PropertyListing:
-        data = PropertyListing()
+        data: PropertyListing = PropertyListing()
         data.address = transformer.get_address(listing)
         data.price = transformer.get_price(listing)
         data.agency_property_listings_url = transformer.get_agency_property_listings_url(
@@ -79,23 +79,29 @@ class TenantAppCrawler:
                 len(property_listings), state_uri))
 
             for listing in property_listings:
-                data = self.collect_info_from_list_page(transformer, listing)
+                try:
+                    data: PropertyListing = self.collect_info_from_list_page(
+                        transformer, listing)
 
-                detail_page_html: BeautifulSoup = self.request_html_from_url(
-                    data.property_url)
+                    detail_page_html: BeautifulSoup = self.request_html_from_url(
+                        data.property_url)
 
-                if detail_page_html is None:
-                    data.ad_details_included = False
-                else:
-                    data = self.collect_info_from_detail_page(
-                        transformer,
-                        detail_page_html,
-                        data)
+                    if detail_page_html is None:
+                        data.ad_details_included = False
+                    else:
+                        data = self.collect_info_from_detail_page(
+                            transformer,
+                            detail_page_html,
+                            data)
 
-                self.rental_properties.append(data)
-
-        print("All done, converting to CSV file")
-        self.database.save(self.rental_properties)
+                    self.database.save_single(data)
+                    self.rental_properties.append(data)
+                except Exception as e:
+                    print("Error when collecting data: {0}".format(e))
+            print("=========== DONE FOR {0} =============".format(state_uri))
+            self.database.save_to_csv(self.rental_properties, state_uri)
+            self.rental_properties = []
+        print("All done, saving to CSV files")
 
     def construct_url_with_pagination(self, state_uri: str) -> str:
         url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
@@ -115,7 +121,7 @@ class TenantAppCrawler:
     def request_html_from_url(self, url: str) -> BeautifulSoup:
         print("Sending GET request to {0}".format(url))
         attempt = 0
-        while attempt != 10:
+        while attempt != 15:
             try:
                 user_agent: dict[str, str] = get_random_user_agent()
                 response = requests.get(url, timeout=10, headers=user_agent)
@@ -132,5 +138,8 @@ class TenantAppCrawler:
 
 
 if __name__ == "__main__":
-    crawler = TenantAppCrawler()
+    database = PropertyDatabase()
+    crawler = TenantAppCrawler(db=database)
     crawler.run(STATES_URI)
+    # db = PropertyDatabase()
+    # print(db.select())
