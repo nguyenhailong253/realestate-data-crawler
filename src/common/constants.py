@@ -55,12 +55,17 @@ PROPERTY_DETAIL_HTML_ATTRS: dict[str, str] = {
     'beds_baths_garages': {
         TAG_NAME: 'div',
         ATTRIBUTE_NAME: 'class',
-        ATTRIBUTE_VALUE: 'beds-baths-cars',
+        ATTRIBUTE_VALUE: 'property-summary-details',
     },
     'beds_baths_garages_subtags': {
         TAG_NAME: 'span',
         ATTRIBUTE_NAME: 'class',
         ATTRIBUTE_VALUE: 'd-inline-block',
+    },
+    'property_href': {
+        TAG_NAME: 'div',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'card-footer',
     },
     'move_in_date': {
         TAG_NAME: 'span',

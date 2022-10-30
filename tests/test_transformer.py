@@ -62,21 +62,21 @@ def test_get_property_images_whenUseCorrectHtmlTag_shouldReturnCorrectListOfImag
 
 def test_get_beds_baths_garages_whenUseCorrectHtmlTag_shouldReturnCorrectNumbers():
     beds_baths_garages: List[str] = transformer.get_beds_baths_garages(
+        SINGLE_PROPERTY_PAGE_HTML)
+    assert beds_baths_garages == ['3', '1', '0']
+
+
+def test_get_property_id__whenUseCorrectHtmlTag_shouldReturnCorrectId():
+    property_id: str = transformer.get_property_id(
         SINGLE_PROPERTY_CARD_HTML)
-    assert beds_baths_garages == ['4', '1', '4']
+    assert property_id == '3811184'
 
 
-# These tests are not working, for some reasons we can't access attribute of a HTML tag
+def test_get_property_url__whenUseCorrectHtmlTag_shouldReturnCorrectUrl():
+    property_url: str = transformer.get_property_url(
+        SINGLE_PROPERTY_CARD_HTML)
+    assert property_url == 'https://tenantapp.com.au/Rentals/ViewListing/3811184'
 
-# def test_get_property_id__whenUseCorrectHtmlTag_shouldReturnCorrectId():
-#     property_id: str = transformer.get_property_id(
-#         SINGLE_PROPERTY_CARD_HTML)
-#     assert property_id == '3811184'
-
-# def test_get_property_url__whenUseCorrectHtmlTag_shouldReturnCorrectUrl():
-#     property_url: str = transformer.get_property_url(
-#         SINGLE_PROPERTY_CARD_HTML)
-#     assert property_url == 'https://tenantapp.com.au/Rentals/ViewListing/3811184'
 
 def test_get_move_in_date_whenUseCorrectHtmlTag_shouldReturnCorrectDate():
     move_in_date: str = transformer.get_move_in_date(
@@ -114,10 +114,10 @@ def test_get_suburb_whenUseCorrectHtmlTag_shouldReturnCorrectSuburb():
     assert suburb == 'RHYLL'
 
 
-def test_get_state_whenUseCorrectHtmlTag_shouldReturnCorrectState():
-    state: str = transformer.get_state(
+def test_get_state_and_territory_whenUseCorrectHtmlTag_shouldReturnCorrectState():
+    state_and_territory: str = transformer.get_state_and_territory(
         SINGLE_PROPERTY_PAGE_HTML)
-    assert state == 'VIC'
+    assert state_and_territory == 'VIC'
 
 
 def test_get_postcode_whenUseCorrectHtmlTag_shouldReturnCorrectPostcode():
