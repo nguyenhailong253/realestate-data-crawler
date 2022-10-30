@@ -31,15 +31,11 @@ class PropertyDatabase:
             'propertylistings', self.metadata, autoload=True, autoload_with=self.dbEngine)
         return realestate_table
 
-    def select(self) -> None:
+    def select_all(self) -> None:
         return self.conn.execute(select([self.table])).fetchall()
 
-    # def get_new_db_session(self) -> Session:
-    #     session = sessionmaker(bind=self.dbEngine)
-    #     return session()
-
-    # def close_db_session(self, session: sessionmaker) -> None:
-    #     session.close()
+    def select_single(self, property_id: str):
+        pass
 
     def save_bulk(self, data: List[PropertyListing]) -> None:
         data_type_to_dict = [vars(listing) for listing in data]
@@ -48,6 +44,8 @@ class PropertyDatabase:
         self.conn.execute(query, data_type_to_dict)
 
     def save_single(self, data: PropertyListing) -> None:
+        # MAYBE if self.select_single() return non-empty, and off_market is false and ad_removed is null, skip
+        # else: insert
         data_type_to_dict = vars(data)
         query = insert(self.table).values(data_type_to_dict)
         self.conn.execute(query)

@@ -83,6 +83,9 @@ class TenantAppCrawler:
                     data: PropertyListing = self.collect_info_from_list_page(
                         transformer, listing)
 
+                    # check if property_id exist and offmarket is false and ad_removed is null, then skip
+                    # else proceed
+
                     detail_page_html: BeautifulSoup = self.request_html_from_url(
                         data.property_url)
 
