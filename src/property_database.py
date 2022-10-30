@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from sqlalchemy import create_engine, MetaData, Table, insert, select
+from sqlalchemy import create_engine, MetaData, Table, insert, select, and_
 from sqlalchemy.orm import sessionmaker, Session
 
 from typing import List
@@ -32,10 +32,13 @@ class PropertyDatabase:
         return realestate_table
 
     def select_all(self) -> None:
+        # results = [{**row} for row in item]  # https://stackoverflow.com/a/56098483
         return self.conn.execute(select([self.table])).fetchall()
 
-    def select_single(self, property_id: str):
-        pass
+    def select_with_same_id(self, property_id: str):
+        query = select([self.table]).where(
+            and_(self.table.columns.property_id == property_id, self.table.columns.off_market == False))
+        return self.conn.execute(query).fetchall()
 
     def save_bulk(self, data: List[PropertyListing]) -> None:
         data_type_to_dict = [vars(listing) for listing in data]
@@ -44,8 +47,6 @@ class PropertyDatabase:
         self.conn.execute(query, data_type_to_dict)
 
     def save_single(self, data: PropertyListing) -> None:
-        # MAYBE if self.select_single() return non-empty, and off_market is false and ad_removed is null, skip
-        # else: insert
         data_type_to_dict = vars(data)
         query = insert(self.table).values(data_type_to_dict)
         self.conn.execute(query)

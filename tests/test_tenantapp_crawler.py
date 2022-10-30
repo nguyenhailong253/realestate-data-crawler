@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from .test_utils import read_html_from_local_file
 from src.transformer import Transformer
+from src.property_database import PropertyDatabase
 from src.tenantapp_crawler import TenantAppCrawler
 from src.property_dataclass import PropertyListing
 from src.input_html_extractor import InputHtmlExtractor
@@ -24,13 +25,20 @@ def create_transformer_with_property_list_html():
     return transformer
 
 
-transformer: Transformer = create_transformer_with_property_list_html()
-crawler: TenantAppCrawler = TenantAppCrawler()
-property_listing_data: PropertyListing = crawler.collect_info_from_list_page(
-    transformer, SINGLE_PROPERTY_CARD_HTML)
+@pytest.fixture
+def setup_helper(mocker):
+    mocker.patch("src.property_database.PropertyDatabase.__init__",
+                 return_value=None)
+    db = PropertyDatabase()
+    transformer: Transformer = create_transformer_with_property_list_html()
+    crawler: TenantAppCrawler = TenantAppCrawler(db=db)
+    property_listing_data: PropertyListing = crawler.collect_info_from_list_page(
+        transformer, SINGLE_PROPERTY_CARD_HTML)
+    return transformer, crawler, property_listing_data
 
 
-def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData():
+def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData(setup_helper):
+    property_listing_data = setup_helper[2]
     assert property_listing_data.address == '10 Trafalgar Street, RHYLL'
     assert property_listing_data.price == '$390pw'
     assert property_listing_data.agency_property_listings_url == 'https://tenantapp.com.au/Rentals/Agency/rwphillipIs'
@@ -42,7 +50,11 @@ def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData():
     assert property_listing_data.data_collection_date is not None
 
 
-def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData():
+def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData(setup_helper):
+    transformer = setup_helper[0]
+    crawler = setup_helper[1]
+    property_listing_data = setup_helper[2]
+
     data: PropertyListing = crawler.collect_info_from_detail_page(
         transformer,
         SINGLE_PROPERTY_PAGE_HTML,
@@ -64,3 +76,19 @@ def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData():
     assert data.ad_details_included is True
     assert data.ad_removed_date is None
     assert data.ad_posted_date is not None
+
+
+def test_is_property_data_existed_whenAtLeastOneEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnTrue(mocker, setup_helper):
+    crawler = setup_helper[1]
+    mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
+                 return_value=['one entry'])
+    existed = crawler.is_property_data_existed('fake_id')
+    assert existed == True
+
+
+def test_is_property_data_existed_whenNoEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnFalse(mocker, setup_helper):
+    crawler = setup_helper[1]
+    mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
+                 return_value=[])
+    existed = crawler.is_property_data_existed('fake_id')
+    assert existed == False

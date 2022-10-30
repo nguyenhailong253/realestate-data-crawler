@@ -16,6 +16,7 @@ setuptools = "*"
 html5lib = "*"
 psycopg2-binary = "*"
 sqlalchemy = "*"
+pytest-mock = "*"
 
 [dev-packages]
 

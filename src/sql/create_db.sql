@@ -1,3 +1,4 @@
+-- Create table
 create table if not exists PropertyListings (
 	id bigserial PRIMARY KEY,
 	address text,
@@ -26,3 +27,25 @@ create table if not exists PropertyListings (
 	ad_posted_date timestamp,
 	data_collection_date timestamp not null
 )
+
+
+-- Select number of distinct states
+SELECT COUNT(DISTINCT state_and_territory) AS states FROM raw.propertylistings
+
+-- Find duplicates
+select max(id), property_id, property_url, count(*) 
+			from raw.propertylistings 
+			group by property_id, property_url having count(*) > 1
+
+-- Delete duplicates
+delete from raw.propertylistings
+	where id in
+	(
+		select max(id)
+			from raw.propertylistings 
+			group by property_id, property_url having count(*) > 1
+
+	)
+
+-- Update a column
+update raw.propertylistings set ad_posted_date = NOW() + INTERVAL '6 day' where id = '...'

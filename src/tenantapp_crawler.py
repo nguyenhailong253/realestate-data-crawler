@@ -14,9 +14,12 @@ from src.input_html_extractor import InputHtmlExtractor
 from src.common.constants import BASE_URL, STATES_URI
 from src.common.user_agent_rotator import get_random_user_agent
 
+MAX_RETRY = 15
+DELAY_TIME = 1
+
 
 class TenantAppCrawler:
-    def __init__(self, db: PropertyDatabase = None) -> None:
+    def __init__(self, db: PropertyDatabase) -> None:
         self.rental_properties = []
         self.database = db
 
@@ -80,11 +83,12 @@ class TenantAppCrawler:
 
             for listing in property_listings:
                 try:
+                    start_time = time.time()
                     data: PropertyListing = self.collect_info_from_list_page(
                         transformer, listing)
 
-                    # check if property_id exist and offmarket is false and ad_removed is null, then skip
-                    # else proceed
+                    if self.is_property_data_existed(data.property_id):
+                        continue
 
                     detail_page_html: BeautifulSoup = self.request_html_from_url(
                         data.property_url)
@@ -99,6 +103,9 @@ class TenantAppCrawler:
 
                     self.database.save_single(data)
                     self.rental_properties.append(data)
+                    end_time = time.time()
+                    print("Scraping one property took: {0} seconds".format(
+                        end_time - start_time))
                 except Exception as e:
                     print("Error when collecting data: {0}".format(e))
             print("=========== DONE FOR {0} =============".format(state_uri))
@@ -124,7 +131,7 @@ class TenantAppCrawler:
     def request_html_from_url(self, url: str) -> BeautifulSoup:
         print("Sending GET request to {0}".format(url))
         attempt = 0
-        while attempt != 15:
+        while attempt != MAX_RETRY:
             try:
                 user_agent: dict[str, str] = get_random_user_agent()
                 response = requests.get(url, timeout=10, headers=user_agent)
@@ -135,14 +142,38 @@ class TenantAppCrawler:
                 print(
                     "Attempt #{0} failed with exception {1}".format(attempt, e))
                 attempt += 1
-                time.sleep(1)
+                time.sleep(DELAY_TIME)
 
         return None if attempt == 10 else BeautifulSoup(response.content, "html.parser")
+
+    def is_property_data_existed(self, property_id: str) -> bool:
+        """Return true if at least 1 entry has same property_id and off_market = false
+
+        A property can be listed and unlisted multiple times
+        e.g Listed in Oct 2022, unlisted in Nov 2022, listed again in Nov 2024, unlisted in Jan 2025
+        We want to capture every time it is listed or unlisted as separate entry in the DB
+
+        The data we find on the website is ALWAYS going to be listed, aka off_market = false
+        So before we insert a new entry to the DB, we need to get ALL entries that have the same 
+        property_id and off_market == false flags.
+
+        At any point in time, there should be ONE and ONLY ONE property_id with off_market = false
+
+        Another background process will check each entry and update off_market flag to true and populate ad_removed_date field later
+
+        if our DB has at least 1 matching entry -> we skip crawling the current property
+
+        Args:
+            property_id (str): id of property on tenantapp.com.au
+
+        Returns:
+            bool: whether our db already has a data entry for this property
+        """
+        existing_rows = self.database.select_with_same_id(property_id)
+        return True if len(existing_rows) > 0 else False
 
 
 if __name__ == "__main__":
     database = PropertyDatabase()
     crawler = TenantAppCrawler(db=database)
     crawler.run(STATES_URI)
-    # db = PropertyDatabase()
-    # print(db.select())
