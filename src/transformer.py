@@ -11,6 +11,7 @@ from src.common.constants import (
     PROPERTY_DETAIL_HTML_ATTRS
 )
 from src.input_html_extractor import InputHtmlExtractor
+from src.property_dataclass import PropertyListing
 
 
 class Transformer:
@@ -205,3 +206,6 @@ class Transformer:
             PROPERTY_DETAIL_HTML_ATTRS['off_market_status'][ATTRIBUTE_VALUE],
             listing)
         return False if not off_market else True
+
+    def get_ad_removed_date(self, data: PropertyListing) -> str:
+        return None if not data.off_market else data.data_collection_date

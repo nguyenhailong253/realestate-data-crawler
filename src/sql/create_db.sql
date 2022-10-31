@@ -49,3 +49,6 @@ delete from raw.propertylistings
 
 -- Update a column
 update raw.propertylistings set ad_posted_date = NOW() + INTERVAL '6 day' where id = '...'
+
+-- Create index for a column
+create index idx_property_id on raw.propertylistings(property_id)

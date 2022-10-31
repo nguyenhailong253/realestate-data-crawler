@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from .test_utils import read_html_from_local_file
 from src.transformer import Transformer
 from src.input_html_extractor import InputHtmlExtractor
+from src.property_dataclass import PropertyListing
 
 
 SINGLE_PROPERTY_CARD_HTML: BeautifulSoup = read_html_from_local_file(
@@ -136,3 +137,19 @@ def test_get_off_market_status_whenUseCorrectHtmlTag_shouldReturnCorrectStatus()
     off_market: bool = transformer.get_off_market_status(
         SINGLE_PROPERTY_PAGE_HTML)
     assert off_market == False
+
+
+def test_get_ad_removed_date_whenNotOffMarket_shouldReturnNone():
+    fake_data = PropertyListing()
+    fake_data.off_market = False
+    fake_data.data_collection_date = '31-10-2022'
+    ad_removed_date: str = transformer.get_ad_removed_date(fake_data)
+    assert ad_removed_date is None
+
+
+def test_get_ad_removed_date_whenOffMarket_shouldReturnDataCollectionDate():
+    fake_data = PropertyListing()
+    fake_data.off_market = True
+    fake_data.data_collection_date = '31-10-2022'
+    ad_removed_date: str = transformer.get_ad_removed_date(fake_data)
+    assert ad_removed_date == '31-10-2022'

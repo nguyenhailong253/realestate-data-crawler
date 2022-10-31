@@ -50,8 +50,8 @@ class TenantAppCrawler:
         Returns:
             PropertyListing: data object with more info from the detailed page
         """
-        print('Scraping address {0}'.format(data.address))
-        print('Start scraping Detail url {0}...'.format(
+        print('\nScraping address {0}'.format(data.address))
+        print('Start scraping Detail url {0}...\n'.format(
             data.property_url))
 
         data.listing_title = transformer.get_listing_title(detail_page_html)
@@ -73,7 +73,7 @@ class TenantAppCrawler:
         data.agent_name = transformer.get_agent_name(detail_page_html)
         data.off_market = transformer.get_off_market_status(detail_page_html)
         data.ad_details_included = True
-        data.ad_removed_date = None
+        data.ad_removed_date = transformer.get_ad_removed_date(data)
         data.ad_posted_date = data.data_collection_date
 
         return data
@@ -150,6 +150,8 @@ class TenantAppCrawler:
                     transformer, listing)
 
                 if self.is_property_data_existed(data.property_id):
+                    print("\nData already existed: {0}\n".format(
+                        data.property_id))
                     continue
 
                 # Send a request to the detailed page of the current listing
@@ -164,7 +166,7 @@ class TenantAppCrawler:
 
                     self.database.save_single(data)
                 end_time = time.time()
-                print("Scraping one property took in total: {0} seconds".format(
+                print("Scraping one property took in total: {0} seconds\n\n".format(
                     end_time - start_time))
             except Exception as e:
                 print("Error when collecting data: {0}".format(e))
@@ -179,7 +181,7 @@ class TenantAppCrawler:
         Returns:
             BeautifulSoup: html content of the page
         """
-        print("Sending GET request to {0}".format(url))
+        print("\nSending GET request to {0}".format(url))
         attempt = 0
         while attempt != MAX_RETRY:
             try:
@@ -231,7 +233,7 @@ class TenantAppCrawler:
             print("Num of properties {0}".format(
                 extractor.get_num_properties()))
             num_pages = extractor.get_num_pages()
-            print("Num of pages {0}".format(num_pages))
+            print("Num of pages {0}\n\n".format(num_pages))
 
             url: str = "{0}/Rentals/{1}?page={2}#List".format(
                 BASE_URL, state_uri, num_pages)
@@ -253,13 +255,13 @@ class TenantAppCrawler:
                 InputHtmlExtractor(self.request_html_from_url(url)))
             property_listings: List[BeautifulSoup] = transformer.get_all_properties(
             )
-            print("There are {0} properties in {1}".format(
+            print("There are {0} properties in {1}\n\n".format(
                 len(property_listings), state_uri))
 
             self.collect_data_for_all_properties(
                 property_listings, transformer)
 
-            print("======= All done for {0}!!! ======".format(state_uri))
+            print("======= All done for {0}!!! ======\n".format(state_uri))
             # self.gateway.shutdown()
             return True
         except Exception as e:
