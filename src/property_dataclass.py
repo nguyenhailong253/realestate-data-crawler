@@ -29,3 +29,7 @@ class PropertyListing:
     ad_removed_date: str
     ad_posted_date: str
     data_collection_date: str
+
+    def __post_init__(self):
+        if self.ad_details_included is None:
+            self.ad_details_included = False

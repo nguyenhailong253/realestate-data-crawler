@@ -71,6 +71,35 @@ class TenantAppCrawler:
 
         return data
 
+    def collect_data_for_all_properties(
+            self,
+            property_listings: List[BeautifulSoup],
+            transformer: Transformer) -> None:
+        for listing in property_listings:
+            try:
+                start_time = time.time()
+                data: PropertyListing = self.collect_info_from_list_page(
+                    transformer, listing)
+
+                if self.is_property_data_existed(data.property_id):
+                    continue
+
+                detail_page_html: BeautifulSoup = self.request_html_from_url(
+                    data.property_url)
+
+                if detail_page_html is not None:
+                    data = self.collect_info_from_detail_page(
+                        transformer,
+                        detail_page_html,
+                        data)
+
+                    self.database.save_single(data)
+                end_time = time.time()
+                print("Scraping one property took: {0} seconds".format(
+                    end_time - start_time))
+            except Exception as e:
+                print("Error when collecting data: {0}".format(e))
+
     def run(self, states_uris: List[str]) -> None:
         for state_uri in states_uris:
             url: str = self.construct_url_with_pagination(state_uri)
@@ -81,37 +110,11 @@ class TenantAppCrawler:
             print("There are {0} properties in {1}".format(
                 len(property_listings), state_uri))
 
-            for listing in property_listings:
-                try:
-                    start_time = time.time()
-                    data: PropertyListing = self.collect_info_from_list_page(
-                        transformer, listing)
+            self.collect_data_for_all_properties(
+                property_listings, transformer)
 
-                    if self.is_property_data_existed(data.property_id):
-                        continue
-
-                    detail_page_html: BeautifulSoup = self.request_html_from_url(
-                        data.property_url)
-
-                    if detail_page_html is None:
-                        data.ad_details_included = False
-                    else:
-                        data = self.collect_info_from_detail_page(
-                            transformer,
-                            detail_page_html,
-                            data)
-
-                    self.database.save_single(data)
-                    self.rental_properties.append(data)
-                    end_time = time.time()
-                    print("Scraping one property took: {0} seconds".format(
-                        end_time - start_time))
-                except Exception as e:
-                    print("Error when collecting data: {0}".format(e))
             print("=========== DONE FOR {0} =============".format(state_uri))
-            self.database.save_to_csv(self.rental_properties, state_uri)
-            self.rental_properties = []
-        print("All done, saving to CSV files")
+        print("All done!!!")
 
     def construct_url_with_pagination(self, state_uri: str) -> str:
         url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
@@ -137,14 +140,14 @@ class TenantAppCrawler:
                 response = requests.get(url, timeout=10, headers=user_agent)
                 print("Got response from {0} in {1} seconds".format(
                     url, response.elapsed.total_seconds()))
-                break
+                return BeautifulSoup(response.content, "html.parser")
             except Exception as e:
                 print(
                     "Attempt #{0} failed with exception {1}".format(attempt, e))
                 attempt += 1
                 time.sleep(DELAY_TIME)
 
-        return None if attempt == 10 else BeautifulSoup(response.content, "html.parser")
+        return None
 
     def is_property_data_existed(self, property_id: str) -> bool:
         """Return true if at least 1 entry has same property_id and off_market = false

@@ -51,9 +51,9 @@ def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData(setup
 
 
 def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData(setup_helper):
-    transformer = setup_helper[0]
-    crawler = setup_helper[1]
-    property_listing_data = setup_helper[2]
+    transformer: Transformer = setup_helper[0]
+    crawler: TenantAppCrawler = setup_helper[1]
+    property_listing_data: PropertyListing = setup_helper[2]
 
     data: PropertyListing = crawler.collect_info_from_detail_page(
         transformer,
@@ -78,17 +78,85 @@ def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData(set
     assert data.ad_posted_date is not None
 
 
+def test_collect_data_for_all_properties_whenListingExisted_shouldNotSaveToDb(mocker, setup_helper):
+    transformer: Transformer = setup_helper[0]
+    crawler: TenantAppCrawler = setup_helper[1]
+    property_listings: List[PropertyListing] = [SINGLE_PROPERTY_CARD_HTML]
+
+    fake_listing: PropertyListing = PropertyListing()
+    fake_listing.property_id = 'test'
+
+    mocker.patch("src.tenantapp_crawler.TenantAppCrawler.collect_info_from_list_page",
+                 return_value=fake_listing)
+    mock_is_data_existed = mocker.patch("src.tenantapp_crawler.TenantAppCrawler.is_property_data_existed",
+                                        return_value=True)
+    mock_request_html_from_url = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.request_html_from_url', return_value=SINGLE_PROPERTY_PAGE_HTML)
+    mock_collect_info_from_detail_page = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.collect_info_from_detail_page')
+    mock_save_single = mocker.patch(
+        'src.property_database.PropertyDatabase.save_single')
+    crawler.collect_data_for_all_properties(property_listings, transformer)
+
+    assert mock_is_data_existed.call_count == 1
+    assert mock_request_html_from_url.call_count == 0
+    assert mock_collect_info_from_detail_page.call_count == 0
+    assert mock_save_single.call_count == 0
+
+
+def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageIsLoaded_shouldSaveToDb(mocker, setup_helper):
+    transformer: Transformer = setup_helper[0]
+    crawler: TenantAppCrawler = setup_helper[1]
+    property_listings: List[PropertyListing] = [SINGLE_PROPERTY_CARD_HTML]
+
+    mock_is_data_existed = mocker.patch("src.tenantapp_crawler.TenantAppCrawler.is_property_data_existed",
+                                        return_value=False)
+    mock_request_html_from_url = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.request_html_from_url', return_value=SINGLE_PROPERTY_PAGE_HTML)
+    mock_collect_info_from_detail_page = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.collect_info_from_detail_page')
+    mock_save_single = mocker.patch(
+        'src.property_database.PropertyDatabase.save_single')
+    crawler.collect_data_for_all_properties(property_listings, transformer)
+
+    assert mock_is_data_existed.call_count == 1
+    assert mock_request_html_from_url.call_count == 1
+    assert mock_collect_info_from_detail_page.call_count == 1
+    assert mock_save_single.call_count == 1
+
+
+def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageFailsToLoad_shouldNotSaveToDb(mocker, setup_helper):
+    transformer: Transformer = setup_helper[0]
+    crawler: TenantAppCrawler = setup_helper[1]
+    property_listings: List[PropertyListing] = [SINGLE_PROPERTY_CARD_HTML]
+
+    mock_is_data_existed = mocker.patch("src.tenantapp_crawler.TenantAppCrawler.is_property_data_existed",
+                                        return_value=False)
+    mock_request_html_from_url = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.request_html_from_url', return_value=None)
+    mock_collect_info_from_detail_page = mocker.patch(
+        'src.tenantapp_crawler.TenantAppCrawler.collect_info_from_detail_page')
+    mock_save_single = mocker.patch(
+        'src.property_database.PropertyDatabase.save_single')
+    crawler.collect_data_for_all_properties(property_listings, transformer)
+
+    assert mock_is_data_existed.call_count == 1
+    assert mock_request_html_from_url.call_count == 1
+    assert mock_collect_info_from_detail_page.call_count == 0
+    assert mock_save_single.call_count == 0
+
+
 def test_is_property_data_existed_whenAtLeastOneEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnTrue(mocker, setup_helper):
-    crawler = setup_helper[1]
+    crawler: TenantAppCrawler = setup_helper[1]
     mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
                  return_value=['one entry'])
-    existed = crawler.is_property_data_existed('fake_id')
+    existed: bool = crawler.is_property_data_existed('fake_id')
     assert existed == True
 
 
 def test_is_property_data_existed_whenNoEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnFalse(mocker, setup_helper):
-    crawler = setup_helper[1]
+    crawler: TenantAppCrawler = setup_helper[1]
     mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
                  return_value=[])
-    existed = crawler.is_property_data_existed('fake_id')
+    existed: bool = crawler.is_property_data_existed('fake_id')
     assert existed == False
