@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import math
@@ -9,6 +10,7 @@ import pandas as pd
 
 from typing import List
 from bs4 import BeautifulSoup
+from requests_ip_rotator import ApiGateway, EXTRA_REGIONS
 from src.property_database import PropertyDatabase
 from src.transformer import Transformer
 from src.property_dataclass import PropertyListing
@@ -19,10 +21,19 @@ from src.common.user_agent_rotator import get_random_user_agent
 MAX_RETRY = 15
 DELAY_TIME = 1
 
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 
 class TenantAppCrawler:
     def __init__(self, db: PropertyDatabase) -> None:
         self.database = db
+
+        # This code snippet below is for using requests_ip_rotator library
+        # self.gateway = ApiGateway(BASE_URL, regions=EXTRA_REGIONS)
+        # self.gateway.start()
+        # self.session = requests.Session()
+        # self.session.mount(BASE_URL, self.gateway)
 
     def collect_info_from_detail_page(
             self,
@@ -40,7 +51,7 @@ class TenantAppCrawler:
             PropertyListing: data object with more info from the detailed page
         """
         print('Scraping address {0}'.format(data.address))
-        print('Start scriping Detail url {0}...'.format(
+        print('Start scraping Detail url {0}...'.format(
             data.property_url))
 
         data.listing_title = transformer.get_listing_title(detail_page_html)
@@ -173,7 +184,15 @@ class TenantAppCrawler:
         while attempt != MAX_RETRY:
             try:
                 user_agent: dict[str, str] = get_random_user_agent()
-                response = requests.get(url, timeout=10, headers=user_agent)
+                response = requests.get(url, timeout=15, headers=user_agent)
+
+                # This code snippet below is for using requests_ip_rotator library
+                # response = self.session.get(url, headers=user_agent)
+                # print("Session: {0}".format(self.session))
+                # print("Response: {0}".format(response))
+                # if response.status_code != 200:
+                #     continue
+
                 print("Got response from {0} in {1} seconds".format(
                     url, response.elapsed.total_seconds()))
                 return BeautifulSoup(response.content, "html.parser")
@@ -205,17 +224,19 @@ class TenantAppCrawler:
         """
         url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
         html: BeautifulSoup = self.request_html_from_url(url)
-        extractor: InputHtmlExtractor = InputHtmlExtractor(html)
+        if html is not None:
+            extractor: InputHtmlExtractor = InputHtmlExtractor(html)
 
-        print("URL: {0}".format(url))
-        print("Num of properties {0}".format(
-            extractor.get_num_properties()))
-        num_pages = extractor.get_num_pages()
-        print("Num of pages {0}".format(num_pages))
+            print("URL: {0}".format(url))
+            print("Num of properties {0}".format(
+                extractor.get_num_properties()))
+            num_pages = extractor.get_num_pages()
+            print("Num of pages {0}".format(num_pages))
 
-        url: str = "{0}/Rentals/{1}?page={2}#List".format(
-            BASE_URL, state_uri, num_pages)
-        return url
+            url: str = "{0}/Rentals/{1}?page={2}#List".format(
+                BASE_URL, state_uri, num_pages)
+            return url
+        return None
 
     def run(self, state_uri: str) -> bool:
         """Run the crawler for tenantapp.com.au for each state in Australia.
@@ -239,9 +260,11 @@ class TenantAppCrawler:
                 property_listings, transformer)
 
             print("======= All done for {0}!!! ======".format(state_uri))
+            # self.gateway.shutdown()
             return True
         except Exception as e:
             print("System crashed! Error: {0}".format(e))
+            # self.gateway.shutdown()
             return False
 
 

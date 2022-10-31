@@ -6,7 +6,8 @@ from itertools import cycle
 
 from constants import DEFAULT_USER_AGENT
 
-# Rotate proxies https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/
+# https://stackoverflow.com/questions/55872164/how-to-rotate-proxies-on-a-python-requests
+# https://github.com/Ge0rg3/requests-ip-rotator
 
 FILE_NAME = "proxies.csv"
 
