@@ -1,15 +1,15 @@
 BASE_URL: str = 'https://tenantapp.com.au'
 
-STATES_URI: list[str] = [
-    'wa-rental-properties',
-    'act-rental-properties',
-    'sa-rental-properties',
-    'tas-rental-properties',
-    'qld-rental-properties',
-    'nsw-rental-properties',
-    'vic-rental-properties',
-    'nt-rental-properties'
-]
+STATES_URI: dict[str, str] = {
+    'wa': 'wa-rental-properties',
+    'act': 'act-rental-properties',
+    'sa': 'sa-rental-properties',
+    'tas': 'tas-rental-properties',
+    'qld': 'qld-rental-properties',
+    'nsw': 'nsw-rental-properties',
+    'vic': 'vic-rental-properties',
+    'nt': 'nt-rental-properties'
+}
 
 PROPERTIES_PER_PAGE: int = 10
 

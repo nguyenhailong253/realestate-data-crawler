@@ -11,6 +11,9 @@ from src.tenantapp_crawler import TenantAppCrawler
 from src.property_dataclass import PropertyListing
 from src.input_html_extractor import InputHtmlExtractor
 
+# Ref: using mock in pytest https://medium.com/analytics-vidhya/how-to-use-pytest-mock-to-simulate-responses-1ea41e964161
+# https://blogs.sap.com/2022/02/16/how-to-write-independent-unit-test-with-pytest-and-mock-techniques/
+
 SINGLE_PROPERTY_CARD_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/single_property_card.html')
 SINGLE_PROPERTY_PAGE_HTML: BeautifulSoup = read_html_from_local_file(

@@ -1,8 +1,10 @@
+import sys
 import json
 import math
 import time
 import random
 import requests
+import argparse
 import pandas as pd
 
 from typing import List
@@ -20,29 +22,23 @@ DELAY_TIME = 1
 
 class TenantAppCrawler:
     def __init__(self, db: PropertyDatabase) -> None:
-        self.rental_properties = []
         self.database = db
-
-    def collect_info_from_list_page(self, transformer: Transformer, listing: BeautifulSoup) -> PropertyListing:
-        data: PropertyListing = PropertyListing()
-        data.address = transformer.get_address(listing)
-        data.price = transformer.get_price(listing)
-        data.agency_property_listings_url = transformer.get_agency_property_listings_url(
-            listing)
-        data.agency_logo = transformer.get_agency_logo(listing)
-        data.property_images = transformer.get_property_images(listing)
-        data.property_url = transformer.get_property_url(listing)
-        data.property_id = transformer.get_property_id(listing)
-        data.move_in_date = transformer.get_move_in_date(listing)
-        data.data_collection_date = transformer.get_current_date()
-
-        return data
 
     def collect_info_from_detail_page(
             self,
             transformer: Transformer,
             detail_page_html: BeautifulSoup,
             data: PropertyListing) -> PropertyListing:
+        """Collect detailed info on the listing's dedicated page
+
+        Args:
+            transformer (Transformer): _description_
+            detail_page_html (BeautifulSoup): html of the listing's page
+            data (PropertyListing): data object holding general info from previous method
+
+        Returns:
+            PropertyListing: data object with more info from the detailed page
+        """
         print('Scraping address {0}'.format(data.address))
         print('Start scriping Detail url {0}...'.format(
             data.property_url))
@@ -71,84 +67,6 @@ class TenantAppCrawler:
 
         return data
 
-    def collect_data_for_all_properties(
-            self,
-            property_listings: List[BeautifulSoup],
-            transformer: Transformer) -> None:
-        for listing in property_listings:
-            try:
-                start_time = time.time()
-                data: PropertyListing = self.collect_info_from_list_page(
-                    transformer, listing)
-
-                if self.is_property_data_existed(data.property_id):
-                    continue
-
-                detail_page_html: BeautifulSoup = self.request_html_from_url(
-                    data.property_url)
-
-                if detail_page_html is not None:
-                    data = self.collect_info_from_detail_page(
-                        transformer,
-                        detail_page_html,
-                        data)
-
-                    self.database.save_single(data)
-                end_time = time.time()
-                print("Scraping one property took: {0} seconds".format(
-                    end_time - start_time))
-            except Exception as e:
-                print("Error when collecting data: {0}".format(e))
-
-    def run(self, states_uris: List[str]) -> None:
-        for state_uri in states_uris:
-            url: str = self.construct_url_with_pagination(state_uri)
-            transformer: Transformer = Transformer(
-                InputHtmlExtractor(self.request_html_from_url(url)))
-            property_listings: List[BeautifulSoup] = transformer.get_all_properties(
-            )
-            print("There are {0} properties in {1}".format(
-                len(property_listings), state_uri))
-
-            self.collect_data_for_all_properties(
-                property_listings, transformer)
-
-            print("=========== DONE FOR {0} =============".format(state_uri))
-        print("All done!!!")
-
-    def construct_url_with_pagination(self, state_uri: str) -> str:
-        url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
-        html: BeautifulSoup = self.request_html_from_url(url)
-        property_list_extractor: InputHtmlExtractor = InputHtmlExtractor(html)
-
-        print("URL: {0}".format(url))
-        print("Num of properties {0}".format(
-            property_list_extractor.get_num_properties()))
-        num_pages = property_list_extractor.get_num_pages()
-        print("Num of pages {0}".format(num_pages))
-
-        url: str = "{0}/Rentals/{1}?page={2}#List".format(
-            BASE_URL, state_uri, num_pages)
-        return url
-
-    def request_html_from_url(self, url: str) -> BeautifulSoup:
-        print("Sending GET request to {0}".format(url))
-        attempt = 0
-        while attempt != MAX_RETRY:
-            try:
-                user_agent: dict[str, str] = get_random_user_agent()
-                response = requests.get(url, timeout=10, headers=user_agent)
-                print("Got response from {0} in {1} seconds".format(
-                    url, response.elapsed.total_seconds()))
-                return BeautifulSoup(response.content, "html.parser")
-            except Exception as e:
-                print(
-                    "Attempt #{0} failed with exception {1}".format(attempt, e))
-                attempt += 1
-                time.sleep(DELAY_TIME)
-
-        return None
-
     def is_property_data_existed(self, property_id: str) -> bool:
         """Return true if at least 1 entry has same property_id and off_market = false
 
@@ -175,8 +93,180 @@ class TenantAppCrawler:
         existing_rows = self.database.select_with_same_id(property_id)
         return True if len(existing_rows) > 0 else False
 
+    def collect_info_from_list_page(self, transformer: Transformer, listing: BeautifulSoup) -> PropertyListing:
+        """Collect the most basic info related to a listing.
+        An important item is the property_url, which is the link to the detail
+        page for each individual listing. This will be used later for collection
+        of more detailed info
+
+        Args:
+            transformer (Transformer): _description_
+            listing (BeautifulSoup): html for general info of a single listing
+
+        Returns:
+            PropertyListing: _description_
+        """
+        data: PropertyListing = PropertyListing()
+
+        data.address = transformer.get_address(listing)
+        data.price = transformer.get_price(listing)
+        data.agency_property_listings_url = transformer.get_agency_property_listings_url(
+            listing)
+        data.agency_logo = transformer.get_agency_logo(listing)
+        data.property_images = transformer.get_property_images(listing)
+        data.property_url = transformer.get_property_url(listing)
+        data.property_id = transformer.get_property_id(listing)
+        data.move_in_date = transformer.get_move_in_date(listing)
+        data.data_collection_date = transformer.get_current_date()
+
+        return data
+
+    def collect_data_for_all_properties(
+            self,
+            property_listings: List[BeautifulSoup],
+            transformer: Transformer) -> None:
+        """For each listing of each state, collect general data and then go to
+        each listing's detail page to collect more data. Once done, save to DB
+
+        Args:
+            property_listings (List[BeautifulSoup]): list of listings
+            transformer (Transformer): _description_
+        """
+        for listing in property_listings:
+            try:
+                start_time = time.time()
+                data: PropertyListing = self.collect_info_from_list_page(
+                    transformer, listing)
+
+                if self.is_property_data_existed(data.property_id):
+                    continue
+
+                # Send a request to the detailed page of the current listing
+                detail_page_html: BeautifulSoup = self.request_html_from_url(
+                    data.property_url)
+
+                if detail_page_html is not None:
+                    data = self.collect_info_from_detail_page(
+                        transformer,
+                        detail_page_html,
+                        data)
+
+                    self.database.save_single(data)
+                end_time = time.time()
+                print("Scraping one property took in total: {0} seconds".format(
+                    end_time - start_time))
+            except Exception as e:
+                print("Error when collecting data: {0}".format(e))
+
+    def request_html_from_url(self, url: str) -> BeautifulSoup:
+        """Attempt to send a request to TenantApp page, setting the timeout for
+        each request as 10s and number of retries as 15 max.
+
+        Args:
+            url (str): url to be requested
+
+        Returns:
+            BeautifulSoup: html content of the page
+        """
+        print("Sending GET request to {0}".format(url))
+        attempt = 0
+        while attempt != MAX_RETRY:
+            try:
+                user_agent: dict[str, str] = get_random_user_agent()
+                response = requests.get(url, timeout=10, headers=user_agent)
+                print("Got response from {0} in {1} seconds".format(
+                    url, response.elapsed.total_seconds()))
+                return BeautifulSoup(response.content, "html.parser")
+            except Exception as e:
+                print(
+                    "Attempt #{0} failed with exception {1}".format(attempt, e))
+                attempt += 1
+                time.sleep(DELAY_TIME)
+
+        return None
+
+    def construct_url_with_pagination(self, state_uri: str) -> str:
+        """tenantapp.com.au has a "Load more" type of pagination behaviour,
+        as in when going to the next page, it just loads the data of the next 
+        page and append to the current page.
+
+        What we do here is to land on the first page, find out how many properties
+        in total, take that divide by the number of properties displayed per page
+        (10), we'll get the total number of pages.
+
+        Then, construct the url of the final page, which should include data from
+        page 1 to the final page.
+
+        Args:
+            state_uri (str): uri for each state
+
+        Returns:
+            str: url of the final page for each state
+        """
+        url: str = "{0}/Rentals/{1}#List".format(BASE_URL, state_uri)
+        html: BeautifulSoup = self.request_html_from_url(url)
+        extractor: InputHtmlExtractor = InputHtmlExtractor(html)
+
+        print("URL: {0}".format(url))
+        print("Num of properties {0}".format(
+            extractor.get_num_properties()))
+        num_pages = extractor.get_num_pages()
+        print("Num of pages {0}".format(num_pages))
+
+        url: str = "{0}/Rentals/{1}?page={2}#List".format(
+            BASE_URL, state_uri, num_pages)
+        return url
+
+    def run(self, state_uri: str) -> bool:
+        """Run the crawler for tenantapp.com.au for each state in Australia.
+
+        Args:
+            state_uri (str): uri for each state
+
+        Returns:
+            bool: completely crawled all available property listings
+        """
+        try:
+            url: str = self.construct_url_with_pagination(state_uri)
+            transformer: Transformer = Transformer(
+                InputHtmlExtractor(self.request_html_from_url(url)))
+            property_listings: List[BeautifulSoup] = transformer.get_all_properties(
+            )
+            print("There are {0} properties in {1}".format(
+                len(property_listings), state_uri))
+
+            self.collect_data_for_all_properties(
+                property_listings, transformer)
+
+            print("======= All done for {0}!!! ======".format(state_uri))
+            return True
+        except Exception as e:
+            print("System crashed! Error: {0}".format(e))
+            return False
+
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Web crawler for tenantapp.com.au")
+    parser.add_argument(
+        "-s",
+        "--state",
+        type=str,
+        choices=STATES_URI.keys(),
+        default="vic",
+        help="Select a state in Australia to collect rental data from. Default is VIC"
+    )
+
+    # Parsing command args
+    args = parser.parse_args()
+    selected_state = args.state
+    print("Selected state: {0}".format(selected_state))
+    print("URI: {0}".format(STATES_URI[selected_state]))
+
+    # Instantiate DB and crawler
     database = PropertyDatabase()
     crawler = TenantAppCrawler(db=database)
-    crawler.run(STATES_URI)
+
+    # Start crawling...
+    success = crawler.run(STATES_URI[selected_state])
+    sys.exit(0) if success else sys.exit(1)

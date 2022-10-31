@@ -14,6 +14,8 @@ DB_NAME = os.environ.get('DB_NAME')
 DB_SCHEMA = os.environ.get('DB_SCHEMA')
 DB_CONN_POOL_SIZE = 50
 
+# Ref: using sqlalchemy https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
+
 
 class PropertyDatabase:
     def __init__(self):
@@ -27,26 +29,54 @@ class PropertyDatabase:
         return create_engine(dbUrl, pool_size=DB_CONN_POOL_SIZE)
 
     def get_real_estate_table(self) -> Table:
+        """Define the table entity based on the table from DB
+
+        Returns:
+            Table: _description_
+        """
         realestate_table = Table(
             'propertylistings', self.metadata, autoload=True, autoload_with=self.dbEngine)
         return realestate_table
 
     def select_all(self) -> None:
+        """SELECT * FROM TABLE
+
+        Returns:
+            _type_: _description_
+        """
         # results = [{**row} for row in item]  # https://stackoverflow.com/a/56098483
         return self.conn.execute(select([self.table])).fetchall()
 
     def select_with_same_id(self, property_id: str):
+        """Check if there's an existing entry with same id and also still on the market
+
+        Args:
+            property_id (str): id of the listing
+
+        Returns:
+            _type_: _description_
+        """
         query = select([self.table]).where(
             and_(self.table.columns.property_id == property_id, self.table.columns.off_market == False))
         return self.conn.execute(query).fetchall()
 
     def save_bulk(self, data: List[PropertyListing]) -> None:
+        """Save a list of data to DB in one go
+
+        Args:
+            data (List[PropertyListing]): _description_
+        """
         data_type_to_dict = [vars(listing) for listing in data]
         print("Saving data to DB....")
         query = insert(self.table)
         self.conn.execute(query, data_type_to_dict)
 
     def save_single(self, data: PropertyListing) -> None:
+        """Save 1 item to DB
+
+        Args:
+            data (PropertyListing): _description_
+        """
         data_type_to_dict = vars(data)
         query = insert(self.table).values(data_type_to_dict)
         self.conn.execute(query)
