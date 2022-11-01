@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from sqlalchemy import create_engine, MetaData, Table, insert, select, and_
+from sqlalchemy import create_engine, MetaData, Table, insert, select, and_, update
 from sqlalchemy.orm import sessionmaker, Session
 
 from typing import List
@@ -47,6 +47,16 @@ class PropertyDatabase:
         # results = [{**row} for row in item]  # https://stackoverflow.com/a/56098483
         return self.conn.execute(select([self.table])).fetchall()
 
+    def select_all_where_not_off_market(self) -> None:
+        """SELECT * FROM TABLE WHERE off_market = false
+
+        Returns:
+            _type_: _description_
+        """
+        query = select([self.table]).where(
+            and_(self.table.columns.off_market == False, self.table.columns.ad_removed_date == None))
+        return self.conn.execute(query).fetchall()
+
     def select_with_same_id(self, property_id: str):
         """Check if there's an existing entry with same id and also still on the market
 
@@ -79,4 +89,9 @@ class PropertyDatabase:
         """
         data_type_to_dict = vars(data)
         query = insert(self.table).values(data_type_to_dict)
+        self.conn.execute(query)
+
+    def update_ad_removed_date(self, property_id: str, off_market: bool, ad_removed_date: str) -> None:
+        query = update(self.table).values(off_market=off_market,
+                                          ad_removed_date=ad_removed_date).where(self.table.columns.property_id == property_id)
         self.conn.execute(query)

@@ -8,6 +8,9 @@ from constants import DEFAULT_USER_AGENT
 
 # https://stackoverflow.com/questions/55872164/how-to-rotate-proxies-on-a-python-requests
 # https://github.com/Ge0rg3/requests-ip-rotator
+# https://www.thepythoncode.com/article/using-proxies-using-requests-in-python
+# https://sgino209.medium.com/ip-rotation-with-python-c8033a079f4d
+
 
 FILE_NAME = "proxies.csv"
 
