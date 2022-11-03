@@ -65,8 +65,8 @@ workflows:
                 - master
       - crawl-data-tas:
           requires:
-            - test
-            - build
+            - unit-test
+            - build-img
           filters:
             branches:
               only:
