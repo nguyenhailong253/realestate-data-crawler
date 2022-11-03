@@ -17,10 +17,11 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-          pkg-manager: pip
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Running unit tests..."
-          command: "python -m pytest"
+          command: "pipenv run pytest ./tests/ -s"
   build:
     docker:
       - image: cimg/base:stable
