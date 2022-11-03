@@ -26,6 +26,7 @@ class PropertyDatabase:
 
     def create_db_engine(self):
         dbUrl = f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        print(dbUrl)
         return create_engine(dbUrl, pool_size=DB_CONN_POOL_SIZE)
 
     def get_real_estate_table(self) -> Table:
@@ -47,14 +48,14 @@ class PropertyDatabase:
         # results = [{**row} for row in item]  # https://stackoverflow.com/a/56098483
         return self.conn.execute(select([self.table])).fetchall()
 
-    def select_all_where_not_off_market(self) -> None:
+    def select_all_where_not_off_market(self, state_and_territory: str) -> None:
         """SELECT * FROM TABLE WHERE off_market = false
 
         Returns:
             _type_: _description_
         """
         query = select([self.table]).where(
-            and_(self.table.columns.off_market == False, self.table.columns.ad_removed_date == None))
+            and_(self.table.columns.off_market == False, self.table.columns.ad_removed_date == None, self.table.columns.state_and_territory == state_and_territory))
         return self.conn.execute(query).fetchall()
 
     def select_with_same_id(self, property_id: str):

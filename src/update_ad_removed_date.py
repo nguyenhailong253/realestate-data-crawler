@@ -4,6 +4,7 @@ or not. If it's not, update off_market = true and then update ad_removed_date
 """
 import time
 import requests
+import argparse
 from datetime import datetime
 from bs4 import BeautifulSoup
 
@@ -37,13 +38,6 @@ class UpdateAdRemovedDate:
                 user_agent: dict[str, str] = get_random_user_agent()
                 response = requests.get(url, timeout=15, headers=user_agent)
 
-                # This code snippet below is for using requests_ip_rotator library
-                # response = self.session.get(url, headers=user_agent)
-                # print("Session: {0}".format(self.session))
-                # print("Response: {0}".format(response))
-                # if response.status_code != 200:
-                #     continue
-
                 print("Got response from {0} in {1} seconds".format(
                     url, response.elapsed.total_seconds()))
                 return BeautifulSoup(response.content, "html.parser")
@@ -55,18 +49,22 @@ class UpdateAdRemovedDate:
 
         return None
 
-    def get_properties_on_market(self):
-        on_market = self.db.select_all_where_not_off_market()
+    def get_properties_on_market(self, state_and_territory: str):
+        on_market = self.db.select_all_where_not_off_market(
+            state_and_territory)
         properties = [{**row} for row in on_market]
         property_urls = [p['property_url'] for p in properties]
         return property_urls
 
-    def update_ad_removed_date(self):
+    def update_ad_removed_date(self, state_and_territory: str = 'VIC'):
+        print(f"\nUpdating for {state_and_territory}\n\n")
         transformer: Transformer = Transformer(InputHtmlExtractor(None))
-        urls = self.get_properties_on_market()
+        urls: list[str] = self.get_properties_on_market(state_and_territory)
         print("\nThere are {0} urls to be checked".format(len(urls)))
+        count: int = 0
         for url in urls:
-            print("\nChecking url... {0}".format(url))
+            count += 1
+            print(f"\n{count}. Checking url... {url}")
             detail_page_html: BeautifulSoup = self.request_html_from_url(url)
             if detail_page_html is not None:
                 print("Detail page not none")
@@ -84,6 +82,39 @@ class UpdateAdRemovedDate:
 
 
 if __name__ == "__main__":
+    STATES = [
+        'VICTORIA',
+        'TAS',
+        'Vic',
+        'vic',
+        'Qld',
+        'WA',
+        'ACT',
+        'VIC',
+        'NSW',
+        'NT',
+        'QLD',
+        'nsw',
+        'sa',
+        'SA',
+        'Queensland'
+    ]
+    parser = argparse.ArgumentParser(
+        description="Web crawler for tenantapp.com.au")
+    parser.add_argument(
+        "-s",
+        "--state",
+        type=str,
+        choices=STATES,
+        default="vic",
+        help="Select a state in Australia to collect rental data from. Default is VIC"
+    )
+
+    # Parsing command args
+    args = parser.parse_args()
+    selected_state = args.state
+    print(f"Selected state: {selected_state}")
+
     db = PropertyDatabase()
     u = UpdateAdRemovedDate(db)
-    u.update_ad_removed_date()
+    u.update_ad_removed_date(selected_state)

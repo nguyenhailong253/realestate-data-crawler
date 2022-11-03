@@ -1,3 +1,4 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/nguyenhailong253/realestate-data-crawler/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nguyenhailong253/realestate-data-crawler/tree/master)
 # realestate-data-crawler
 
 Data crawler for realestate.com.au
