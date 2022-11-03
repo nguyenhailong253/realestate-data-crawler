@@ -42,9 +42,10 @@ jobs:
           region: "${AWS_REGION}"
           repo: $AWS_ECR_REPO
           registry-id: AWS_ECR_REGISTRY_ID
+          extra-build-args: "--platform linux/amd64 --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
   crawl-data-tas:
     machine:
-      image: ubuntu-2204:2022.04.2
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
     steps:
       # - setup_remote_docker:
       #     version: 20.10.18
@@ -66,15 +67,15 @@ workflows:
   build-crawler-image:
     jobs:
       # - unit-test
-      # - build-img:
+      - build-img:
       #     filters:
       #       branches:
       #         only:
       #           - master
       - crawl-data-tas:
-          # requires:
-          # - unit-test
-          # - build-img
+          requires:
+            # - unit-test
+            - build-img
           filters:
             branches:
               only:
