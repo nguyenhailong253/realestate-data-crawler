@@ -5,6 +5,7 @@ version: 2.1
 orbs:
   python: circleci/python@2.1.1
   aws-ecr: circleci/aws-ecr@8.1.3
+  aws-cli: circleci/aws-cli@3.1.3
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -47,12 +48,14 @@ jobs:
     steps:
       # - setup_remote_docker:
       #     version: 20.10.18
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: "${AWS_REGION}"
       - run:
           name: "Pulling images..."
           command: |
-            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            export AWS_REGION=$AWS_REGION
+            aws ecr get-login --region $AWS_REGION
             docker pull $AWS_ECR_REPO_URI
       - run:
           name: "Crawling all property listings in Tasmania"
@@ -63,7 +66,7 @@ jobs:
 workflows:
   build-crawler-image:
     jobs:
-      - unit-test
+      # - unit-test
       # - build-img:
       #     filters:
       #       branches:
@@ -71,7 +74,7 @@ workflows:
       #           - master
       - crawl-data-tas:
           requires:
-            - unit-test
+            # - unit-test
             # - build-img
           filters:
             branches:
