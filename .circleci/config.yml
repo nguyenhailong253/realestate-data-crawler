@@ -67,7 +67,7 @@ workflows:
   build-crawler-image:
     jobs:
       # - unit-test
-      - build-img:
+      - build-img
       #     filters:
       #       branches:
       #         only:
