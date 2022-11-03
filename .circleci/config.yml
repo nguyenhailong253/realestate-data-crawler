@@ -20,6 +20,9 @@ jobs:
           args: pytest
           pkg-manager: pipenv
       - run:
+          name: "Echo..."
+          command: "echo $PYTHONPATH"
+      - run:
           name: "Running unit tests..."
           command: "pipenv run pytest"
   build:
