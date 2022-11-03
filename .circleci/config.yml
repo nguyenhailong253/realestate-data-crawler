@@ -4,11 +4,12 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.1.1
+  aws-ecr: circleci/aws-ecr@8.1.3
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  test:
+  unit-test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     executor: python/default
@@ -21,17 +22,30 @@ jobs:
           pkg-manager: pipenv
       - run:
           name: "Running unit tests..."
+          # https://stackoverflow.com/questions/10253826/path-issue-with-pytest-importerror-no-module-named-yadayadayada
           command: "pipenv run python -m pytest ./tests/ -s"
-  build:
+  build-img:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/python:3.11.0
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-cli-version: latest
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: Dockerfile
+          path: .
+          region: AWS_REGION
+          repo: tenantapp-crawler
+          registry-id: AWS_ECR_REGISTRY_ID
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build-crawler-image:
     jobs:
-      - test
-      - build
+      - unit-test
+      - build-img
