@@ -38,7 +38,7 @@ jobs:
           create-repo: true
           dockerfile: Dockerfile
           path: .
-          region: AWS_REGION
+          region: "${AWS_REGION}"
           repo: tenantapp-crawler
           registry-id: AWS_ECR_REGISTRY_ID
 
