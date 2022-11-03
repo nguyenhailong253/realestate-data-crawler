@@ -48,6 +48,8 @@ jobs:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps:
+      - setup_remote_docker:
+          version: 20.10.14
       - run:
           name: "Crawling all property listings in Tasmania"
           command: docker run $AWS_ECR_REPO tas
