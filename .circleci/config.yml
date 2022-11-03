@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.14
+          version: 20.10.18
       - aws-ecr/build-and-push-image:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-cli-version: latest
@@ -49,10 +49,10 @@ jobs:
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps:
       - setup_remote_docker:
-          version: 20.10.14
+          version: 20.10.18
       - run:
           name: "Crawling all property listings in Tasmania"
-          command: docker run $AWS_ECR_REPO tas
+          command: ./ops/run.sh tas
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -60,15 +60,15 @@ workflows:
   build-crawler-image:
     jobs:
       - unit-test
-      - build-img:
-          filters:
-            branches:
-              only:
-                - master
+      # - build-img:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
       - crawl-data-tas:
           requires:
             - unit-test
-            - build-img
+            # - build-img
           filters:
             branches:
               only:
