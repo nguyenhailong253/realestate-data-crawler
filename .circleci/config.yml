@@ -73,9 +73,9 @@ workflows:
       #         only:
       #           - master
       - crawl-data-tas:
-          requires:
-            # - unit-test
-            # - build-img
+          # requires:
+          # - unit-test
+          # - build-img
           filters:
             branches:
               only:
