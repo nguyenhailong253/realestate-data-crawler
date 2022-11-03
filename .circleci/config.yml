@@ -48,11 +48,11 @@ jobs:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps:
-      - setup_remote_docker:
-          version: 20.10.18
+      # - setup_remote_docker:
+      #     version: 20.10.18
       - run:
           name: "Crawling all property listings in Tasmania"
-          command: ./ops/run.sh tas
+          command: python3 -m src.tenantapp_crawler -s tas
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
