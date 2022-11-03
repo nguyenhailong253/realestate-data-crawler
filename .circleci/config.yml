@@ -21,7 +21,7 @@ jobs:
           pkg-manager: pipenv
       - run:
           name: "Running unit tests..."
-          command: "echo $PYTHONPATH && pipenv run pytest ./tests/ -s"
+          command: "export PYTHONPATH=$PWD/src && pipenv run pytest ./tests/ -s"
   build:
     docker:
       - image: cimg/base:stable
