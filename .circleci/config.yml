@@ -50,8 +50,7 @@ jobs:
     steps:
       - run:
           name: "Crawling all property listings in Tasmania"
-          command: "docker run "$AWS_ECR_ACCOUNT_URL/$AWS_ECR_REPO" tas"
-
+          command: docker run $AWS_ECR_ACCOUNT_URL/$AWS_ECR_REPO tas
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -72,4 +71,3 @@ workflows:
             branches:
               only:
                 - master
-
