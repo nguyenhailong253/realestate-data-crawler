@@ -52,6 +52,106 @@ jobs:
           repo: $AWS_ECR_REPO_FOR_AD_UPDATE
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
+  update-ad-wa:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for Western Australia"
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI WA
+  update-ad-vic:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for Victoria"
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VIC
+  update-ad-nsw:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for New South Wales"
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NSW
+  update-ad-qld:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for Queensland"
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI QLD
+  update-ad-sa:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for South Australia"
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI SA
+  update-ad-the-rest:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
+      - run:
+          name: "Updating existing property listing ads for the rest of the states"
+          command: |
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VICTORIA
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI TAS
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NT
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Vic
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI vic
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Qld
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI ACT
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI nsw
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI sa
+            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Queensland
   crawl-data-tas:
     machine:
       image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
@@ -189,67 +289,99 @@ workflows:
             branches:
               only:
                 - master
-      # - crawl-data-tas:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-nt:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-act:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-sa:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-qld:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-nsw:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-vic:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-wa:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - update-ad-wa:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - update-ad-vic:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - update-ad-nsw:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - update-ad-qld:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - update-ad-sa:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - update-ad-the-rest:
+          requires:
+            - unit-test
+            - build-update-ad-img
+      - crawl-data-tas:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nt:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-act:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-sa:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-sa
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-qld:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-qld
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nsw:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-nsw
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-vic:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-vic
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-wa:
+          requires:
+            - unit-test
+            - build-crawler-img
+            - update-ad-wa
+          filters:
+            branches:
+              only:
+                - master
