@@ -189,67 +189,67 @@ workflows:
             branches:
               only:
                 - master
-      - crawl-data-tas:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nt:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-act:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-sa:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-qld:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nsw:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-vic:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-wa:
-          requires:
-            - unit-test
-            - build-crawler-img
-          filters:
-            branches:
-              only:
-                - master
+      # - crawl-data-tas:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-nt:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-act:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-sa:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-qld:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-nsw:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-vic:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-wa:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
