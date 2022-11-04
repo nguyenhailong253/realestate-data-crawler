@@ -16,7 +16,7 @@ jobs:
           name: "Running unit tests..."
           # https://stackoverflow.com/questions/10253826/path-issue-with-pytest-importerror-no-module-named-yadayadayada
           command: "pipenv run python -m pytest ./tests/ -s"
-  build-img:
+  build-crawler-img:
     docker:
       - image: cimg/python:3.11.0
     steps:
@@ -32,6 +32,24 @@ jobs:
           path: .
           region: "${AWS_REGION}"
           repo: $AWS_ECR_REPO
+          registry-id: AWS_ECR_REGISTRY_ID
+          extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
+  build-update-ad-img:
+    docker:
+      - image: cimg/python:3.11.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.18
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-cli-version: latest
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: Dockerfile.update_ad_removed_date
+          path: .
+          region: "${AWS_REGION}"
+          repo: $AWS_ECR_REPO_FOR_AD_UPDATE
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
   crawl-data-tas:
@@ -161,7 +179,12 @@ workflows:
   build-crawler-image:
     jobs:
       - unit-test
-      - build-img:
+      - build-crawler-img:
+          filters:
+            branches:
+              only:
+                - master
+      - build-update-ad-img:
           filters:
             branches:
               only:
@@ -169,7 +192,7 @@ workflows:
       - crawl-data-tas:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -177,7 +200,7 @@ workflows:
       - crawl-data-nt:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -185,7 +208,7 @@ workflows:
       - crawl-data-act:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -193,7 +216,7 @@ workflows:
       - crawl-data-sa:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -201,7 +224,7 @@ workflows:
       - crawl-data-qld:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -209,7 +232,7 @@ workflows:
       - crawl-data-nsw:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -217,7 +240,7 @@ workflows:
       - crawl-data-vic:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
@@ -225,7 +248,7 @@ workflows:
       - crawl-data-wa:
           requires:
             - unit-test
-            - build-img
+            - build-crawler-img
           filters:
             branches:
               only:
