@@ -1,21 +1,12 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
 orbs:
   python: circleci/python@2.1.1
   aws-ecr: circleci/aws-ecr@8.1.3
-  # aws-cli: circleci/aws-cli@3.1.3
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   unit-test:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     executor: python/default
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - python/install-packages:
@@ -47,8 +38,6 @@ jobs:
     machine:
       image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
     steps:
-      # - setup_remote_docker:
-      #     version: 20.10.18
       - aws-ecr/ecr-login:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -60,21 +49,182 @@ jobs:
       - run:
           name: "Crawling all property listings in Tasmania"
           command: docker run $AWS_ECR_REPO_URI tas
+  crawl-data-nt:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in Northern Territory"
+          command: docker run $AWS_ECR_REPO_URI nt
+  crawl-data-act:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in Australian Capital Territory"
+          command: docker run $AWS_ECR_REPO_URI act
+  crawl-data-sa:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in South Australia"
+          command: docker run $AWS_ECR_REPO_URI sa
+  crawl-data-qld:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in Queensland"
+          command: docker run $AWS_ECR_REPO_URI qld
+  crawl-data-nsw:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in New South Wales"
+          command: docker run $AWS_ECR_REPO_URI nsw
+  crawl-data-vic:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in Victoria"
+          command: docker run $AWS_ECR_REPO_URI vic
+  crawl-data-wa:
+    machine:
+      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    steps:
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+      - run:
+          name: "Pulling images..."
+          command: |
+            docker pull $AWS_ECR_REPO_URI
+      - run:
+          name: "Crawling all property listings in Western Australia"
+          command: docker run $AWS_ECR_REPO_URI wa
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build-crawler-image:
     jobs:
-      # - unit-test
-      - build-img
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - unit-test
+      - build-img:
+          filters:
+            branches:
+              only:
+                - master
       - crawl-data-tas:
           requires:
-            # - unit-test
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nt:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-act:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-sa:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-qld:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nsw:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-vic:
+          requires:
+            - unit-test
+            - build-img
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-wa:
+          requires:
+            - unit-test
             - build-img
           filters:
             branches:
