@@ -81,7 +81,7 @@ jobs:
             docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
       - run:
           name: "Updating existing property listing ads for Victoria"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VIC
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VIC || true
   update-ad-nsw:
     machine:
       image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
@@ -96,7 +96,7 @@ jobs:
             docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
       - run:
           name: "Updating existing property listing ads for New South Wales"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NSW
+          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NSW || true
   update-ad-qld:
     machine:
       image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
