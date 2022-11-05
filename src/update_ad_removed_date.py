@@ -62,7 +62,13 @@ class UpdateAdRemovedDate:
         urls: list[str] = self.get_properties_on_market(state_and_territory)
         print("\nThere are {0} urls to be checked".format(len(urls)))
         count: int = 0
+
+        # 50 minutes from now - due to 1hr time limit on CircleCI Free Plan
+        timeout = time.time() + 60*50
         for url in urls:
+            if time.time() > timeout:
+                print(f"Reaching time limit, stopping now...")
+                break
             count += 1
             print(f"\n{count}. Checking url... {url}")
             detail_page_html: BeautifulSoup = self.request_html_from_url(url)
@@ -88,15 +94,15 @@ if __name__ == "__main__":
         'Vic',
         'vic',
         'Qld',
-        'WA',
+        'WA',  # alot
         'ACT',
-        'VIC',
-        'NSW',
+        'VIC',  # most
+        'NSW',  # most
         'NT',
-        'QLD',
+        'QLD',  # alot
         'nsw',
         'sa',
-        'SA',
+        'SA',  # alot
         'Queensland'
     ]
     parser = argparse.ArgumentParser(
