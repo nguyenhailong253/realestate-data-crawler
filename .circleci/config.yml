@@ -301,8 +301,8 @@ workflows:
       #           - master
       - update-ad-wa:
           requires:
-            - unit-test
-            - build-update-ad-img
+            # - unit-test
+            # - build-update-ad-img
       # - update-ad-vic:
       #     requires:
       #       - unit-test
