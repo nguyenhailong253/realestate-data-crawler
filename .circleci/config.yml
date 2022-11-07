@@ -142,7 +142,7 @@ jobs:
       - run:
           name: "Crawling all property listings in Northern Territory"
           command: "pipenv run python -m src.tenantapp_crawler -s nt"
- crawl-data-act:
+  crawl-data-act:
     executor: python/default
     steps:
       - checkout
@@ -152,7 +152,7 @@ jobs:
       - run:
           name: "Crawling all property listings in Australian Capital Territory"
           command: "pipenv run python -m src.tenantapp_crawler -s act"
- crawl-data-sa:
+  crawl-data-sa:
     executor: python/default
     steps:
       - checkout
@@ -209,7 +209,7 @@ workflows:
       - unit-test
       - update-ad-wa:
           requires:
-          - unit-test
+            - unit-test
           filters:
             branches:
               only:
