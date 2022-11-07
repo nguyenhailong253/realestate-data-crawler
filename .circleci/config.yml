@@ -16,7 +16,7 @@ jobs:
           name: "Running unit tests..."
           # https://stackoverflow.com/questions/10253826/path-issue-with-pytest-importerror-no-module-named-yadayadayada
           command: "pipenv run python -m pytest ./tests/ -s"
-  build-crawler-img:
+  build-crawler-img: # Deprecated due to network performance of docker containers
     docker:
       - image: cimg/python:3.11.0
     steps:
@@ -34,7 +34,7 @@ jobs:
           repo: $AWS_ECR_REPO
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
-  build-update-ad-img:
+  build-update-ad-img: # Deprecated due to network performance of docker containers
     docker:
       - image: cimg/python:3.11.0
     steps:
@@ -53,270 +53,205 @@ jobs:
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
   update-ad-wa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for Western Australia"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI WA
+          name: "Checking if ads have been removed for properties in Western Australia"
+          command: "pipenv run python -m src.update_ad_removed_date -s WA"
   update-ad-vic:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for Victoria"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VIC || true
+          name: "Checking if ads have been removed for properties in Victoria"
+          command: "pipenv run python -m src.update_ad_removed_date -s VIC"
   update-ad-nsw:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for New South Wales"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NSW || true
+          name: "Checking if ads have been removed for properties in New South Wales"
+          command: "pipenv run python -m src.update_ad_removed_date -s NSW"
   update-ad-qld:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for Queensland"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI QLD
+          name: "Checking if ads have been removed for properties in Queensland"
+          command: "pipenv run python -m src.update_ad_removed_date -s QLD"
   update-ad-sa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for South Australia"
-          command: docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI SA
+          name: "Checking if ads have been removed for properties in South Australia"
+          command: "pipenv run python -m src.update_ad_removed_date -s SA"
   update-ad-the-rest:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
-          name: "Pulling images..."
+          name: "Checking if ads have been removed for properties in other abbreviations for states"
           command: |
-            docker pull $AWS_ECR_REPO_FOR_AD_UPDATE_URI
-      - run:
-          name: "Updating existing property listing ads for the rest of the states"
-          command: |
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI VICTORIA
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI TAS
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI NT
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Vic
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI vic
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Qld
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI ACT
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI nsw
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI sa
-            docker run $AWS_ECR_REPO_FOR_AD_UPDATE_URI Queensland
+            pipenv run python -m src.update_ad_removed_date -s TAS
+            pipenv run python -m src.update_ad_removed_date -s NT
+            pipenv run python -m src.update_ad_removed_date -s ACT
+            pipenv run python -m src.update_ad_removed_date -s Vic
+            pipenv run python -m src.update_ad_removed_date -s vic
+            pipenv run python -m src.update_ad_removed_date -s VICTORIA
+            pipenv run python -m src.update_ad_removed_date -s Qld
+            pipenv run python -m src.update_ad_removed_date -s nsw
+            pipenv run python -m src.update_ad_removed_date -s sa
+            pipenv run python -m src.update_ad_removed_date -s Queensland
   crawl-data-tas:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Tasmania"
-          command: docker run $AWS_ECR_REPO_URI tas
+          command: "pipenv run python -m src.tenantapp_crawler -s tas"
   crawl-data-nt:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Northern Territory"
-          command: docker run $AWS_ECR_REPO_URI nt
+          command: "pipenv run python -m src.tenantapp_crawler -s nt"
   crawl-data-act:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Australian Capital Territory"
-          command: docker run $AWS_ECR_REPO_URI act
+          command: "pipenv run python -m src.tenantapp_crawler -s act"
   crawl-data-sa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in South Australia"
-          command: docker run $AWS_ECR_REPO_URI sa
+          command: "pipenv run python -m src.tenantapp_crawler -s sa"
   crawl-data-qld:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Queensland"
-          command: docker run $AWS_ECR_REPO_URI qld
+          command: "pipenv run python -m src.tenantapp_crawler -s qld"
   crawl-data-nsw:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in New South Wales"
-          command: docker run $AWS_ECR_REPO_URI nsw
+          command: "pipenv run python -m src.tenantapp_crawler -s nsw"
   crawl-data-vic:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Victoria"
-          command: docker run $AWS_ECR_REPO_URI vic
+          command: "pipenv run python -m src.tenantapp_crawler -s vic"
   crawl-data-wa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Western Australia"
-          command: docker run $AWS_ECR_REPO_URI wa
+          command: "pipenv run python -m src.tenantapp_crawler -s wa"
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   tenantapp-data-collection:
     jobs:
       - unit-test
-      - build-crawler-img:
-          filters:
-            branches:
-              only:
-                - master
-      - build-update-ad-img:
-          filters:
-            branches:
-              only:
-                - master
       - update-ad-wa:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - update-ad-vic:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - update-ad-nsw:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - update-ad-qld:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - update-ad-sa:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - update-ad-the-rest:
           requires:
             - unit-test
-            - build-update-ad-img
+          filters:
+            branches:
+              only:
+                - master
       - crawl-data-tas:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-the-rest
           filters:
             branches:
@@ -325,7 +260,6 @@ workflows:
       - crawl-data-nt:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-the-rest
           filters:
             branches:
@@ -334,7 +268,6 @@ workflows:
       - crawl-data-act:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-the-rest
           filters:
             branches:
@@ -343,7 +276,6 @@ workflows:
       - crawl-data-sa:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-sa
           filters:
             branches:
@@ -352,7 +284,6 @@ workflows:
       - crawl-data-qld:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-qld
           filters:
             branches:
@@ -361,7 +292,6 @@ workflows:
       - crawl-data-nsw:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-nsw
           filters:
             branches:
@@ -370,7 +300,6 @@ workflows:
       - crawl-data-vic:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-vic
           filters:
             branches:
@@ -379,7 +308,6 @@ workflows:
       - crawl-data-wa:
           requires:
             - unit-test
-            - build-crawler-img
             - update-ad-wa
           filters:
             branches:
