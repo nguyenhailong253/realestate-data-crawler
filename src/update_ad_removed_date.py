@@ -63,8 +63,8 @@ class UpdateAdRemovedDate:
         print("\nThere are {0} urls to be checked".format(len(urls)))
         count: int = 0
 
-        # 57 d minutes from now - due to 1hr time limit on CircleCI Free Plan
-        timeout = time.time() + 60*57
+        # 59 d minutes from now - due to 1hr time limit on CircleCI Free Plan
+        timeout = time.time() + 60*59
         for url in urls:
             if time.time() > timeout:
                 print(f"Reaching time limit, stopping now...")
