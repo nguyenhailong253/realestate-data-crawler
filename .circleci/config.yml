@@ -133,221 +133,183 @@ jobs:
           name: "Crawling all property listings in Tasmania"
           command: "pipenv run python -m src.tenantapp_crawler -s tas"
   crawl-data-nt:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Northern Territory"
-          command: docker run $AWS_ECR_REPO_URI nt
-  crawl-data-act:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+          command: "pipenv run python -m src.tenantapp_crawler -s nt"
+ crawl-data-act:
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Australian Capital Territory"
-          command: docker run $AWS_ECR_REPO_URI act
-  crawl-data-sa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+          command: "pipenv run python -m src.tenantapp_crawler -s act"
+ crawl-data-sa:
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in South Australia"
-          command: docker run $AWS_ECR_REPO_URI sa
+          command: "pipenv run python -m src.tenantapp_crawler -s sa"
   crawl-data-qld:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Queensland"
-          command: docker run $AWS_ECR_REPO_URI qld
+          command: "pipenv run python -m src.tenantapp_crawler -s qld"
   crawl-data-nsw:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in New South Wales"
-          command: docker run $AWS_ECR_REPO_URI nsw
+          command: "pipenv run python -m src.tenantapp_crawler -s nsw"
   crawl-data-vic:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Victoria"
-          command: docker run $AWS_ECR_REPO_URI vic
+          command: "pipenv run python -m src.tenantapp_crawler -s vic"
   crawl-data-wa:
-    machine:
-      image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
+    executor: python/default
     steps:
-      - aws-ecr/ecr-login:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: "${AWS_REGION}"
-      - run:
-          name: "Pulling images..."
-          command: |
-            docker pull $AWS_ECR_REPO_URI
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
       - run:
           name: "Crawling all property listings in Western Australia"
-          command: docker run $AWS_ECR_REPO_URI wa
+          command: "pipenv run python -m src.tenantapp_crawler -s wa"
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   tenantapp-data-collection:
     jobs:
-      - crawl-data-tas
-      # - unit-test
-      # - build-crawler-img:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - build-update-ad-img:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - update-ad-wa:
-      # requires:
-      # - unit-test
-      # - build-update-ad-img
-      # - update-ad-vic:
-      #     requires:
-      #       - unit-test
-      #       - build-update-ad-img
-      # - update-ad-nsw:
-      #     requires:
-      #       - unit-test
-      #       - build-update-ad-img
-      # - update-ad-qld:
-      #     requires:
-      #       - unit-test
-      #       - build-update-ad-img
-      # - update-ad-sa:
-      #     requires:
-      #       - unit-test
-      #       - build-update-ad-img
-      # - update-ad-the-rest:
-      #     requires:
-      #       - unit-test
-      #       - build-update-ad-img
-      # - crawl-data-tas:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-the-rest
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-nt:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-the-rest
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-act:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-the-rest
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-sa:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-sa
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-qld:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-qld
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-nsw:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-nsw
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-vic:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-vic
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - crawl-data-wa:
-      #     requires:
-      #       - unit-test
-      #       - build-crawler-img
-      #       - update-ad-wa
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - unit-test
+      - update-ad-wa:
+          requires:
+          - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-vic:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-nsw:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-qld:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-sa:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-the-rest:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-tas:
+          requires:
+            - unit-test
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nt:
+          requires:
+            - unit-test
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-act:
+          requires:
+            - unit-test
+            - update-ad-the-rest
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-sa:
+          requires:
+            - unit-test
+            - update-ad-sa
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-qld:
+          requires:
+            - unit-test
+            - update-ad-qld
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nsw:
+          requires:
+            - unit-test
+            - update-ad-nsw
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-vic:
+          requires:
+            - unit-test
+            - update-ad-vic
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-wa:
+          requires:
+            - unit-test
+            - update-ad-wa
+          filters:
+            branches:
+              only:
+                - master
