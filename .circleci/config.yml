@@ -53,6 +53,16 @@ jobs:
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
   update-ad-wa:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in Western Australia"
+          command: "pipenv run python -m src.update_ad_removed_date -s WA"
+  update-ad-wa1:
     machine:
       image: ubuntu-2204:2022.04.2 # this one has docker cli pre-installed
     steps:
@@ -278,110 +288,110 @@ jobs:
 workflows:
   tenantapp-data-collection:
     jobs:
-      - unit-test
-      - build-crawler-img:
-          filters:
-            branches:
-              only:
-                - master
-      - build-update-ad-img:
-          filters:
-            branches:
-              only:
-                - master
+      # - unit-test
+      # - build-crawler-img:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - build-update-ad-img:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
       - update-ad-wa:
           requires:
             - unit-test
             - build-update-ad-img
-      - update-ad-vic:
-          requires:
-            - unit-test
-            - build-update-ad-img
-      - update-ad-nsw:
-          requires:
-            - unit-test
-            - build-update-ad-img
-      - update-ad-qld:
-          requires:
-            - unit-test
-            - build-update-ad-img
-      - update-ad-sa:
-          requires:
-            - unit-test
-            - build-update-ad-img
-      - update-ad-the-rest:
-          requires:
-            - unit-test
-            - build-update-ad-img
-      - crawl-data-tas:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nt:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-act:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-sa:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-sa
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-qld:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-qld
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nsw:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-nsw
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-vic:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-vic
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-wa:
-          requires:
-            - unit-test
-            - build-crawler-img
-            - update-ad-wa
-          filters:
-            branches:
-              only:
-                - master
+      # - update-ad-vic:
+      #     requires:
+      #       - unit-test
+      #       - build-update-ad-img
+      # - update-ad-nsw:
+      #     requires:
+      #       - unit-test
+      #       - build-update-ad-img
+      # - update-ad-qld:
+      #     requires:
+      #       - unit-test
+      #       - build-update-ad-img
+      # - update-ad-sa:
+      #     requires:
+      #       - unit-test
+      #       - build-update-ad-img
+      # - update-ad-the-rest:
+      #     requires:
+      #       - unit-test
+      #       - build-update-ad-img
+      # - crawl-data-tas:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-the-rest
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-nt:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-the-rest
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-act:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-the-rest
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-sa:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-sa
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-qld:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-qld
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-nsw:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-nsw
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-vic:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-vic
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - crawl-data-wa:
+      #     requires:
+      #       - unit-test
+      #       - build-crawler-img
+      #       - update-ad-wa
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
