@@ -288,6 +288,7 @@ jobs:
 workflows:
   tenantapp-data-collection:
     jobs:
+      - update-ad-wa
       # - unit-test
       # - build-crawler-img:
       #     filters:
@@ -299,10 +300,10 @@ workflows:
       #       branches:
       #         only:
       #           - master
-      - update-ad-wa:
-          requires:
-            # - unit-test
-            # - build-update-ad-img
+      # - update-ad-wa:
+      # requires:
+      # - unit-test
+      # - build-update-ad-img
       # - update-ad-vic:
       #     requires:
       #       - unit-test
