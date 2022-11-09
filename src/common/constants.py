@@ -62,10 +62,10 @@ PROPERTY_DETAIL_HTML_ATTRS: dict[str, str] = {
         ATTRIBUTE_NAME: 'class',
         ATTRIBUTE_VALUE: 'd-inline-block',
     },
-    'property_href': {
-        TAG_NAME: 'div',
-        ATTRIBUTE_NAME: 'class',
-        ATTRIBUTE_VALUE: 'card-footer',
+    'property_href': {  # Not working anymore
+        TAG_NAME: 'a',
+        ATTRIBUTE_NAME: 'style',
+        ATTRIBUTE_VALUE: 'color: inherit; text-decoration: none;',
     },
     'move_in_date': {
         TAG_NAME: 'span',

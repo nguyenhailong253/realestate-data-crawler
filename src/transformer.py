@@ -83,6 +83,8 @@ class Transformer:
         return self.get_beds_baths_garages(listing)[2]
 
     def get_property_href(self, listing: BeautifulSoup) -> str:
+        """Not working anymore
+        """
         parent_tag: BeautifulSoup = self.extractor.get_single_tag_with_attrs(
             PROPERTY_DETAIL_HTML_ATTRS['property_href'][TAG_NAME],
             PROPERTY_DETAIL_HTML_ATTRS['property_href'][ATTRIBUTE_NAME],
@@ -92,15 +94,18 @@ class Transformer:
         return uri
 
     def get_property_id(self, listing: BeautifulSoup) -> str:
-        uri = self.get_property_href(listing)
-        # id_attr_val: str = listing['id'] # Another way of extracting id, but not working for unit test
-        # property_id: str = id_attr_val.split('-')[1]
-        property_id: str = uri.split("/")[-1]
+        # Another way of extracting id, but not working for unit test
+        id_attr_val: str = listing['id']
+        property_id: str = id_attr_val.split('-')[1]
+        # uri = self.get_property_href(listing)
+        # property_id: str = uri.split("/")[-1]
         return property_id
 
     def get_property_url(self, listing: BeautifulSoup) -> str:
-        uri = self.get_property_href(listing)
-        property_url: str = "{0}{1}".format(BASE_URL, uri)
+        # uri = self.get_property_href(listing)
+        # property_url: str = "{0}{1}".format(BASE_URL, uri)
+        uri = self.get_property_id(listing)
+        property_url: str = "{0}/Rentals/ViewListing/{1}".format(BASE_URL, uri)
         return property_url
 
     def get_move_in_date(self, listing: BeautifulSoup) -> str:
