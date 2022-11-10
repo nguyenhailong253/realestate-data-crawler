@@ -207,7 +207,7 @@ workflows:
   tenantapp-data-collection:
     when:
       not:
-        equal: ["update-ad-schedule", << pipeline.schedule_name >>]
+        equal: ["update-ad-schedule", << pipeline.schedule.name >>]
     jobs:
       - unit-test
       - crawl-data-tas:
@@ -270,7 +270,7 @@ workflows:
     when:
       and:
         - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
-        - equal: ["update-ad-schedule", << pipeline.schedule_name >>]
+        - equal: ["update-ad-schedule", << pipeline.schedule.name >>]
     jobs:
       - unit-test
       - update-ad-wa:
