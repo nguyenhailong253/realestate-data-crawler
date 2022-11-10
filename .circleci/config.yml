@@ -205,6 +205,72 @@ jobs:
 
 workflows:
   tenantapp-data-collection:
+    when:
+      not:
+        - equal: ["update-ad-schedule", << pipeline.schedule_name >>]
+    jobs:
+      - unit-test
+      - crawl-data-tas:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nt:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-act:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-sa:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-qld:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-nsw:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-vic:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - crawl-data-wa:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+  tenantapp-update-ad:
+    when:
+      and:
+        - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+        - equal: ["update-ad-schedule", << pipeline.schedule_name >>]
     jobs:
       - unit-test
       - update-ad-wa:
@@ -245,70 +311,6 @@ workflows:
       - update-ad-the-rest:
           requires:
             - unit-test
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-tas:
-          requires:
-            - unit-test
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nt:
-          requires:
-            - unit-test
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-act:
-          requires:
-            - unit-test
-            - update-ad-the-rest
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-sa:
-          requires:
-            - unit-test
-            - update-ad-sa
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-qld:
-          requires:
-            - unit-test
-            - update-ad-qld
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-nsw:
-          requires:
-            - unit-test
-            - update-ad-nsw
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-vic:
-          requires:
-            - unit-test
-            - update-ad-vic
-          filters:
-            branches:
-              only:
-                - master
-      - crawl-data-wa:
-          requires:
-            - unit-test
-            - update-ad-wa
           filters:
             branches:
               only:
