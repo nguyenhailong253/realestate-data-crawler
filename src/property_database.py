@@ -72,7 +72,8 @@ class PropertyDatabase:
             _type_: _description_
         """
         query = select([self.table]).where(
-            and_(self.table.columns.property_id == property_id, self.table.columns.off_market == False))
+            and_(self.table.columns.property_id == property_id,
+                 self.table.columns.off_market == False))
         return self.conn.execute(query).fetchall()
 
     def save_bulk(self, data: List[PropertyListing]) -> None:
@@ -98,5 +99,7 @@ class PropertyDatabase:
 
     def update_ad_removed_date(self, property_id: str, off_market: bool, ad_removed_date: str) -> None:
         query = update(self.table).values(off_market=off_market,
-                                          ad_removed_date=ad_removed_date).where(self.table.columns.property_id == property_id)
+                                          ad_removed_date=ad_removed_date).where(
+                                              and_(self.table.columns.property_id == property_id,
+                                                   self.table.columns.ad_removed_date == None))
         self.conn.execute(query)
