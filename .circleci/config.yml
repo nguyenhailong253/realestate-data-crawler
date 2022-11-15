@@ -202,12 +202,25 @@ jobs:
       - run:
           name: "Crawling all property listings in Western Australia"
           command: "pipenv run python -m src.tenantapp_crawler -s wa"
+  update-agency:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Crawling agency names and addresses of existing properties"
+          command: "pipenv run python -m src.agency_crawler"
 
 workflows:
   tenantapp-data-collection:
     when:
-      not:
-        equal: ["update-ad-schedule", << pipeline.schedule.name >>]
+      or:
+        - not:
+            equal: ["update-ad-schedule", << pipeline.schedule.name >>]
+        - not:
+            equal: ["update-agency-schedule", << pipeline.schedule.name >>]
     jobs:
       - unit-test
       - crawl-data-tas:
@@ -309,6 +322,20 @@ workflows:
               only:
                 - master
       - update-ad-the-rest:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+  tenantapp-update-agency:
+    when:
+      and:
+        - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+        - equal: ["update-agency-schedule", << pipeline.schedule.name >>]
+    jobs:
+      - unit-test
+      - update-agency:
           requires:
             - unit-test
           filters:

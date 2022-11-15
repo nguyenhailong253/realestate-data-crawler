@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from sqlalchemy import (
-    create_engine, MetaData, Table, insert, select, and_, update
+    create_engine, MetaData, Table, insert, select, and_, update, or_
 )
 from sqlalchemy.orm import sessionmaker, Session
 
@@ -62,6 +62,18 @@ class PropertyDatabase:
                  )).order_by(self.table.columns.ad_posted_date)
         return self.conn.execute(query).fetchall()
 
+    def select_where_no_agency_details(self) -> None:
+        """SELECT * FROM TABLE WHERE agency_name is Null OR agency_address is Null
+
+        Returns:
+            _type_: _description_
+        """
+        query = select([self.table]).where(
+            or_(self.table.columns.agency_name == None,
+                self.table.columns.agency_address == None))
+        # )).order_by(self.table.columns.ad_posted_date)
+        return self.conn.execute(query).fetchall()
+
     def select_with_same_id(self, property_id: str):
         """Check if there's an existing entry with same id and also still on the market
 
@@ -102,4 +114,11 @@ class PropertyDatabase:
                                           ad_removed_date=ad_removed_date).where(
                                               and_(self.table.columns.property_id == property_id,
                                                    self.table.columns.ad_removed_date == None))
+        self.conn.execute(query)
+
+    def update_agency_details(self, property_id: str, agency_url: str, agency_name: bool, agency_address: str) -> None:
+        query = update(self.table).values(agency_name=agency_name,
+                                          agency_address=agency_address).where(
+                                              and_(self.table.columns.property_id == property_id,
+                                                   self.table.columns.agency_property_listings_url == agency_url))
         self.conn.execute(query)

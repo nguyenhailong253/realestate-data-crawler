@@ -7,6 +7,7 @@ from src.common.constants import (
     TAG_NAME,
     ATTRIBUTE_NAME,
     ATTRIBUTE_VALUE,
+    AGENCY_DETAIL_HTML_ATTRS,
     PROPERTY_LIST_HTML_ATTRS,
     PROPERTY_DETAIL_HTML_ATTRS
 )
@@ -214,3 +215,24 @@ class Transformer:
 
     def get_ad_removed_date(self, data: PropertyListing) -> str:
         return None if not data.off_market else data.data_collection_date
+
+    def get_agency_banner(self, listing: BeautifulSoup) -> str:
+        content = self.extractor.get_tag_content_with_attrs(
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][TAG_NAME],
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][ATTRIBUTE_NAME],
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][ATTRIBUTE_VALUE],
+            listing)
+        return ' '.join(content.split())
+
+    def get_agency_name(self, listing: BeautifulSoup) -> str:
+        parent_tag: BeautifulSoup = self.extractor.get_single_tag_with_attrs(
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][TAG_NAME],
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][ATTRIBUTE_NAME],
+            AGENCY_DETAIL_HTML_ATTRS['agency_banner'][ATTRIBUTE_VALUE],
+            listing)
+        return self.extractor.get_tag_content_without_attrs(
+            AGENCY_DETAIL_HTML_ATTRS['agency_name'][TAG_NAME],
+            parent_tag)
+
+    def get_agency_address(self, banner: str, name: str) -> str:
+        return banner.replace(name, "").strip()

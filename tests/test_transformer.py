@@ -15,6 +15,8 @@ SINGLE_PROPERTY_PAGE_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/single_property_page.html')
 PROPERTY_LIST_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/property_list_page.html')
+AGENCY_LISTINGS_HTML: BeautifulSoup = read_html_from_local_file(
+    'tests/html/agency_listings.html')
 
 
 def create_transformer_with_property_list_html():
@@ -155,3 +157,22 @@ def test_get_ad_removed_date_whenOffMarket_shouldReturnDataCollectionDate():
     fake_data.data_collection_date = '31-10-2022'
     ad_removed_date: str = transformer.get_ad_removed_date(fake_data)
     assert ad_removed_date == '31-10-2022'
+
+
+def test_get_agency_banner_whenUseCorrectHtmlTag_shouldReturnCorrectAgencyNameAndAddress():
+    banner: str = transformer.get_agency_banner(
+        AGENCY_LISTINGS_HTML)
+    assert banner == 'Barry Plant (Mitchell Shire) 147 Powlett Street, Kilmore, VIC 3764'
+
+
+def test_get_agency_name_whenUseCorrectHtmlTag_shouldReturnCorrectAgencyName():
+    name: str = transformer.get_agency_name(
+        AGENCY_LISTINGS_HTML)
+    assert name == 'Barry Plant (Mitchell Shire)'
+
+
+def test_get_agency_address_shouldReturnCorrectAgencyAddress():
+    banner = 'Barry Plant (Mitchell Shire) 147 Powlett Street, Kilmore, VIC 3764'
+    name = 'Barry Plant (Mitchell Shire)'
+    addr: str = transformer.get_agency_address(banner, name)
+    assert addr == '147 Powlett Street, Kilmore, VIC 3764'

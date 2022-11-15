@@ -17,6 +17,17 @@ TAG_NAME = 'tag'
 ATTRIBUTE_NAME = 'attribute'
 ATTRIBUTE_VALUE = 'value'
 
+AGENCY_DETAIL_HTML_ATTRS: dict[str, str] = {
+    'agency_banner': {
+        TAG_NAME: 'div',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'agency-content-container',
+    },
+    'agency_name': {
+        TAG_NAME: 'b',
+    },
+}
+
 PROPERTY_LIST_HTML_ATTRS: dict[str, str] = {
     'property': {
         TAG_NAME: 'article',
