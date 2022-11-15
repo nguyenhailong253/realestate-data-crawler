@@ -61,26 +61,29 @@ class AgencyCrawler:
         # 59 d minutes from now - due to 1hr time limit on CircleCI Free Plan
         timeout = time.time() + 60*59
         for p in properties:
-            url = p['agency_property_listings_url']
-            if time.time() > timeout:
-                print(f"Reaching time limit, stopping now...")
-                break
-            count += 1
-            print(
-                f"\n{count}. Checking url... {url} for property id {p['property_id']}\n")
-            agency_page: BeautifulSoup = self.request_html_from_url(url)
-            if agency_page is not None:
-                agency_banner = transformer.get_agency_banner(agency_page)
-                print(f"Agency banner: {agency_banner}\n")
+            try:
+                url = p['agency_property_listings_url']
+                if time.time() > timeout:
+                    print(f"Reaching time limit, stopping now...")
+                    break
+                count += 1
+                print(
+                    f"\n{count}. Checking url... {url} for property id {p['property_id']}\n")
+                agency_page: BeautifulSoup = self.request_html_from_url(url)
+                if agency_page is not None:
+                    agency_banner = transformer.get_agency_banner(agency_page)
+                    print(f"Agency banner: {agency_banner}\n")
 
-                agency_name = transformer.get_agency_name(agency_page)
-                print(f"Agency name: {agency_name}")
-                agency_address = transformer.get_agency_address(
-                    agency_banner, agency_name)
-                print(f"Agency address: {agency_address}\n")
-                print("Updating row in DB....\n\n")
-                self.db.update_agency_details(
-                    p['property_id'], url, agency_name, agency_address)
+                    agency_name = transformer.get_agency_name(agency_page)
+                    print(f"Agency name: {agency_name}")
+                    agency_address = transformer.get_agency_address(
+                        agency_banner, agency_name)
+                    print(f"Agency address: {agency_address}\n")
+                    print("Updating row in DB....\n\n")
+                    self.db.update_agency_details(
+                        p['property_id'], url, agency_name, agency_address)
+            except Exception as e:
+                print(f"Failed to get agency detail: {e}")
 
 
 if __name__ == "__main__":
