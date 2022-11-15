@@ -216,7 +216,7 @@ jobs:
 workflows:
   tenantapp-data-collection:
     when:
-      or:
+      and:
         - not:
             equal: ["update-ad-schedule", << pipeline.schedule.name >>]
         - not:
