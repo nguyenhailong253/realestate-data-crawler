@@ -70,8 +70,8 @@ class PropertyDatabase:
         """
         query = select([self.table]).where(
             or_(self.table.columns.agency_name == None,
-                self.table.columns.agency_address == None))
-        # )).order_by(self.table.columns.ad_posted_date)
+                self.table.columns.agency_address == None
+                )).order_by(self.table.columns.ad_posted_date)
         return self.conn.execute(query).fetchall()
 
     def select_with_same_id(self, property_id: str):
