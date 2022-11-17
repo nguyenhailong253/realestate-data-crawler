@@ -122,6 +122,9 @@ jobs:
             pipenv run python -m src.update_ad_removed_date -s nsw
             pipenv run python -m src.update_ad_removed_date -s sa
             pipenv run python -m src.update_ad_removed_date -s Queensland
+            pipenv run python -m src.update_ad_removed_date -s QUEENSLAND
+            pipenv run python -m src.update_ad_removed_date -s wa
+            pipenv run python -m src.update_ad_removed_date -s Tas
   crawl-data-tas:
     executor: python/default
     steps:
