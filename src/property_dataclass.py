@@ -31,7 +31,10 @@ class PropertyListing:
     data_collection_date: str
     agency_name: str
     agency_address: str
+    etl_done: bool
 
     def __post_init__(self):
         if self.ad_details_included is None:
             self.ad_details_included = False
+        if self.etl_done is None:
+            self.etl_done = False

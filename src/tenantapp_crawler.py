@@ -75,6 +75,7 @@ class TenantAppCrawler:
         data.ad_details_included = True
         data.ad_removed_date = transformer.get_ad_removed_date(data)
         data.ad_posted_date = data.data_collection_date
+        data.etl_done = False
 
         return data
 

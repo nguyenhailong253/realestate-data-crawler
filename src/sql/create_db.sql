@@ -33,9 +33,9 @@ create table if not exists PropertyListings (
 SELECT COUNT(DISTINCT state_and_territory) AS states FROM raw.propertylistings
 
 -- Find duplicates
-select max(id), property_id, property_url, count(*) 
+select max(id), property_id, property_url, ad_posted_date, count(*) 
 			from raw.propertylistings 
-			group by property_id, property_url having count(*) > 1
+			group by property_id, property_url, ad_posted_date having count(*) > 1
 
 -- Delete duplicates
 delete from raw.propertylistings
