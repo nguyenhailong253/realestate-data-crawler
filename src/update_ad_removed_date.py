@@ -49,17 +49,24 @@ class UpdateAdRemovedDate:
 
         return None
 
-    def get_properties_on_market(self, state_and_territory: str):
+    def get_properties_on_market(self,
+                                 state_and_territory: str,
+                                 offset: int = 0,
+                                 limit: int = 3000):
         on_market = self.db.select_all_where_not_off_market(
-            state_and_territory)
+            state_and_territory, offset, limit)
         properties = [{**row} for row in on_market]
         property_urls = [p['property_url'] for p in properties]
         return property_urls
 
-    def update_ad_removed_date(self, state_and_territory: str = 'VIC'):
+    def update_ad_removed_date(self,
+                               state_and_territory: str = 'VIC',
+                               offset: int = 0,
+                               limit: int = 3000):
         print(f"\nUpdating for {state_and_territory}\n\n")
         transformer: Transformer = Transformer(InputHtmlExtractor(None))
-        urls: list[str] = self.get_properties_on_market(state_and_territory)
+        urls: list[str] = self.get_properties_on_market(
+            state_and_territory, offset, limit)
         print("\nThere are {0} urls to be checked".format(len(urls)))
         count: int = 0
 
@@ -110,13 +117,30 @@ if __name__ == "__main__":
     ]
     parser = argparse.ArgumentParser(
         description="Web crawler for tenantapp.com.au")
+
     parser.add_argument(
         "-s",
         "--state",
         type=str,
         choices=STATES,
-        default="vic",
+        default="VIC",
         help="Select a state in Australia to collect rental data from. Default is VIC"
+    )
+
+    parser.add_argument(
+        "--offset",
+        type=int,
+        default=0,
+        help="Offset the starting point for which the next rows should return from a query",
+        required=False
+    )
+
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=3000,
+        help="Limit nunber of rows that the select query should return",
+        required=False
     )
 
     # Parsing command args
@@ -124,6 +148,12 @@ if __name__ == "__main__":
     selected_state = args.state
     print(f"Selected state: {selected_state}")
 
+    offset = args.offset
+    print(f"Selected offset: {offset}")
+
+    limit = args.limit
+    print(f"Selected limit: {limit}")
+
     db = PropertyDatabase()
     u = UpdateAdRemovedDate(db)
-    u.update_ad_removed_date(selected_state)
+    u.update_ad_removed_date(selected_state, offset, limit)

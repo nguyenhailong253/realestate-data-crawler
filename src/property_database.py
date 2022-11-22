@@ -49,7 +49,10 @@ class PropertyDatabase:
         # results = [{**row} for row in item]  # https://stackoverflow.com/a/56098483
         return self.conn.execute(select([self.table])).fetchall()
 
-    def select_all_where_not_off_market(self, state_and_territory: str) -> None:
+    def select_all_where_not_off_market(self,
+                                        state_and_territory: str,
+                                        offset: int = 0,
+                                        limit: int = 3000) -> None:
         """SELECT * FROM TABLE WHERE off_market = false
 
         Returns:
@@ -59,7 +62,7 @@ class PropertyDatabase:
             and_(self.table.columns.off_market == False,
                  self.table.columns.ad_removed_date == None,
                  self.table.columns.state_and_territory == state_and_territory
-                 )).order_by(self.table.columns.ad_posted_date)
+                 )).order_by(self.table.columns.ad_posted_date).offset(offset).limit(limit)
         return self.conn.execute(query).fetchall()
 
     def select_where_no_agency_details(self) -> None:
