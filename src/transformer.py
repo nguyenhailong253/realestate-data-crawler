@@ -75,13 +75,13 @@ class Transformer:
         return beds_baths_garages
 
     def get_num_bedrooms(self, listing: BeautifulSoup) -> str:
-        return self.get_beds_baths_garages(listing)[0]
+        return self.get_beds_baths_garages(listing)[0].replace("\n", "").strip()
 
     def get_num_bathrooms(self, listing: BeautifulSoup) -> str:
-        return self.get_beds_baths_garages(listing)[1]
+        return self.get_beds_baths_garages(listing)[1].replace("\n", "").strip()
 
     def get_num_garages(self, listing: BeautifulSoup) -> str:
-        return self.get_beds_baths_garages(listing)[2]
+        return self.get_beds_baths_garages(listing)[2].replace("\n", "").strip()
 
     def get_property_href(self, listing: BeautifulSoup) -> str:
         """Not working anymore
