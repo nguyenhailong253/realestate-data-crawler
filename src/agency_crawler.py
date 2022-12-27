@@ -84,6 +84,10 @@ class AgencyCrawler:
                         p['property_id'], url, agency_name, agency_address)
             except Exception as e:
                 print(f"Failed to get agency detail: {e}")
+                if "'NoneType' object has no attribute 'get_text'" in str(e):
+                    print("Saving agency name and address as N/A")
+                    self.db.update_agency_details(
+                        p['property_id'], url, "N/A", "N/A")
 
 
 if __name__ == "__main__":

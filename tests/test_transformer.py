@@ -17,6 +17,8 @@ PROPERTY_LIST_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/property_list_page.html')
 AGENCY_LISTINGS_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/agency_listings.html')
+AGENCY_DETAILS_ON_PROPERTY_DETAIL_HTML: BeautifulSoup = read_html_from_local_file(
+    'tests/html/agency_details_on_property_detail_page.html')
 
 
 def create_transformer_with_property_list_html():
@@ -158,7 +160,23 @@ def test_get_ad_removed_date_whenOffMarket_shouldReturnDataCollectionDate():
     ad_removed_date: str = transformer.get_ad_removed_date(fake_data)
     assert ad_removed_date == '31-10-2022'
 
+def test_get_agency_details():
+    details = transformer.get_agency_details(AGENCY_DETAILS_ON_PROPERTY_DETAIL_HTML)
+    assert details == "Boutique Property Agents Sydney Shop 1, 251 Elizabeth St, Sydney, NSW 2000"
 
+def test_get_agency_name():
+    name = transformer.get_agency_name_from_detail_page(AGENCY_DETAILS_ON_PROPERTY_DETAIL_HTML)
+    assert name == "Boutique Property Agents Sydney"
+
+def test_get_agency_address():
+    details = "Boutique Property Agents Sydney Shop 1, 251 Elizabeth St, Sydney, NSW 2000"
+    name = "Boutique Property Agents Sydney"
+    address = transformer.get_agency_address_from_detail_page(details, name)
+    assert address == "Shop 1, 251 Elizabeth St, Sydney, NSW 2000"
+
+"""
+Test using Agency listings HTML
+"""
 def test_get_agency_banner_whenUseCorrectHtmlTag_shouldReturnCorrectAgencyNameAndAddress():
     banner: str = transformer.get_agency_banner(
         AGENCY_LISTINGS_HTML)

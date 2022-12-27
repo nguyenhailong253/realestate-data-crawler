@@ -216,6 +216,31 @@ class Transformer:
     def get_ad_removed_date(self, data: PropertyListing) -> str:
         return None if not data.off_market else data.data_collection_date
 
+    def get_agency_details(self, listing: BeautifulSoup) -> str:
+        content = self.extractor.get_tag_content_with_attrs(
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][TAG_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][ATTRIBUTE_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][ATTRIBUTE_VALUE],
+            listing)
+        return ' '.join(content.split())
+
+    def get_agency_name_from_detail_page(self, listing: BeautifulSoup) -> str:
+        parent_tag: BeautifulSoup = self.extractor.get_single_tag_with_attrs(
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][TAG_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][ATTRIBUTE_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['agency_details'][ATTRIBUTE_VALUE],
+            listing)
+        return self.extractor.get_tag_content_without_attrs(
+            PROPERTY_DETAIL_HTML_ATTRS['agency_name_subtag'][TAG_NAME],
+            parent_tag)
+
+    def get_agency_address_from_detail_page(self, details: str, name: str) -> str:
+        return details.replace(name, "").strip()
+
+    """
+    The 3 methods below are going to be the back up if agency details are not found on
+    the Detail Page. 
+    """
     def get_agency_banner(self, listing: BeautifulSoup) -> str:
         content = self.extractor.get_tag_content_with_attrs(
             AGENCY_DETAIL_HTML_ATTRS['agency_banner'][TAG_NAME],

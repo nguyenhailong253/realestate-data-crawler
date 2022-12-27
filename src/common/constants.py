@@ -135,6 +135,16 @@ PROPERTY_DETAIL_HTML_ATTRS: dict[str, str] = {
     'agent_name_subtag': {
         TAG_NAME: 'h3',
     },
+    'agency_details': {
+        TAG_NAME: 'div',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'agenct-details',
+    },
+    'agency_name_subtag': {
+        TAG_NAME: 'div',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'overflow-2lines',
+    },
     'off_market_status': {
         TAG_NAME: 'div',
         ATTRIBUTE_NAME: 'id',

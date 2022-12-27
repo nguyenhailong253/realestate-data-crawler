@@ -77,6 +77,10 @@ class TenantAppCrawler:
         data.ad_posted_date = data.data_collection_date
         data.etl_done = False
 
+        agency_full_details = transformer.get_agency_details(detail_page_html)
+        data.agency_name = transformer.get_agency_name_from_detail_page(detail_page_html)
+        data.agency_address = transformer.get_agency_address_from_detail_page(agency_full_details, data.agency_name)
+
         return data
 
     def is_property_data_existed(self, property_id: str) -> bool:
