@@ -78,9 +78,12 @@ class TenantAppCrawler:
         data.ad_posted_date = data.data_collection_date
         data.etl_done = False
 
-        agency_full_details = transformer.get_agency_details(detail_page_html)
-        data.agency_name = transformer.get_agency_name_from_detail_page(detail_page_html)
-        data.agency_address = transformer.get_agency_address_from_detail_page(agency_full_details, data.agency_name)
+        try:
+            agency_full_details = transformer.get_agency_details(detail_page_html)
+            data.agency_name = transformer.get_agency_name_from_detail_page(detail_page_html)
+            data.agency_address = transformer.get_agency_address_from_detail_page(agency_full_details, data.agency_name)
+        except AttributeError as e:
+            logging.exception(f"Failed to get agency details: {e}")
 
         return data
 
@@ -270,7 +273,7 @@ class TenantAppCrawler:
             print("======= All done for {0}!!! ======\n".format(state_uri))
             return True
         except Exception as e:
-            print("System crashed! Error: {0}".format(e))
+            logging.exception("System crashed! Error: {0}".format(e))
             return False
 
 

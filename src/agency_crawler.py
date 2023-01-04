@@ -1,6 +1,7 @@
 import time
 import requests
 import argparse
+import logging
 from datetime import datetime
 from bs4 import BeautifulSoup
 
@@ -83,7 +84,7 @@ class AgencyCrawler:
                     self.db.update_agency_details(
                         p['property_id'], url, agency_name, agency_address)
             except Exception as e:
-                print(f"Failed to get agency detail: {e}")
+                logging.exception(f"Failed to get agency detail: {e}")
                 if "'NoneType' object has no attribute 'get_text'" in str(e):
                     print("Saving agency name and address as N/A")
                     self.db.update_agency_details(
