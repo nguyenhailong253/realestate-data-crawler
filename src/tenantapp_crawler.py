@@ -7,6 +7,7 @@ import random
 import requests
 import argparse
 import pandas as pd
+import logging
 
 from typing import List
 from bs4 import BeautifulSoup
@@ -174,7 +175,7 @@ class TenantAppCrawler:
                 print("Scraping one property took in total: {0} seconds\n\n".format(
                     end_time - start_time))
             except Exception as e:
-                print("Error when collecting data: {0}".format(e))
+                logging.exception("Error when collecting data: {0}".format(e))
 
     def request_html_from_url(self, url: str) -> BeautifulSoup:
         """Attempt to send a request to TenantApp page, setting the timeout for
@@ -267,11 +268,9 @@ class TenantAppCrawler:
                 property_listings, transformer)
 
             print("======= All done for {0}!!! ======\n".format(state_uri))
-            # self.gateway.shutdown()
             return True
         except Exception as e:
             print("System crashed! Error: {0}".format(e))
-            # self.gateway.shutdown()
             return False
 
 
