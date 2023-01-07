@@ -22,10 +22,6 @@ from src.common.user_agent_rotator import get_random_user_agent
 MAX_RETRY = 15
 DELAY_TIME = 1
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
-
 class TenantAppCrawler:
     def __init__(self, db: PropertyDatabase) -> None:
         self.database = db
