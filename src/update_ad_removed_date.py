@@ -113,7 +113,8 @@ if __name__ == "__main__":
         'Queensland',
         'QUEENSLAND',
         'wa',
-        'Tas'
+        'Tas',
+        'TASMANIA',
     ]
     parser = argparse.ArgumentParser(
         description="Web crawler for tenantapp.com.au")

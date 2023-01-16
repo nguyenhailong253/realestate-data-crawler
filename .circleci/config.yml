@@ -232,6 +232,7 @@ jobs:
             pipenv run python -m src.update_ad_removed_date -s QUEENSLAND
             pipenv run python -m src.update_ad_removed_date -s wa
             pipenv run python -m src.update_ad_removed_date -s Tas
+            pipenv run python -m src.update_ad_removed_date -s TASMANIA
   crawl-data-tas:
     executor: python/default
     steps:
@@ -515,3 +516,5 @@ workflows:
             branches:
               only:
                 - master
+
+# VS Code Extension Version: 1.5.1
