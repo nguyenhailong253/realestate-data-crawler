@@ -209,7 +209,7 @@ jobs:
       - run:
           name: "Checking if ads have been removed for properties in South Australia"
           command: "pipenv run python -m src.update_ad_removed_date -s SA"
-  update-ad-the-rest:
+  update-ad-the-rest-batch-1:
     executor: python/default
     steps:
       - checkout
@@ -217,7 +217,7 @@ jobs:
           args: pytest
           pkg-manager: pipenv
       - run:
-          name: "Checking if ads have been removed for properties in other abbreviations for states"
+          name: "Checking if ads have been removed for properties in other abbreviations for states - Batch 1"
           command: |
             pipenv run python -m src.update_ad_removed_date -s TAS
             pipenv run python -m src.update_ad_removed_date -s NT
@@ -225,6 +225,16 @@ jobs:
             pipenv run python -m src.update_ad_removed_date -s Vic
             pipenv run python -m src.update_ad_removed_date -s vic
             pipenv run python -m src.update_ad_removed_date -s VICTORIA
+  update-ad-the-rest-batch-2:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in other abbreviations for states - Batch 2"
+          command: |
             pipenv run python -m src.update_ad_removed_date -s Qld
             pipenv run python -m src.update_ad_removed_date -s nsw
             pipenv run python -m src.update_ad_removed_date -s sa
@@ -495,7 +505,14 @@ workflows:
             branches:
               only:
                 - master
-      - update-ad-the-rest:
+      - update-ad-the-rest-batch-1:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-the-rest-batch-2:
           requires:
             - unit-test
           filters:
