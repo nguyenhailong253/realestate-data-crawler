@@ -221,7 +221,6 @@ jobs:
           command: |
             pipenv run python -m src.update_ad_removed_date -s TAS
             pipenv run python -m src.update_ad_removed_date -s NT
-            pipenv run python -m src.update_ad_removed_date -s ACT
             pipenv run python -m src.update_ad_removed_date -s Vic
   update-ad-the-rest-batch-2:
     executor: python/default
@@ -233,6 +232,7 @@ jobs:
       - run:
           name: "Checking if ads have been removed for properties in other abbreviations for states - Batch 2"
           command: |
+            pipenv run python -m src.update_ad_removed_date -s ACT
             pipenv run python -m src.update_ad_removed_date -s vic
             pipenv run python -m src.update_ad_removed_date -s VICTORIA
             pipenv run python -m src.update_ad_removed_date -s Qld
