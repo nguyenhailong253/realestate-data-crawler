@@ -234,14 +234,19 @@ jobs:
           command: |
             pipenv run python -m src.update_ad_removed_date -s ACT
             pipenv run python -m src.update_ad_removed_date -s vic
+            pipenv run python -m src.update_ad_removed_date -s Victoria
             pipenv run python -m src.update_ad_removed_date -s VICTORIA
             pipenv run python -m src.update_ad_removed_date -s Qld
+            pipenv run python -m src.update_ad_removed_date -s qld
             pipenv run python -m src.update_ad_removed_date -s nsw
+            pipenv run python -m src.update_ad_removed_date -s Nsw
             pipenv run python -m src.update_ad_removed_date -s sa
             pipenv run python -m src.update_ad_removed_date -s Queensland
             pipenv run python -m src.update_ad_removed_date -s QUEENSLAND
             pipenv run python -m src.update_ad_removed_date -s wa
+            pipenv run python -m src.update_ad_removed_date -s Wa
             pipenv run python -m src.update_ad_removed_date -s Tas
+            pipenv run python -m src.update_ad_removed_date -s Tasmania
             pipenv run python -m src.update_ad_removed_date -s TASMANIA
   crawl-data-tas:
     executor: python/default
