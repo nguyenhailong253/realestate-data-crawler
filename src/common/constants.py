@@ -152,8 +152,8 @@ PROPERTY_DETAIL_HTML_ATTRS: dict[str, str] = {
     },
     'off_market_status': {
         TAG_NAME: 'div',
-        ATTRIBUTE_NAME: 'id',
-        ATTRIBUTE_VALUE: 'divOffMarketBanner',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'top-bar-limit',
     },
 }
 
