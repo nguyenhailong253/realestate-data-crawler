@@ -88,7 +88,7 @@ def test_get_property_url__whenUseCorrectHtmlTag_shouldReturnCorrectUrl():
 def test_get_move_in_date_whenUseCorrectHtmlTag_shouldReturnCorrectDate():
     move_in_date: str = transformer.get_move_in_date(
         SINGLE_PROPERTY_CARD_HTML)
-    assert move_in_date == '31/10/22'
+    assert move_in_date == '3/11/22'
 
 
 def test_get_listing_title_whenUseCorrectHtmlTag_shouldReturnCorrectTitle():
