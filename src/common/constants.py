@@ -17,7 +17,7 @@ TAG_NAME = 'tag'
 ATTRIBUTE_NAME = 'attribute'
 ATTRIBUTE_VALUE = 'value'
 
-AGENCY_DETAIL_HTML_ATTRS: dict[str, str] = {
+AGENCY_DETAIL_HTML_ATTRS: dict[str, dict] = {
     'agency_banner': {
         TAG_NAME: 'div',
         ATTRIBUTE_NAME: 'class',
@@ -28,7 +28,7 @@ AGENCY_DETAIL_HTML_ATTRS: dict[str, str] = {
     },
 }
 
-PROPERTY_LIST_HTML_ATTRS: dict[str, str] = {
+PROPERTY_LIST_HTML_ATTRS: dict[str, dict] = {
     'property': {
         TAG_NAME: 'article',
         ATTRIBUTE_NAME: 'class',
@@ -79,6 +79,11 @@ PROPERTY_DETAIL_HTML_ATTRS: dict[str, str] = {
         ATTRIBUTE_VALUE: 'color: inherit; text-decoration: none;',
     },
     'move_in_date': {
+        TAG_NAME: 'p',
+        ATTRIBUTE_NAME: 'class',
+        ATTRIBUTE_VALUE: 'card-title',
+    },
+    'move_in_date_subtag': {
         TAG_NAME: 'span',
         ATTRIBUTE_NAME: 'class',
         ATTRIBUTE_VALUE: 'bold',

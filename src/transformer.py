@@ -110,10 +110,17 @@ class Transformer:
         return property_url
 
     def get_move_in_date(self, listing: BeautifulSoup) -> str:
-        move_in_date: str = self.extractor.get_tag_content_with_attrs(
+        parent_tag: BeautifulSoup = self.extractor.get_single_tag_with_attrs(
             PROPERTY_DETAIL_HTML_ATTRS['move_in_date'][TAG_NAME],
             PROPERTY_DETAIL_HTML_ATTRS['move_in_date'][ATTRIBUTE_NAME],
-            PROPERTY_DETAIL_HTML_ATTRS['move_in_date'][ATTRIBUTE_VALUE])
+            PROPERTY_DETAIL_HTML_ATTRS['move_in_date'][ATTRIBUTE_VALUE],
+            listing,
+        )
+        move_in_date: str = self.extractor.get_tag_content_with_attrs(
+            PROPERTY_DETAIL_HTML_ATTRS['move_in_date_subtag'][TAG_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['move_in_date_subtag'][ATTRIBUTE_NAME],
+            PROPERTY_DETAIL_HTML_ATTRS['move_in_date_subtag'][ATTRIBUTE_VALUE],
+            parent_tag)
         return move_in_date
 
     def get_current_date(self) -> str:

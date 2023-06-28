@@ -1,26 +1,22 @@
-import os
-import sys
-import json
-import math
-import time
-import random
-import requests
 import argparse
-import pandas as pd
 import logging
-
+import sys
+import time
 from typing import List
+
+import requests
 from bs4 import BeautifulSoup
-from requests_ip_rotator import ApiGateway, EXTRA_REGIONS
-from src.property_database import PropertyDatabase
-from src.transformer import Transformer
-from src.property_dataclass import PropertyListing
-from src.input_html_extractor import InputHtmlExtractor
+
 from src.common.constants import BASE_URL, STATES_URI
 from src.common.user_agent_rotator import get_random_user_agent
+from src.input_html_extractor import InputHtmlExtractor
+from src.property_database import PropertyDatabase
+from src.property_dataclass import PropertyListing
+from src.transformer import Transformer
 
 MAX_RETRY = 15
 DELAY_TIME = 1
+
 
 class TenantAppCrawler:
     def __init__(self, db: PropertyDatabase) -> None:
