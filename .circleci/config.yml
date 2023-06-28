@@ -69,7 +69,7 @@ jobs:
           repo: $AWS_ECR_REPO_FOR_AD_UPDATE
           registry-id: AWS_ECR_REGISTRY_ID
           extra-build-args: "--build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_NAME=$DB_NAME --build-arg DB_SCHEMA=$DB_SCHEMA"
-  update-ad-wa:
+  update-ad-wa-batch-1:
     executor: python/default
     steps:
       - checkout
@@ -78,7 +78,27 @@ jobs:
           pkg-manager: pipenv
       - run:
           name: "Checking if ads have been removed for properties in Western Australia"
-          command: "pipenv run python -m src.update_ad_removed_date -s WA"
+          command: pipenv run python -m src.update_ad_removed_date -s WA --limit << pipeline.parameters.num_ads_processed_per_build >>
+  update-ad-wa-batch-2:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in Western Australia"
+          command: pipenv run python -m src.update_ad_removed_date -s WA --offset << pipeline.parameters.batch_2_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
+  update-ad-wa-batch-3:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in Western Australia"
+          command: pipenv run python -m src.update_ad_removed_date -s WA --offset << pipeline.parameters.batch_3_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
   update-ad-vic-batch-1:
     executor: python/default
     steps:
@@ -199,7 +219,7 @@ jobs:
       - run:
           name: "Checking if ads have been removed for properties in Queensland"
           command: pipenv run python -m src.update_ad_removed_date -s QLD --offset << pipeline.parameters.batch_4_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
-  update-ad-sa:
+  update-ad-sa-batch-1:
     executor: python/default
     steps:
       - checkout
@@ -208,7 +228,27 @@ jobs:
           pkg-manager: pipenv
       - run:
           name: "Checking if ads have been removed for properties in South Australia"
-          command: "pipenv run python -m src.update_ad_removed_date -s SA"
+          command: pipenv run python -m src.update_ad_removed_date -s SA --limit << pipeline.parameters.num_ads_processed_per_build >>
+  update-ad-sa-batch-2:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in South Australia"
+          command: pipenv run python -m src.update_ad_removed_date -s SA --offset << pipeline.parameters.batch_2_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
+  update-ad-sa-batch-3:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in South Australia"
+          command: pipenv run python -m src.update_ad_removed_date -s SA --offset << pipeline.parameters.batch_3_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
   update-ad-the-rest-batch-1:
     executor: python/default
     steps:
@@ -232,7 +272,6 @@ jobs:
       - run:
           name: "Checking if ads have been removed for properties in other abbreviations for states - Batch 2"
           command: |
-            pipenv run python -m src.update_ad_removed_date -s ACT
             pipenv run python -m src.update_ad_removed_date -s vic
             pipenv run python -m src.update_ad_removed_date -s Victoria
             pipenv run python -m src.update_ad_removed_date -s VICTORIA
@@ -248,6 +287,26 @@ jobs:
             pipenv run python -m src.update_ad_removed_date -s Tas
             pipenv run python -m src.update_ad_removed_date -s Tasmania
             pipenv run python -m src.update_ad_removed_date -s TASMANIA
+  update-ad-act-batch-1:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in ACT"
+          command: pipenv run python -m src.update_ad_removed_date -s ACT --limit << pipeline.parameters.num_ads_processed_per_build >>
+  update-ad-act-batch-2:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          name: "Checking if ads have been removed for properties in ACT"
+          command: pipenv run python -m src.update_ad_removed_date -s ACT --offset << pipeline.parameters.batch_2_offset >> --limit << pipeline.parameters.num_ads_processed_per_build >>
   crawl-data-tas:
     executor: python/default
     steps:
@@ -412,7 +471,35 @@ workflows:
         - equal: ["update-ad-schedule", << pipeline.schedule.name >>]
     jobs:
       - unit-test
-      - update-ad-wa:
+      - update-ad-wa-batch-1:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-wa-batch-2:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-wa-batch-3:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-act-batch-1:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-act-batch-2:
           requires:
             - unit-test
           filters:
@@ -503,7 +590,21 @@ workflows:
             branches:
               only:
                 - master
-      - update-ad-sa:
+      - update-ad-sa-batch-1:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-sa-batch-2:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only:
+                - master
+      - update-ad-sa-batch-3:
           requires:
             - unit-test
           filters:
