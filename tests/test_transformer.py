@@ -10,7 +10,7 @@ from src.property_dataclass import PropertyListing
 
 
 SINGLE_PROPERTY_CARD_HTML: BeautifulSoup = read_html_from_local_file(
-    'tests/html/single_property_card.html')
+    'tests/html/single_property_card.html').find('article')
 SINGLE_PROPERTY_PAGE_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/single_property_page.html')
 PROPERTY_LIST_HTML: BeautifulSoup = read_html_from_local_file(
@@ -71,14 +71,12 @@ def test_get_beds_baths_garages_whenUseCorrectHtmlTag_shouldReturnCorrectNumbers
     assert beds_baths_garages == ['3', '1', '0']
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_get_property_id__whenUseCorrectHtmlTag_shouldReturnCorrectId():
     property_id: str = transformer.get_property_id(
         SINGLE_PROPERTY_CARD_HTML)
     assert property_id == '3811184'
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_get_property_url__whenUseCorrectHtmlTag_shouldReturnCorrectUrl():
     property_url: str = transformer.get_property_url(
         SINGLE_PROPERTY_CARD_HTML)

@@ -15,7 +15,7 @@ from src.input_html_extractor import InputHtmlExtractor
 # https://blogs.sap.com/2022/02/16/how-to-write-independent-unit-test-with-pytest-and-mock-techniques/
 
 SINGLE_PROPERTY_CARD_HTML: BeautifulSoup = read_html_from_local_file(
-    'tests/html/single_property_card.html')
+    'tests/html/single_property_card.html').find('article')
 SINGLE_PROPERTY_PAGE_HTML: BeautifulSoup = read_html_from_local_file(
     'tests/html/single_property_page.html')
 PROPERTY_LIST_HTML: BeautifulSoup = read_html_from_local_file(
@@ -40,7 +40,6 @@ def setup_helper(mocker):
     return transformer, crawler, property_listing_data
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData(setup_helper):
     property_listing_data = setup_helper[2]
     assert property_listing_data.address == '10 Trafalgar Street, RHYLL'
@@ -50,11 +49,10 @@ def test_collect_info_from_list_page_shouldPopulateFieldsWithAvailableData(setup
     assert len(property_listing_data.property_images) == 13
     assert property_listing_data.property_url == 'https://tenantapp.com.au/Rentals/ViewListing/3811184'
     assert property_listing_data.property_id == '3811184'
-    assert property_listing_data.move_in_date == '31/10/22'
+    assert property_listing_data.move_in_date == '3/11/22'
     assert property_listing_data.data_collection_date is not None
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData(setup_helper):
     transformer: Transformer = setup_helper[0]
     crawler: TenantAppCrawler = setup_helper[1]
@@ -83,7 +81,6 @@ def test_collect_info_from_detail_page_shouldPopulateFieldsWithAvailableData(set
     assert data.ad_posted_date is not None
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_collect_data_for_all_properties_whenListingExisted_shouldNotSaveToDb(mocker, setup_helper):
     transformer: Transformer = setup_helper[0]
     crawler: TenantAppCrawler = setup_helper[1]
@@ -110,7 +107,6 @@ def test_collect_data_for_all_properties_whenListingExisted_shouldNotSaveToDb(mo
     assert mock_save_single.call_count == 0
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageIsLoaded_shouldSaveToDb(mocker, setup_helper):
     transformer: Transformer = setup_helper[0]
     crawler: TenantAppCrawler = setup_helper[1]
@@ -132,7 +128,6 @@ def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageIsLo
     assert mock_save_single.call_count == 1
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageFailsToLoad_shouldNotSaveToDb(mocker, setup_helper):
     transformer: Transformer = setup_helper[0]
     crawler: TenantAppCrawler = setup_helper[1]
@@ -154,7 +149,6 @@ def test_collect_data_for_all_properties_whenListingNotExisted_andDetailPageFail
     assert mock_save_single.call_count == 0
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_is_property_data_existed_whenAtLeastOneEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnTrue(mocker, setup_helper):
     crawler: TenantAppCrawler = setup_helper[1]
     mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
@@ -163,7 +157,6 @@ def test_is_property_data_existed_whenAtLeastOneEntryWithSamePropertyIdAndOffMar
     assert existed == True
 
 
-@pytest.mark.skip(reason="currently not working when extracting 'id' direclty")
 def test_is_property_data_existed_whenNoEntryWithSamePropertyIdAndOffMarketFlag_shouldReturnFalse(mocker, setup_helper):
     crawler: TenantAppCrawler = setup_helper[1]
     mocker.patch("src.property_database.PropertyDatabase.select_with_same_id",
